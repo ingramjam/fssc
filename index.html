@@ -7,22 +7,25 @@
     <style>
         /* --- Color Palette from Logo --- */
         :root {
-            --fssc-navy: #1A237E; /* Deep Navy Blue (Primary) */
-            --fssc-gold: #FFD700; /* Rich Gold (Accent) */
-            --fssc-burgundy: #8B0000; /* Deep Burgundy/Crimson (Secondary Background) */
-            --fssc-light-blue: #E8EAF6; /* Lighter Blue for bot messages */
-            --fssc-light-gold-bg: #FFFBE6; /* Very light gold for user messages background */
-            --fssc-gold-border: #FFECB3; /* Subtle gold border for user messages */
+            --fssc-navy: #1A237E; /* Deep Navy Blue */
+            --fssc-gold: #FFD700; /* Rich Gold */
+            --fssc-burgundy: #8B0000; /* Deep Burgundy/Crimson (Header background) */
+            --fssc-light-blue: #E8EAF6; /* Lighter Blue for bot messages (not used in this style) */
+            --fssc-light-gold-bg: #FFFBE6; /* Very light gold for user messages background (not used in this style) */
+            --fssc-gold-border: #FFECB3; /* Subtle gold border for user messages (not used in this style) */
             --fssc-dark-text: #212121;
             --fssc-light-text: #FFFFFF;
             --fssc-border-light: #CFD8DC; /* Light grey for general borders */
-            --fssc-red-alert: #D32F2F; /* Red for alert/start button */
-            --fssc-header-height: 80px; /* Height for the header */
+            --fssc-red-alert: #D32F2F; /* Red for alert/start button (not used for start button in this style) */
         }
 
         body {
             font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background-color: #ECEFF1;
+            background-color: #ECEFF1; /* Fallback */
+            background-image: url('https://github.com/ingramjam/fssc/blob/main/fssc.png?raw=true'); /* FSSC Logo as background */
+            background-size: cover; /* Cover the entire background */
+            background-position: center center;
+            background-attachment: fixed; /* Keep background fixed when scrolling */
             color: var(--fssc-dark-text);
             margin: 0;
             display: flex;
@@ -33,120 +36,109 @@
             box-sizing: border-box;
         }
         .chat-container {
-            background-color: var(--fssc-light-text);
-            border-radius: 8px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            background-color: rgba(255, 255, 255, 0.95); /* White with slight transparency */
+            border-radius: 6px; /* Sharper corners */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Lighter shadow */
             width: 100%;
-            max-width: 750px;
+            max-width: 700px; /* Adjusted width */
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            border: 1px solid var(--fssc-border-light);
+            border: none; /* No explicit border, shadow implies separation */
         }
         .chat-header {
-            background-color: var(--fssc-navy);
+            background-color: var(--fssc-burgundy); /* Deep Burgundy from logo */
             color: var(--fssc-light-text);
-            padding: 10px 25px; /* Adjusted padding */
-            font-size: 1.4em;
+            padding: 15px 20px;
+            font-size: 1.3em;
             font-weight: bold;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
             letter-spacing: 0.5px;
-            height: var(--fssc-header-height); /* Fixed height */
-            box-sizing: border-box; /* Include padding in height */
+            height: auto; /* Allow header content to define height */
+            box-sizing: border-box;
+            cursor: pointer; /* To make the whole header clickable for reset */
         }
-        .header-content {
-            display: flex;
-            align-items: center;
-        }
-        .fssc-logo {
-            height: 60px; /* Adjust height as needed for the logo */
-            width: auto;
-            margin-right: 15px;
-            cursor: pointer; /* Indicates it's clickable */
-            transition: transform 0.2s ease;
-        }
-        .fssc-logo:hover {
-            transform: scale(1.03);
-        }
+        /* No specific .fssc-logo style in header as it's now body background */
         .start-case-btn {
-            background-color: var(--fssc-red-alert);
-            color: var(--fssc-light-text);
-            border: 1px solid var(--fssc-burgundy);
-            border-radius: 4px;
-            padding: 10px 18px;
+            background-color: var(--fssc-gold); /* Gold button */
+            color: var(--fssc-dark-text); /* Dark text on gold */
+            border: none; /* No border for the button itself */
+            border-radius: 4px; /* Sharper corners */
+            padding: 8px 15px;
             font-size: 0.9em;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow */
         }
         .start-case-btn:hover {
-            background-color: #b71c1c;
+            background-color: #E6C200; /* Slightly darker gold on hover */
             transform: translateY(-1px);
         }
         .chat-messages {
             flex-grow: 1;
-            padding: 20px 25px;
+            padding: 20px 20px;
             overflow-y: auto;
-            max-height: calc(100vh - var(--fssc-header-height) - 100px); /* Dynamic height */
-            border-bottom: 1px solid var(--fssc-border-light);
+            max-height: 50vh; /* Adjusted for screenshot */
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Lighter divider */
             display: flex;
             flex-direction: column;
-            background-color: #FDFDFD;
+            background-color: transparent; /* Allows container background to show through */
         }
         .message {
-            margin-bottom: 18px;
-            padding: 12px 18px;
-            border-radius: 20px;
-            max-width: 85%;
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            border-radius: 18px;
+            max-width: 80%;
             word-wrap: break-word;
             line-height: 1.5;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Subtle shadow for messages */
+            box-shadow: 0 1px 2px rgba(0,0,0,0.08); /* Even more subtle shadow */
         }
         .bot-message {
-            background-color: var(--fssc-light-blue);
+            background-color: var(--fssc-light-text); /* White for bot messages */
             color: var(--fssc-dark-text);
             align-self: flex-start;
             margin-right: auto;
             border-bottom-left-radius: 4px;
         }
         .user-message {
-            background-color: var(--fssc-light-gold-bg);
+            background-color: var(--fssc-light-text); /* White for user messages */
             color: var(--fssc-dark-text);
             align-self: flex-end;
             margin-left: auto;
             border-bottom-right-radius: 4px;
-            border: 1px solid var(--fssc-gold-border); /* Gold border for user messages */
+            border: none; /* No border, just shadow */
         }
         .chat-input-area {
             display: flex;
-            padding: 15px 25px;
-            border-top: 1px solid var(--fssc-border-light);
-            background-color: #F8F8F8;
+            padding: 15px 20px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            background-color: transparent; /* Allows container background to show through */
         }
         .chat-input-area input {
             flex-grow: 1;
-            padding: 12px 18px;
-            border: 1px solid var(--fssc-border-light);
+            padding: 12px 15px;
+            border: 1px solid #ccc;
             border-radius: 25px;
             font-size: 1em;
-            margin-right: 12px;
+            margin-right: 10px;
             outline: none;
             transition: border-color 0.3s ease;
+            background-color: var(--fssc-light-text); /* White input background */
         }
         .chat-input-area input:focus {
             border-color: var(--fssc-navy);
             box-shadow: 0 0 0 2px rgba(26, 35, 126, 0.2);
         }
         .chat-input-area button {
-            background-color: var(--fssc-navy);
+            background-color: var(--fssc-navy); /* Navy blue button */
             color: var(--fssc-light-text);
             border: none;
             border-radius: 25px;
-            padding: 12px 22px;
+            padding: 12px 20px;
             font-size: 1em;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.2s ease;
@@ -208,11 +200,7 @@
 </head>
 <body>
     <div class="chat-container">
-        <div class="chat-header">
-            <div class="header-content">
-                <img src="https://github.com/ingramjam/fssc/blob/main/fssc.png?raw=true" alt="FSSC Logo" class="fssc-logo" id="fsscLogo">
-                FSSC Judge Bot
-            </div>
+        <div class="chat-header" id="chatHeader"> FSSC Judge Bot
             <button id="startCaseBtn" class="start-case-btn">Start New Case</button>
         </div>
         <div class="chat-messages" id="chatMessages">
@@ -229,7 +217,7 @@
         const userInput = document.getElementById('userInput');
         const sendBtn = document.getElementById('sendBtn');
         const startCaseBtn = document.getElementById('startCaseBtn');
-        const fsscLogo = document.getElementById('fsscLogo'); // Get the logo element
+        const chatHeader = document.getElementById('chatHeader'); // Get the header element
 
         let userName = '';
         let leagueName = '';
@@ -467,7 +455,7 @@
             }
         });
         startCaseBtn.addEventListener('click', startCaseFlow);
-        fsscLogo.addEventListener('click', resetChat); // Logo now triggers resetChat
+        chatHeader.addEventListener('click', resetChat); // Clicking the entire header now triggers resetChat
 
 
         // Initial state on page load
