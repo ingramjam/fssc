@@ -3,28 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FSSC Judge Bot - Your Case Arbitrator</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght=500&display=swap" rel="stylesheet">
+    <title>FSSC Judge Bot - Sample Trial</title>
     <style>
-        :root {
-            --primary-color: #2c3e50; /* Dark Blue-Gray */
-            --secondary-color: #3498db; /* Bright Blue */
-            --accent-color: #e74c3c; /* Red for emphasis/verdicts */
-            --background-light: #ecf0f1; /* Light Gray */
-            --background-dark: #bdc3c7; /* Medium Gray */
-            --text-color: #2c3e50;
-            --bot-bubble-bg: #e0f2f7; /* Light Blue-Gray */
-            --user-bubble-bg: #d4edda; /* Light Green-Gray */
-            --button-bg: #2980b9; /* Slightly darker blue */
-            --button-hover-bg: #21618C;
-            --border-color: #dcdcdc;
-            --shadow-color: rgba(0, 0, 0, 0.1);
-        }
-
         body {
-            font-family: 'Roboto', sans-serif;
-            background-color: var(--background-light);
-            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
             margin: 0;
             display: flex;
             justify-content: center;
@@ -35,511 +19,409 @@
         }
         .chat-container {
             background-color: #fff;
-            border-radius: 12px;
-            box-shadow: 0 8px 30px var(--shadow-color);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 800px;
+            max-width: 700px;
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            border: 1px solid var(--border-color);
         }
         .chat-header {
-            background-color: var(--primary-color);
+            background-color: #3f51b5; /* Dark Blue for header, matching screenshot style */
             color: #fff;
-            padding: 18px 25px;
-            font-size: 1.5em;
-            font-weight: 700;
-            text-align: center;
-            border-top-left-radius: 12px;
-            border-top-right-radius: 12px;
-            display: flex;
-            justify-content: space-between;
+            padding: 15px 20px;
+            font-size: 1.3em;
+            font-weight: bold;
+            display: flex; /* To align title and button */
+            justify-content: space-between; /* To push button to the right */
             align-items: center;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
         }
-        .chat-header h1 {
-            margin: 0;
-            font-size: 1.2em; /* Adjusted for space */
-            font-family: 'Montserrat', sans-serif;
-        }
-        .reset-button {
-            background-color: var(--accent-color);
+        .start-case-btn {
+            background-color: #d32f2f; /* Red button as in screenshot */
             color: white;
             border: none;
-            border-radius: 20px;
+            border-radius: 5px;
             padding: 8px 15px;
-            font-size: 0.85em;
+            font-size: 0.9em;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            font-family: 'Roboto', sans-serif;
-            font-weight: 500;
+            transition: background-color 0.3s ease;
         }
-        .reset-button:hover {
-            background-color: #c0392b; /* Darker red */
-            transform: translateY(-2px);
+        .start-case-btn:hover {
+            background-color: #c62828;
         }
         .chat-messages {
             flex-grow: 1;
-            padding: 25px;
+            padding: 20px;
             overflow-y: auto;
-            max-height: 65vh; /* Increased chat area height */
-            min-height: 300px; /* Minimum height for better appearance */
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            gap: 15px; /* Space between messages */
+            max-height: 60vh; /* Adjust as needed */
+            border-bottom: 1px solid #eee;
+            display: flex; /* Added for correct message alignment */
+            flex-direction: column; /* Added for correct message alignment */
         }
-        .message-wrapper {
-            display: flex;
-            align-items: flex-start;
-            animation: fadeIn 0.4s ease-out;
-        }
-        .message-wrapper.bot .avatar {
-            margin-right: 12px;
-            background-color: var(--secondary-color);
-        }
-        .message-wrapper.user .avatar {
-            margin-left: 12px;
-            background-color: var(--primary-color);
-        }
-        .avatar {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            background-color: #ccc; /* Default color */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-weight: bold;
-            font-size: 0.9em;
-            flex-shrink: 0; /* Prevent avatar from shrinking */
-        }
-
         .message {
-            padding: 12px 18px;
-            border-radius: 20px;
-            max-width: calc(80% - 47px); /* Account for avatar width + margin */
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            border-radius: 18px;
+            max-width: 80%;
             word-wrap: break-word;
-            line-height: 1.5;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
         }
         .bot-message {
-            background-color: var(--bot-bubble-bg);
-            color: var(--text-color);
-            border-bottom-left-radius: 4px; /* Pointy bubble corner */
+            background-color: #e3f2fd; /* Light Blue */
+            color: #1a237e; /* Darker Blue */
+            align-self: flex-start;
+            margin-right: auto;
+            border-bottom-left-radius: 2px;
         }
         .user-message {
-            background-color: var(--user-bubble-bg);
-            color: var(--text-color);
-            border-bottom-right-radius: 4px; /* Pointy bubble corner */
+            background-color: #c8e6c9; /* Light Green */
+            color: #2e7d32; /* Dark Green */
+            align-self: flex-end;
+            margin-left: auto;
+            border-bottom-right-radius: 2px;
         }
-        .message-wrapper.user {
-            justify-content: flex-end;
-        }
-        .options-container {
+        .chat-input-area {
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 15px; /* Space above options */
-            padding: 20px 25px; /* Padding for the entire option area */
-            border-top: 1px solid var(--border-color);
-            background-color: var(--background-light);
+            padding: 15px 20px;
+            border-top: 1px solid #eee;
         }
-        .options-container button {
-            background-color: var(--button-bg);
+        .chat-input-area input {
+            flex-grow: 1;
+            padding: 12px 15px;
+            border: 1px solid #ccc;
+            border-radius: 25px;
+            font-size: 1em;
+            margin-right: 10px;
+            outline: none;
+        }
+        .chat-input-area button {
+            background-color: #3f51b5; /* Dark Blue */
             color: white;
             border: none;
             border-radius: 25px;
             padding: 12px 20px;
-            font-size: 0.95em;
+            font-size: 1em;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-            font-weight: 500;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: background-color 0.3s ease;
         }
-        .options-container button:hover:not(:disabled) {
-            background-color: var(--button-hover-bg);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-        }
-        .options-container button:disabled {
-            background-color: #cccccc;
-            color: #666;
-            cursor: not-allowed;
-            box-shadow: none;
+        .chat-input-area button:hover {
+            background-color: #303f9f;
         }
         .verdict {
-            background-color: #fff3e0; /* Light Orange */
-            border: 2px solid #ff9800; /* Orange */
-            padding: 25px;
+            background-color: #fff3e0;
+            border: 2px solid #ff9800;
+            padding: 20px;
             margin-top: 20px;
             text-align: center;
             font-size: 1.1em;
-            border-radius: 10px;
+            border-radius: 8px;
             animation: fadeIn 1s ease-out;
-            color: var(--text-color);
-            box-shadow: 0 4px 15px rgba(255,152,0,0.2);
-            line-height: 1.6;
         }
         .verdict strong {
-            color: var(--accent-color); /* Red */
-            font-size: 1.4em;
-            display: block; /* Ensures it gets its own line */
-            margin: 10px 0;
-            font-family: 'Montserrat', sans-serif;
+            color: #d32f2f; /* Red for emphasis */
+            font-size: 1.3em;
         }
-        .verdict h3 {
-            margin-top: 20px;
-            margin-bottom: 10px;
-            font-size: 1.8em;
-            color: var(--primary-color);
-            font-family: 'Montserrat', sans-serif;
+        .dispute-options button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 8px;
+            background-color: #e0f2f1;
+            border: 1px solid #b2dfdb;
+            border-radius: 5px;
+            text-align: left;
+            cursor: pointer;
+            font-size: 1em;
+            color: #004d40;
         }
-        .verdict p {
-            margin-bottom: 10px;
+        .dispute-options button:hover {
+            background-color: #b2dfdb;
         }
-
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .chat-container {
-                margin: 10px;
-                max-width: 95%;
-            }
-            .chat-messages {
-                max-height: 55vh;
-                padding: 15px;
-            }
-            .chat-header {
-                padding: 15px 20px;
-                font-size: 1.2em;
-            }
-            .reset-button {
-                padding: 6px 10px;
-                font-size: 0.8em;
-            }
-            .message {
-                max-width: calc(85% - 47px);
-                padding: 10px 15px;
-            }
-            .options-container {
-                padding: 15px 20px;
-                gap: 8px;
-            }
-            .options-container button {
-                padding: 10px 15px;
-                font-size: 0.9em;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .chat-messages {
-                max-height: 50vh;
-                min-height: 250px;
-            }
-            .chat-header h1 {
-                font-size: 1.1em;
-            }
-            .reset-button {
-                font-size: 0.75em;
-            }
-            .message {
-                max-width: calc(90% - 40px); /* More width on small screens */
-                font-size: 0.95em;
-            }
-            .avatar {
-                width: 30px;
-                height: 30px;
-                font-size: 0.8em;
-            }
-            .verdict {
-                font-size: 1em;
-                padding: 15px;
-            }
-            .verdict h3 {
-                font-size: 1.5em;
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 </head>
 <body>
     <div class="chat-container">
         <div class="chat-header">
-            <h1>FSSC Judge Bot</h1>
-            <button class="reset-button" id="resetButton">Start New Case</button>
+            FSSC Judge Bot
+            <button id="startCaseBtn" class="start-case-btn">Start New Case</button>
         </div>
         <div class="chat-messages" id="chatMessages">
-            </div>
-        <div class="options-container" id="optionsContainer">
-            </div>
+            <div class="bot-message message">Click "Start New Case" to begin your trial.</div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="userInput" placeholder="Type your response here..." disabled>
+            <button id="sendBtn" disabled>Send</button>
+        </div>
     </div>
 
     <script>
         const chatMessages = document.getElementById('chatMessages');
-        const optionsContainer = document.getElementById('optionsContainer');
-        const resetButton = document.getElementById('resetButton');
+        const userInput = document.getElementById('userInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const startCaseBtn = document.getElementById('startCaseBtn');
 
-        let userName = 'League Owner'; // Pre-determined for simplified demo
-        let leagueName = 'Fantasy Legends'; // Pre-determined for simplified demo
-        let selectedDispute = null; // Stores the key of the current dispute
-        let currentDisputeAnswers = []; // Stores chosen options for the current dispute
-        let disputeQuestionIndex = 0; // Index for questions within a specific dispute
+        let userName = '';
+        let leagueName = '';
+        let tradeDetails = {};
+        let conversationStep = 0; // 0: Awaiting start, 1: Asking name, etc.
+        let collusionIndicators = 0;
+        let selectedDispute = ''; // To store which dispute is being handled
 
-        const botThinkingTime = 700; // ms
-
-        // --- Core FSSC Rules (for reference, not directly used in decision logic here) ---
-        const FSSCRules = {
-            trade_veto_rule: "Trades can be vetoed by a simple majority vote of active league members. The Commissioner also holds final veto power in cases of clear collusion.",
-            waiver_priority_rule: "Waiver claims are processed using a rolling waiver priority system, which resets to inverse standings weekly after claims are processed.",
-            ir_eligibility_rule: "Only players officially designated as 'Out' or placed on 'IR' by the NFL team can be placed in an IR slot.",
-            tanking_policy: "Intentional 'tanking' (e.g., benching healthy starters for low-scoring players to gain draft advantage) is against league rules and may result in penalties.",
-            scoring_correction_deadline: "All official scoring corrections from the NFL are incorporated up until Wednesday 11:59 PM EST following the game week. After this, scores are final.",
-            rule_change_policy: "Significant league rule changes can only be proposed and voted upon in the off-season, requiring a 2/3rds majority vote.",
-            draft_order_method: "Draft order is determined by a weighted lottery system for non-playoff teams, and reverse order of finish for playoff teams.",
-            playoff_tiebreaker_rule: "Playoff seeding tie-breakers are: 1) Head-to-Head Record, 2) Total Points Scored, 3) Division Record (if applicable), 4) Coin Flip.",
-            roster_lock_policy: "Rosters lock at the scheduled kickoff time for each player's game. Any moves attempted after this time will be rejected.",
-            inactivity_policy: "Owners are expected to set a full lineup each week. Persistent failure to do so may result in penalties or replacement.",
-            dues_payment_deadline: "All league dues must be paid by the end of the preseason. Prize distribution will occur within 24 hours of the championship game conclusion."
+        const leagueRules = {
+            trade_veto_rule: "Trades can be vetoed by a simple majority vote of active league members. The Commissioner also holds final veto power in cases of clear collusion."
         };
 
+        const disputes = [
+            { id: 'trade_collusion', name: '1. Trade Collusion / Unfair Trade Practice' },
+            { id: 'waiver_wire', name: '2. Waiver Wire / Free Agency Rules (Coming Soon!)' },
+            { id: 'ir_abuse', name: '3. Injured Reserve (IR) Slot Abuse (Coming Soon!)' },
+            // Add more disputes here as you implement them
+        ];
 
-        // --- DISPUTE DEFINITIONS ---
-        // Each dispute has a list of questions, each with pre-defined options, and a verdict function
-        const disputes = {
-            trade_collusion: {
-                title: "Trade Collusion / Unfair Trade Practice",
-                questions: [
-                    { prompt: "Has a trade been proposed that involves a major discrepancy in player value (e.g., star player for bench warmer)?",
-                      options: ["Yes, major discrepancy", "No, seems fair", "Unsure"] },
-                    { prompt: "Is there any known off-field relationship between the trading partners (e.g., family, co-workers)?",
-                      options: ["Yes, a close relationship", "Yes, casual acquaintance", "No known relationship"] },
-                    { prompt: "Was there any discussion of non-fantasy benefits or future 'favors' related to this trade?",
-                      options: ["Yes, there was", "No, purely fantasy-related"] },
-                    { prompt: "Is one of the trading partners clearly 'tanking' or abandoning their team?",
-                      options: ["Yes, they're clearly tanking", "No, both are competitive", "Unsure"] }
-                ],
-                getVerdict: (answers) => {
-                    let collusionScore = 0;
-                    if (answers[0] === "Yes, major discrepancy") collusionScore += 2;
-                    if (answers[1] === "Yes, a close relationship") collusionScore += 1;
-                    if (answers[2] === "Yes, there was") collusionScore += 5; // Strongest indicator
-                    if (answers[3] === "Yes, they're clearly tanking") collusionScore += 3;
+        function addMessage(sender, message, type) {
+            const msgDiv = document.createElement('div');
+            msgDiv.classList.add('message', type);
+            msgDiv.innerHTML = message;
+            chatMessages.appendChild(msgDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
 
-                    if (collusionScore >= 6) {
-                        return { type: "GUILTY of Trade Collusion.", ruling: `The trade is **REVERSED**. The FSSC finds clear and compelling evidence of collusive or highly unfair practice. Commissioner is advised to investigate further.` };
-                    } else if (collusionScore >= 3) {
-                        return { type: "RULING: Trade Overturned - Unfair Practice.", ruling: `The trade is **REVERSED**. While direct collusion is not fully proven, the FSSC deems it significantly unbalanced. Future trades will be heavily scrutinized.` };
-                    } else {
-                        return { type: "NOT GUILTY of Trade Collusion.", ruling: `The trade **STANDS**. The FSSC finds insufficient evidence to overturn the transaction. Owners are free to make strategic (even if lopsided) trades.` };
-                    }
+        function botResponse(message, isFinal = false, enableInput = true) {
+            setTimeout(() => {
+                addMessage('bot', message, 'bot-message');
+                userInput.disabled = !enableInput || isFinal;
+                sendBtn.disabled = !enableInput || isFinal;
+                if (enableInput && !isFinal) {
+                    userInput.focus();
                 }
-            },
-            waiver_wire: {
-                title: "Waiver Wire / Free Agency Rules",
-                questions: [
-                    { prompt: "Do you believe a player was added to a roster despite not having waiver priority?",
-                      options: ["Yes, definitely", "No, priority seemed correct", "Unsure"] },
-                    { prompt: "Was there a system error (glitch) that prevented a rightful claim from processing?",
-                      options: ["Yes, I have evidence of a glitch", "No, system worked as usual"] },
-                    { prompt: "Was a player dropped and immediately re-added to bypass waivers or a roster lock?",
-                      options: ["Yes, this happened", "No, the move was legitimate"] }
-                ],
-                getVerdict: (answers) => {
-                    if (answers[1] === "Yes, I have evidence of a glitch") {
-                        return { type: "RULING: Technical Review & Adjustment.", ruling: `The FSSC advises a technical review of the league platform. If a glitch is confirmed, the Commissioner should manually adjust the roster.` };
-                    } else if (answers[0] === "Yes, definitely" || answers[2] === "Yes, this happened") {
-                        return { type: "GUILTY of Waiver Rules Violation.", ruling: `The FSSC finds a violation of waiver/free agency rules. The illegal transaction is **REVERSED**. Future violations may result in penalties.` };
-                    } else {
-                        return { type: "NOT GUILTY of Waiver Violation.", ruling: `The FSSC finds no clear violation of waiver rules. The transaction stands as originally processed.` };
-                    }
-                }
-            },
-            ir_slot_abuse: {
-                title: "Injured Reserve (IR) Slot Abuse",
-                questions: [
-                    { prompt: "Was a player placed on IR who was not officially 'Out' or on 'IR' by their NFL team?",
-                      options: ["Yes, they were 'Questionable' or 'Doubtful'", "No, they were officially 'Out' or 'IR'"] },
-                    { prompt: "Was the player moved out of IR (or IR slot freed up) BEFORE their official status changed (e.g., still 'Out')?",
-                      options: ["Yes, they were moved prematurely", "No, move was appropriate"] },
-                    { prompt: "Did the owner use the freed-up roster spot to add another player before the IR player's status cleared?",
-                      options: ["Yes, they gained an extra roster spot", "No, no immediate advantage gained"] }
-                ],
-                getVerdict: (answers) => {
-                    if (answers[0] === "Yes, they were 'Questionable' or 'Doubtful'") {
-                        return { type: "GUILTY of IR Slot Abuse.", ruling: `The FSSC finds improper use of the IR slot. The player must be moved off IR. Any points gained from an illegal roster spot will be deducted.` };
-                    } else if (answers[1] === "Yes, they were moved prematurely") {
-                        return { type: "GUILTY of IR Slot Abuse.", ruling: `The FSSC finds improper manipulation of the IR slot. The player must be moved off IR. The associated roster transaction is **REVERSED**.` };
-                    } else {
-                        return { type: "NOT GUILTY of IR Slot Abuse.", ruling: `The FSSC finds the IR slot was used correctly according to current rules. No violation.` };
-                    }
-                }
-            },
-            tanking: {
-                title: "\"Tanking\" / Unfair Roster Management",
-                questions: [
-                    { prompt: "Did an owner bench healthy, high-performing starters for healthy, low-performing players?",
-                      options: ["Yes, definitely", "No, changes seemed strategic", "Unsure"] },
-                    { prompt: "Was the team in question out of playoff contention and openly discussing draft picks?",
-                      options: ["Yes, they were out and focused on draft", "No, both are competitive or quiet"] },
-                    { prompt: "Did the owner drop valuable players for no apparent reason, making them available on waivers?",
-                      options: ["Yes, this occurred", "No, all drops were justifiable"] }
-                ],
-                getVerdict: (answers) => {
-                    let tankingScore = 0;
-                    if (answers[0] === "Yes, definitely") tankingScore += 2;
-                    if (answers[1] === "Yes, they were out and focused on draft") tankingScore += 1;
-                    if (answers[2] === "Yes, this occurred") tankingScore += 3; // Severe indicator
+            }, 500);
+        }
 
-                    if (tankingScore >= 4) {
-                        return { type: "GUILTY of Intentional Tanking.", ruling: `The FSSC finds clear evidence of intentional tanking. The Commissioner must intervene, potentially locking the roster, reversing drops, and imposing draft pick penalties.` };
-                    } else if (tankingScore >= 2) {
-                        return { type: "RULING: Warning Issued - Roster Management.", ruling: `The FSSC issues a formal warning regarding roster management. While not outright tanking, decisions are impacting competitive integrity. Commissioner to monitor.` };
-                    } else {
-                        return { type: "NOT GUILTY of Intentional Tanking.", ruling: `The FSSC finds insufficient evidence to prove intentional tanking. Roster moves stand as strategic decisions.` };
-                    }
-                }
-            },
-            scoring_correction: {
-                title: "Scoring Correction Disputes",
-                questions: [
-                    { prompt: "Did an official NFL stat correction change a game's outcome in your league?",
-                      options: ["Yes, it changed outcome", "No, it did not change outcome", "Unsure"] },
-                    { prompt: "Was this NFL correction released *before* your league's official scoring deadline (e.g., Wednesday 11:59 PM EST)?",
-                      options: ["Yes, it was before the deadline", "No, it was after the deadline"] },
-                    { prompt: "Has the Commissioner or league platform already adjusted the score?",
-                      options: ["Yes, it's adjusted", "No, it has not been adjusted", "Commissioner says it's too late"] }
-                ],
-                getVerdict: (answers) => {
-                    if (answers[1] === "Yes, it was before the deadline") {
-                        return { type: "RULING: Correction Must Be Applied.", ruling: `The FSSC rules the official NFL scoring correction must be applied, and the league score adjusted accordingly.` };
-                    } else if (answers[1] === "No, it was after the deadline") {
-                        return { type: "RULING: Correction NOT Applied.", ruling: `The FSSC rules the official NFL scoring correction was released after the league's deadline. The original score stands as final.` };
-                    } else {
-                        return { type: "CLARIFICATION NEEDED.", ruling: `The FSSC requires definitive information on the correction release time relative to the league deadline.` };
-                    }
-                }
-            },
-            rule_changes: {
-                title: "Rule Changes (Mid-Season vs. Off-Season)",
-                questions: [
-                    { prompt: "Was the rule change proposed or implemented *during* the active fantasy season?",
-                      options: ["Yes, mid-season", "No, off-season or pre-season"] },
-                    { prompt: "Did the rule change follow the league's established amendment process (e.g., vote, quorum)?",
-                      options: ["Yes, process was followed", "No, process was bypassed", "Unsure"] },
-                    { prompt: "Was there clear, league-wide communication and majority agreement on the change?",
-                      options: ["Yes, everyone knew and agreed", "No, some members were unaware or dissented"] }
-                ],
-                getVerdict: (answers) => {
-                    if (answers[0] === "Yes, mid-season" && answers[1] === "No, process was bypassed") {
-                        return { type: "RULING: Rule Change INVALID.", ruling: `The FSSC rules the mid-season rule change is invalid due to improper process. The original rule set remains in effect.` };
-                    } else if (answers[0] === "Yes, mid-season" && answers[2] === "No, some members were unaware or dissented") {
-                        return { type: "RULING: Rule Change Invalid - Lack of Consensus.", ruling: `The FSSC rules the mid-season rule change is invalid due to lack of clear communication and consensus. The original rule set remains in effect.` };
-                    } else if (answers[1] === "Yes, process was followed" && answers[0] !== "Yes, mid-season") {
-                        return { type: "RULING: Rule Change VALID.", ruling: `The FSSC rules the rule change was properly implemented according to league policy. The new rule set is in effect.` };
-                    } else {
-                        return { type: "CLARIFICATION NEEDED.", ruling: `The FSSC requires more information regarding the rule change process.` };
-                    }
-                }
-            },
-            draft_order: {
-                title: "Draft Order Disputes",
-                questions: [
-                    { prompt: "Do you believe the draft order was calculated incorrectly or manipulated?",
-                      options: ["Yes, it was wrong/manipulated", "No, calculation seems fine", "Unsure"] },
-                    { prompt: "Did the league follow its agreed-upon method for determining draft order (e.g., lottery, reverse standings)?",
-                      options: ["Yes, method followed", "No, method was changed or ignored"] },
-                    { prompt: "Did any owner gain an unfair, unintended advantage from the draft order? ",
-                      options: ["Yes, an owner benefited unfairly", "No, it was fair chance for all"] }
-                ],
-                getVerdict: (answers) => {
-                    if (answers[0] === "Yes, it was wrong/manipulated" || answers[1] === "No, method was changed or ignored" || answers[2] === "Yes, an owner benefited unfairly") {
-                        return { type: "RULING: Draft Order Re-evaluation Required.", ruling: `The FSSC finds discrepancies or potential unfairness in the draft order. The Commissioner must re-evaluate and, if necessary, re-draw the draft order according to established league rules.` };
-                    } else {
-                        return { type: "RULING: Draft Order Stands.", ruling: `The FSSC finds the draft order was determined and executed correctly according to league rules. The current draft order stands.` };
-                    }
-                }
-            },
-            playoff_seeding: {
-                title: "Playoff Seeding/Tie-Breakers",
-                questions: [
-                    { prompt: "Are two or more teams tied in record for a playoff spot/seeding?",
-                      options: ["Yes, there's a tie", "No, records are clear"] },
-                    { prompt: "Do you believe the league's established tie-breaker rules were misapplied?",
-                      options: ["Yes, misapplied", "No, applied correctly", "Unsure of rules"] },
-                    { prompt: "Was the Commissioner's decision on tie-breakers communicated clearly and universally accepted?",
-                      options: ["Yes, clear and accepted", "No, disputed or unclear"] }
-                ],
-                getVerdict: (answers) => {
-                    if (answers[0] === "Yes, there's a tie" && (answers[1] === "Yes, misapplied" || answers[2] === "No, disputed or unclear")) {
-                        return { type: "RULING: Playoff Seeding Re-evaluation Required.", ruling: `The FSSC finds an error or lack of clarity in the application of tie-breaker rules. The Commissioner must re-evaluate the playoff seeding based on official league rules and communicate clearly.` };
-                    } else {
-                        return { type: "RULING: Playoff Seeding Stands.", ruling: `The FSSC finds the playoff seeding and tie-breakers were applied correctly according to league rules. The current playoff seeding stands.` };
-                    }
-                }
-            },
-            illegal_moves: {
-                title: "Illegal Roster Moves/Lockouts",
-                questions: [
-                    { prompt: "Did an owner attempt a roster move (add/drop/trade) outside of established league rules or platform timing?",
-                      options: ["Yes, outside rules/timing", "No, seemed compliant"] },
-                    { prompt: "Was the league platform (e.g., Yahoo, ESPN) experiencing a known technical issue or glitch?",
-                      options: ["Yes, a glitch was occurring", "No, platform was fine"] },
-                    { prompt: "Did the owner attempt to make a move after a player's game had already started ('roster lock')?",
-                      options: ["Yes, after roster lock", "No, before game started"] }
-                ],
-                getVerdict: (answers) => {
-                    if (answers[1] === "Yes, a glitch was occurring") {
-                        return { type: "RULING: Technical Review & Provisional Adjustment.", ruling: `The FSSC acknowledges a potential system error. The Commissioner is advised to investigate the glitch and make manual adjustments if verified.` };
-                    } else if (answers[0] === "Yes, outside rules/timing" || answers[2] === "Yes, after roster lock") {
-                        return { type: "GUILTY of Illegal Roster Move.", ruling: `The FSSC finds an illegal roster move. The transaction is **REVERSED**. The owner is warned about adherence to league rules and timing.` };
-                    } else {
-                        return { type: "NOT GUILTY of Illegal Move.", ruling: `The FSSC finds no clear evidence of an illegal roster move. The transaction stands.` };
-                    }
-                }
-            },
-            inactivity: {
-                title: "Communication & Inactivity",
-                questions: [
-                    { prompt: "Has an owner consistently failed to set a full, optimized lineup for multiple weeks?",
-                      options: ["Yes, multiple weeks", "Occasionally, but not consistently", "No, usually active"] },
-                    { prompt: "Has this owner been unresponsive to direct communication (texts, emails, league chat)?",
-                      options: ["Yes, completely unresponsive", "Somewhat unresponsive", "No, they usually respond"] },
-                    { prompt: "Is the owner's inactivity significantly impacting the competitive balance of the league?",
-                      options: ["Yes, severely impacting", "Somewhat impacting", "No, minimal impact"] }
-                ],
-                getVerdict: (answers) => {
-                    let inactivityScore = 0;
-                    if (answers[0] === "Yes, multiple weeks") inactivityScore += 2;
-                    if (answers[1] === "Yes, completely unresponsive") inactivityScore += 2;
-                    if (answers[2] === "Yes, severely impacting") inactivityScore += 1;
+        function handleUserInput() {
+            const input = userInput.value.trim();
+            if (input === '') return;
 
-                    if (inactivityScore >= 4) {
-                        return { type: "GUILTY of Severe Inactivity.", ruling: `The FSSC finds severe and ongoing inactivity. The Commissioner is advised to issue a final warning, potentially lock the roster, or seek a replacement owner.` };
-                    } else if (inactivityScore >= 2) {
-                        return { type: "RULING: Formal Warning Issued.", ruling: `The FSSC issues a formal warning regarding participation expectations. The Commissioner should reach out to the owner and outline required actions.` };
+            addMessage('user', input, 'user-message');
+            userInput.value = '';
+            userInput.disabled = true;
+            sendBtn.disabled = true;
+
+            processConversation(input);
+        }
+
+        function resetChat() {
+            chatMessages.innerHTML = '';
+            userName = '';
+            leagueName = '';
+            tradeDetails = {};
+            conversationStep = 0;
+            collusionIndicators = 0;
+            selectedDispute = '';
+            botResponse(`Click "Start New Case" to begin your trial.`, false, false); // Disable input until start
+            startCaseBtn.style.display = 'inline-block'; // Ensure button is visible
+        }
+
+
+        function startCaseFlow() {
+            chatMessages.innerHTML = ''; // Clear previous messages
+            startCaseBtn.style.display = 'none'; // Hide the start button
+            botResponse(`Welcome to the FSSC. I am Judge Bot, your impartial arbiter. Please state your name:`, false, true);
+            conversationStep = 1; // Move to the first actual input step
+        }
+
+        function displayDisputeOptions() {
+            let optionsHtml = "<p>Please select the dispute you wish to address:</p><div class='dispute-options'>";
+            disputes.forEach(dispute => {
+                optionsHtml += `<button data-dispute-id="${dispute.id}">${dispute.name}</button>`;
+            });
+            optionsHtml += "</div>";
+            botResponse(optionsHtml, false, false); // Input disabled, user must click button
+
+            setTimeout(() => { // Attach event listeners after buttons are rendered
+                document.querySelectorAll('.dispute-options button').forEach(button => {
+                    button.onclick = (event) => {
+                        const disputeId = event.target.dataset.disputeId;
+                        if (disputeId === 'trade_collusion') {
+                            selectedDispute = 'trade_collusion';
+                            chatMessages.innerHTML = ''; // Clear options
+                            botResponse(`You have selected 'Trade Collusion / Unfair Trade Practice'.`, false, true);
+                            setTimeout(() => {
+                                botResponse(`A dispute has been filed concerning your recent trade, ${userName}. The charge is **Trade Collusion / Unfair Trade Practice**. Are you prepared to present your case? (Type 'yes' or 'no')`);
+                                conversationStep = 3; // Jump to dispute-specific flow
+                            }, 1000);
+                        } else {
+                            botResponse(`That dispute is still under development. Please select an available option.`, false, false); // Keep input disabled
+                        }
+                    };
+                });
+            }, 600);
+        }
+
+        function processConversation(input) {
+            switch (conversationStep) {
+                case 0: // Should not be reached by user input directly after button click
+                    break;
+                case 1: // User provides Name
+                    userName = input;
+                    botResponse(`And the name of your league?`);
+                    conversationStep++;
+                    break;
+                case 2: // League Name
+                    leagueName = input;
+                    botResponse(`Thank you, ${userName} from the '${leagueName}' league.`);
+                    setTimeout(() => {
+                        displayDisputeOptions(); // Present the 11 options here
+                    }, 1000);
+                    conversationStep++; // This step is now for dispute selection via buttons
+                    break;
+                // --- Trade Collusion Dispute Specific Flow (conversationStep 3 onwards) ---
+                case 3: // Prepared?
+                    if (input.toLowerCase() === 'yes') {
+                        botResponse(`Excellent. Let's begin.<br><br>--- Phase 1: Trade Details & Initial Intent ---<br>State the full details of the trade in question. List the players you RECEIVED:`);
+                        conversationStep++;
                     } else {
-                        return { type: "RULING: No Formal Violation.", ruling: `The FSSC finds insufficient evidence for a formal violation. All owners are encouraged to maintain active management and communication.` };
+                        botResponse(`Please return when you are prepared to present your case.`, true);
                     }
-                }
-            },
-            dues_prizes: {
-                title: "Disputes Over League Dues/Prizes",
-                questions: [
-                    { prompt: "Are league dues or prize payouts currently disputed?",
-                      options: ["Yes, dues are unpaid", "Yes, prize payout is wrong", "No, all settled"] },
-                    { prompt: "Was the league's established deadline for paying dues or distributing prizes followed?",
-                      options: ["No, deadline missed/ignored", "Yes, deadline was met"] },
-                    { prompt: "Is there clear documentation of payments or prize calculations (e.g., spreadsheet, transaction history)?",
-                      options: ["Yes, clear records exist", "No, records are unclear/missing"] }
-                ],
-                getVerdict: (answers) => {
-                    if (answers[0] === "Yes, dues are unpaid" && answers[1] === "No, deadline missed/ignored") {
-                        return { type: "GUILTY of Dues Violation.", ruling: `The FSSC rules outstanding dues must be paid immediately. Failure to do so may result in forfeiture of future participation or other penalties.` };
-                    } else if (answers[0] === "Yes, prize payout is wrong" && answers[1] === "No, deadline missed/ignored") {
-                        return { type: "RULING: Prize Distribution Correction Required.", ruling: `The FSSC rules the prize distribution must be corrected according to league rules, due to missed deadlines or miscalculations
+                    break;
+                case 4: // Players Received
+                    tradeDetails.received = input;
+                    botResponse(`And the players you SENT:`);
+                    conversationStep++;
+                    break;
+                case 5: // Players Sent
+                    tradeDetails.sent = input;
+                    botResponse(`Identify the opposing owner in this trade:`);
+                    conversationStep++;
+                    break;
+                case 6: // Opposing Owner
+                    tradeDetails.opposingOwner = input;
+                    botResponse(`Describe your primary motivation for this trade. What were you hoping to achieve for your team, ${userName}?`);
+                    conversationStep++;
+                    break;
+                case 7: // User Motivation
+                    tradeDetails.userMotivation = input;
+                    botResponse(`And what was your understanding of ${tradeDetails.opposingOwner}'s motivation for making this trade?`);
+                    conversationStep++;
+                    break;
+                case 8: // Opposing Motivation
+                    tradeDetails.opposingMotivation = input;
+                    botResponse(`--- Phase 2: Perceived Fairness & League Impact ---<br>Did you believe this trade was fair and beneficial for *both* teams at the time it was proposed and accepted? (Type 'yes' or 'no')`);
+                    conversationStep++;
+                    break;
+                case 9: // Believed Fair
+                    tradeDetails.believedFair = input.toLowerCase();
+                    if (tradeDetails.believedFair === 'no') collusionIndicators += 0.5;
+                    botResponse(`Were there any pre-existing agreements, understandings, or communications between you and the opposing owner (not directly related to this trade) that might influence its perception? This includes discussions about future trades, draft picks, or player 'favors'. (Type 'yes' or 'no')`);
+                    conversationStep++;
+                    break;
+                case 10: // Pre-existing agreements
+                    tradeDetails.preExistingAgreements = input.toLowerCase();
+                    if (tradeDetails.preExistingAgreements === 'yes') collusionIndicators += 0.5;
+                    botResponse(`Did you discuss this trade with any other league members before or after it was accepted, beyond casual conversation? (Type 'yes' or 'no')`);
+                    conversationStep++;
+                    break;
+                case 11: // Discussed with others
+                    tradeDetails.discussedWithOthers = input.toLowerCase();
+                    botResponse(`--- Phase 3: Addressing Collusion Accusations ---<br>Do you have any relationship with ${tradeDetails.opposingOwner} outside of fantasy football that might lead to a perception of bias or favoritism? (Type 'yes' or 'no')`);
+                    conversationStep++;
+                    break;
+                case 12: // Relationship outside fantasy
+                    tradeDetails.relationship = input.toLowerCase();
+                    botResponse(`Did you or the opposing owner stand to gain any non-fantasy related benefit from this trade (e.g., money, favors, quid pro quo outside the league)? (Type 'yes' or 'no')`);
+                    conversationStep++;
+                    break;
+                case 13: // Non-fantasy benefit
+                    tradeDetails.nonFantasyBenefit = input.toLowerCase();
+                    if (tradeDetails.nonFantasyBenefit === 'yes') collusionIndicators += 2;
+                    botResponse(`Was there any discussion between you and the opposing owner about one of you dropping out of the league or giving up on the season *before* this trade? (Type 'yes' or 'no')`);
+                    conversationStep++;
+                    break;
+                case 14: // Giving up season
+                    tradeDetails.givingUpSeason = input.toLowerCase();
+                    if (tradeDetails.givingUpSeason === 'yes') collusionIndicators += 2;
+                    botResponse(`--- Phase 4: League Rules & Precedent ---<br>Your league's stated rule for trade vetoes is: '${leagueRules.trade_veto_rule}'. Do you agree with this rule description? If not, please state your understanding:`);
+                    conversationStep++;
+                    break;
+                case 15: // Agree with rule / Precedent
+                    tradeDetails.ruleUnderstanding = input;
+                    botResponse(`Has your league previously set a precedent for what constitutes a 'collusive' or 'unfair' trade that was vetoed or reversed? (Type 'yes' or 'no')`);
+                    conversationStep++;
+                    break;
+                case 16: // Precedent exists
+                    tradeDetails.precedentExists = input.toLowerCase();
+                    if (tradeDetails.precedentExists === 'yes') {
+                        botResponse(`Please describe that precedent briefly:`);
+                        conversationStep++;
+                    } else {
+                        conversationStep = 18;
+                        botResponse(`Thank you for your testimony, ${userName}. Do you have any final statement you wish to make to the Fantasy Sports Supreme Court regarding this dispute?`);
+                    }
+                    break;
+                case 17: // Describe precedent
+                    tradeDetails.precedentDescription = input;
+                    botResponse(`Thank you for your testimony, ${userName}. Do you have any final statement you wish to make to the Fantasy Sports Supreme Court regarding this dispute?`);
+                    conversationStep++;
+                    break;
+                case 18: // Final Statement
+                    tradeDetails.finalStatement = input;
+                    botResponse(`Your testimony has been recorded and reviewed. The FSSC Judge Bot will now deliberate based on the evidence presented and the established rules of fantasy football and your league. Please wait.`, true);
+                    setTimeout(deliverVerdict, 3000);
+                    break;
+            }
+        }
+
+        function deliverVerdict() {
+            let verdictType = "NOT GUILTY of Trade Collusion.";
+            let ruling = "";
+
+            if (collusionIndicators >= 1.5) {
+                verdictType = "GUILTY of Trade Collusion.";
+                ruling = `The trade involving ${tradeDetails.received} (received by you) and ${tradeDetails.sent} (sent by you) is **REVERSED**, and players will be returned to their original teams. The FSSC finds clear indicators of actions outside the spirit of fair play.`;
+            } else if (tradeDetails.believedFair === 'no' && collusionIndicators < 1.5) {
+                 verdictType = "GUILTY of Unfair Trade Practice (though not necessarily Collusion).";
+                 ruling = `While direct collusion was not definitively proven, the trade involving ${tradeDetails.received} and ${tradeDetails.sent} is deemed significantly unbalanced and **REVERSED** to maintain competitive integrity based on your own admission of it not being fair for both sides.`;
+            }
+            else {
+                verdictType = "NOT GUILTY of Trade Collusion.";
+                ruling = `The trade involving ${tradeDetails.received} and ${tradeDetails.sent} **STANDS** and is deemed a fair and strategic transaction within the competitive spirit of fantasy football.`;
+            }
+
+            const verdictMessage = `
+                <div class="verdict">
+                    <p>The Fantasy Sports Supreme Court has reached a verdict in the case of **${leagueName} League, ${userName}'s Trade vs. Collusion Allegations.**</p>
+                    <p>Based on the evidence presented, the FSSC Judge Bot finds:</p>
+                    <h3>**VERDICT:** <strong>${verdictType}</strong></h3>
+                    <p><strong>RULING:</strong> ${ruling}</p>
+                    <p>This ruling is final and binding for the '${leagueName}' league. Thank you for your cooperation, ${userName}.</p>
+                </div>
+            `;
+            addMessage('bot', verdictMessage, 'bot-message');
+            // After verdict, re-enable "Start New Case" button if desired
+            startCaseBtn.style.display = 'inline-block';
+        }
+
+
+        // Event Listeners
+        sendBtn.addEventListener('click', handleUserInput);
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !userInput.disabled) {
+                handleUserInput();
+            }
+        });
+        startCaseBtn.addEventListener('click', startCaseFlow);
+
+
+        // Initial state on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            resetChat(); // Puts the initial "Click Start New Case" message and disables input
+        });
+    </script>
+</body>
+</html>
