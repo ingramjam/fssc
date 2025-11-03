@@ -11,16 +11,18 @@
             --fssc-gold: #FFD700; /* Rich Gold (Accent) */
             --fssc-burgundy: #8B0000; /* Deep Burgundy/Crimson (Secondary Background) */
             --fssc-light-blue: #E8EAF6; /* Lighter Blue for bot messages */
-            --fssc-light-gold: #FFFBE6; /* Very light gold for user messages */
+            --fssc-light-gold-bg: #FFFBE6; /* Very light gold for user messages background */
+            --fssc-gold-border: #FFECB3; /* Subtle gold border for user messages */
             --fssc-dark-text: #212121;
             --fssc-light-text: #FFFFFF;
-            --fssc-border-light: #CFD8DC; /* Light grey for borders */
+            --fssc-border-light: #CFD8DC; /* Light grey for general borders */
             --fssc-red-alert: #D32F2F; /* Red for alert/start button */
+            --fssc-header-height: 80px; /* Height for the header */
         }
 
         body {
-            font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif; /* More formal sans-serif */
-            background-color: #ECEFF1; /* Light grey background, less stark than pure white */
+            font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #ECEFF1;
             color: var(--fssc-dark-text);
             margin: 0;
             display: flex;
@@ -32,19 +34,19 @@
         }
         .chat-container {
             background-color: var(--fssc-light-text);
-            border-radius: 8px; /* Slightly less rounded */
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* More pronounced shadow */
+            border-radius: 8px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
             width: 100%;
-            max-width: 750px; /* Slightly wider */
+            max-width: 750px;
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            border: 1px solid var(--fssc-border-light); /* Subtle border */
+            border: 1px solid var(--fssc-border-light);
         }
         .chat-header {
-            background-color: var(--fssc-navy); /* Deep Navy */
+            background-color: var(--fssc-navy);
             color: var(--fssc-light-text);
-            padding: 15px 25px; /* More padding */
+            padding: 10px 25px; /* Adjusted padding */
             font-size: 1.4em;
             font-weight: bold;
             display: flex;
@@ -52,12 +54,28 @@
             align-items: center;
             border-top-left-radius: 8px;
             border-top-right-radius: 8px;
-            letter-spacing: 0.5px; /* Slight letter spacing for formality */
+            letter-spacing: 0.5px;
+            height: var(--fssc-header-height); /* Fixed height */
+            box-sizing: border-box; /* Include padding in height */
+        }
+        .header-content {
+            display: flex;
+            align-items: center;
+        }
+        .fssc-logo {
+            height: 60px; /* Adjust height as needed for the logo */
+            width: auto;
+            margin-right: 15px;
+            cursor: pointer; /* Indicates it's clickable */
+            transition: transform 0.2s ease;
+        }
+        .fssc-logo:hover {
+            transform: scale(1.03);
         }
         .start-case-btn {
-            background-color: var(--fssc-red-alert); /* Strong red for action */
+            background-color: var(--fssc-red-alert);
             color: var(--fssc-light-text);
-            border: 1px solid var(--fssc-burgundy); /* Subtle border matching red */
+            border: 1px solid var(--fssc-burgundy);
             border-radius: 4px;
             padding: 10px 18px;
             font-size: 0.9em;
@@ -66,47 +84,48 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
         .start-case-btn:hover {
-            background-color: #b71c1c; /* Darker red on hover */
+            background-color: #b71c1c;
             transform: translateY(-1px);
         }
         .chat-messages {
             flex-grow: 1;
-            padding: 20px 25px; /* Match header padding */
+            padding: 20px 25px;
             overflow-y: auto;
-            max-height: 65vh; /* Allow more chat history */
+            max-height: calc(100vh - var(--fssc-header-height) - 100px); /* Dynamic height */
             border-bottom: 1px solid var(--fssc-border-light);
             display: flex;
             flex-direction: column;
-            background-color: #FDFDFD; /* Very light background for messages area */
+            background-color: #FDFDFD;
         }
         .message {
-            margin-bottom: 18px; /* More spacing between messages */
+            margin-bottom: 18px;
             padding: 12px 18px;
-            border-radius: 20px; /* Slightly more rounded than container for softer look */
+            border-radius: 20px;
             max-width: 85%;
             word-wrap: break-word;
-            line-height: 1.5; /* Improved readability */
+            line-height: 1.5;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Subtle shadow for messages */
         }
         .bot-message {
-            background-color: var(--fssc-light-blue); /* Light blue from palette */
+            background-color: var(--fssc-light-blue);
             color: var(--fssc-dark-text);
             align-self: flex-start;
             margin-right: auto;
-            border-bottom-left-radius: 4px; /* Flatter bottom edge */
+            border-bottom-left-radius: 4px;
         }
         .user-message {
-            background-color: var(--fssc-light-gold); /* Light gold/cream from palette */
+            background-color: var(--fssc-light-gold-bg);
             color: var(--fssc-dark-text);
             align-self: flex-end;
             margin-left: auto;
-            border-bottom-right-radius: 4px; /* Flatter bottom edge */
-            border: 1px solid #FFECB3; /* Subtle gold border */
+            border-bottom-right-radius: 4px;
+            border: 1px solid var(--fssc-gold-border); /* Gold border for user messages */
         }
         .chat-input-area {
             display: flex;
             padding: 15px 25px;
             border-top: 1px solid var(--fssc-border-light);
-            background-color: #F8F8F8; /* Slight differentiation */
+            background-color: #F8F8F8;
         }
         .chat-input-area input {
             flex-grow: 1;
@@ -119,11 +138,11 @@
             transition: border-color 0.3s ease;
         }
         .chat-input-area input:focus {
-            border-color: var(--fssc-navy); /* Navy border on focus */
-            box-shadow: 0 0 0 2px rgba(26, 35, 126, 0.2); /* Subtle blue glow */
+            border-color: var(--fssc-navy);
+            box-shadow: 0 0 0 2px rgba(26, 35, 126, 0.2);
         }
         .chat-input-area button {
-            background-color: var(--fssc-navy); /* Navy blue button */
+            background-color: var(--fssc-navy);
             color: var(--fssc-light-text);
             border: none;
             border-radius: 25px;
@@ -133,13 +152,13 @@
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
         .chat-input-area button:hover {
-            background-color: #111A60; /* Darker navy on hover */
+            background-color: #111A60;
             transform: translateY(-1px);
         }
         .verdict {
-            background-color: var(--fssc-burgundy); /* Burgundy background for verdict */
+            background-color: var(--fssc-burgundy);
             color: var(--fssc-light-text);
-            border: 2px solid var(--fssc-gold); /* Gold border */
+            border: 2px solid var(--fssc-gold);
             padding: 25px;
             margin-top: 25px;
             text-align: center;
@@ -149,9 +168,9 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
         .verdict strong {
-            color: var(--fssc-gold); /* Gold for emphasis in verdict */
+            color: var(--fssc-gold);
             font-size: 1.4em;
-            display: block; /* Make it a block for better spacing */
+            display: block;
             margin-top: 10px;
             margin-bottom: 10px;
         }
@@ -167,9 +186,9 @@
             width: 100%;
             padding: 12px;
             margin-bottom: 10px;
-            background-color: var(--fssc-navy); /* Navy buttons for options */
+            background-color: var(--fssc-navy);
             color: var(--fssc-light-text);
-            border: 1px solid var(--fssc-gold); /* Gold border */
+            border: 1px solid var(--fssc-gold);
             border-radius: 5px;
             text-align: left;
             cursor: pointer;
@@ -177,8 +196,8 @@
             transition: background-color 0.3s ease, border-color 0.3s ease;
         }
         .dispute-options button:hover {
-            background-color: #111A60; /* Darker navy on hover */
-            border-color: var(--fssc-gold); /* Keep gold border */
+            background-color: #111A60;
+            border-color: var(--fssc-gold);
         }
 
         @keyframes fadeIn {
@@ -190,7 +209,10 @@
 <body>
     <div class="chat-container">
         <div class="chat-header">
-            FSSC Judge Bot
+            <div class="header-content">
+                <img src="https://github.com/ingramjam/fssc/blob/main/fssc.png?raw=true" alt="FSSC Logo" class="fssc-logo" id="fsscLogo">
+                FSSC Judge Bot
+            </div>
             <button id="startCaseBtn" class="start-case-btn">Start New Case</button>
         </div>
         <div class="chat-messages" id="chatMessages">
@@ -207,6 +229,7 @@
         const userInput = document.getElementById('userInput');
         const sendBtn = document.getElementById('sendBtn');
         const startCaseBtn = document.getElementById('startCaseBtn');
+        const fsscLogo = document.getElementById('fsscLogo'); // Get the logo element
 
         let userName = '';
         let leagueName = '';
@@ -243,18 +266,6 @@
                     userInput.focus();
                 }
             }, 500);
-        }
-
-        function handleUserInput() {
-            const input = userInput.value.trim();
-            if (input === '') return;
-
-            addMessage('user', input, 'user-message');
-            userInput.value = '';
-            userInput.disabled = true;
-            sendBtn.disabled = true;
-
-            processConversation(input);
         }
 
         function resetChat() {
@@ -456,6 +467,7 @@
             }
         });
         startCaseBtn.addEventListener('click', startCaseFlow);
+        fsscLogo.addEventListener('click', resetChat); // Logo now triggers resetChat
 
 
         // Initial state on page load
