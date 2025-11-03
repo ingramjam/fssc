@@ -233,7 +233,7 @@
                 <img src="https://github.com/ingramjam/fssc/blob/main/fssc.png?raw=true" alt="FSSC Logo" class="small-fssc-logo" id="smallFsscLogo">
                 FSSC Judge Bot
             </div>
-            <button id="startCaseBtn" class="start-case-btn">Start New Case</button>
+            <button id="startCaseBtn" class="start-case-btn">START NEW CASE</button>
         </div>
         <div class="chat-messages" id="chatMessages">
             </div>
@@ -339,7 +339,7 @@
         function processConversation(input) {
             switch (conversationStep) {
                 case 0: // If user types before starting a case
-                    botResponse(`Please click "Start New Case" to begin a new trial.`, false, false);
+                    botResponse(`Please click "START NEW CASE" to begin a new trial.`, false, false);
                     break;
                 case 1: // User provides Name
                     userName = input;
@@ -359,8 +359,10 @@
                     if (input.toLowerCase() === 'yes') {
                         botResponse(`Excellent. Let's begin.<br><br>--- Phase 1: Trade Details & Initial Intent ---<br>State the full details of the trade in question. List the players you RECEIVED:`);
                         conversationStep++;
-                    } else {
+                    } else if (input.toLowerCase() === 'no') {
                         botResponse(`Please return when you are prepared to present your case.`, true);
+                    } else {
+                        botResponse(`Invalid input. Please type 'yes' or 'no'.`);
                     }
                     break;
                 case 4: // Players Received
