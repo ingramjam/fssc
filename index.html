@@ -7,12 +7,13 @@
     <style>
         /* --- Color Palette from Logo --- */
         :root {
-            --fssc-navy: #1A237E; /* Deep Navy Blue (Primary Background) */
+            --fssc-navy: #1A237E; /* Deep Navy Blue (Body Background) */
             --fssc-gold: #FFD700; /* Rich Gold (Accent, Start New Case button) */
             --fssc-burgundy: #8B0000; /* Deep Burgundy/Crimson (Header background) */
             --fssc-dark-text: #212121;
             --fssc-light-text: #FFFFFF;
             --fssc-border-light: #CFD8DC; /* Light grey for general borders */
+            --header-height: 80px; /* Define a fixed height for the header */
         }
 
         body {
@@ -26,11 +27,11 @@
             min-height: 100vh;
             padding: 20px;
             box-sizing: border-box;
-            position: relative; /* For absolute positioning of the overlay logo */
-            overflow: hidden; /* Prevent background logo from causing scrollbars */
+            position: relative;
+            overflow: hidden;
         }
 
-        /* Full page background logo with lower opacity */
+        /* Tiled background logo with lower opacity */
         body::before {
             content: '';
             position: absolute;
@@ -39,17 +40,17 @@
             width: 100%;
             height: 100%;
             background-image: url('https://github.com/ingramjam/fssc/blob/main/fssc.png?raw=true');
-            background-size: cover;
+            background-repeat: repeat; /* Tile the background */
+            background-size: 250px; /* Adjust tile size as needed */
             background-position: center center;
-            background-repeat: no-repeat;
-            opacity: 0.15; /* Lower opacity for the giant logo */
-            z-index: -1; /* Place behind other content */
+            opacity: 0.15; /* Lower opacity */
+            z-index: -1;
         }
 
         .chat-container {
             background-color: rgba(255, 255, 255, 0.95); /* White with slight transparency */
-            border-radius: 6px; /* Sharper corners */
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Lighter shadow */
+            border-radius: 8px; /* Slightly rounded corners */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* More prominent shadow */
             width: 100%;
             max-width: 700px;
             display: flex;
@@ -60,32 +61,49 @@
         .chat-header {
             background-color: var(--fssc-burgundy); /* Deep Burgundy from logo */
             color: var(--fssc-light-text);
-            padding: 15px 20px;
+            padding: 10px 20px; /* Adjusted padding */
             font-size: 1.3em;
             font-weight: bold;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-top-left-radius: 6px;
-            border-top-right-radius: 6px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
             letter-spacing: 0.5px;
-            height: auto;
+            height: var(--header-height); /* Fixed height */
             box-sizing: border-box;
-            /* Header itself is not clickable for reset, as per screenshot emphasis on button */
+            position: relative; /* For positioning the small logo */
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Space between logo and text */
+        }
+        .small-fssc-logo {
+            height: 40px; /* Size of the small logo */
+            width: auto;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            position: relative; /* Allows slight adjustment if needed */
+            top: -2px; /* Adjust vertical position */
+        }
+        .small-fssc-logo:hover {
+            transform: scale(1.05);
         }
         .start-case-btn {
             background-color: var(--fssc-gold); /* Gold button */
             color: var(--fssc-dark-text); /* Dark text on gold */
             border: none;
             border-radius: 4px; /* Sharper corners */
-            padding: 8px 15px;
-            font-size: 0.9em;
+            padding: 10px 18px; /* More padding for button */
+            font-size: 0.95em; /* Slightly larger font */
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.2s ease;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            text-transform: uppercase; /* Match screenshot text style */
         }
         .start-case-btn:hover {
-            background-color: #E6C200; /* Slightly darker gold on hover */
+            background-color: #E6C200;
             transform: translateY(-1px);
         }
         .chat-messages {
@@ -96,7 +114,7 @@
             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
-            background-color: transparent; /* Allows container background to show through */
+            background-color: transparent;
         }
         .message {
             margin-bottom: 15px;
@@ -137,7 +155,7 @@
             margin-right: 10px;
             outline: none;
             transition: border-color 0.3s ease;
-            background-color: var(--fssc-light-text); /* White input background */
+            background-color: var(--fssc-light-text);
         }
         .chat-input-area input:focus {
             border-color: var(--fssc-navy);
@@ -166,7 +184,7 @@
             text-align: center;
             font-size: 1.2em;
             border-radius: 8px;
-            animation: fadeIn 1s ease-out;
+            animation: fadeIn 1.5s ease-out; /* Longer fade for verdict */
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
         .verdict strong {
@@ -211,15 +229,17 @@
 <body>
     <div class="chat-container">
         <div class="chat-header">
-            FSSC Judge Bot
+            <div class="header-left">
+                <img src="https://github.com/ingramjam/fssc/blob/main/fssc.png?raw=true" alt="FSSC Logo" class="small-fssc-logo" id="smallFsscLogo">
+                FSSC Judge Bot
+            </div>
             <button id="startCaseBtn" class="start-case-btn">Start New Case</button>
         </div>
         <div class="chat-messages" id="chatMessages">
-            <div class="bot-message message">Click "Start New Case" to begin your trial.</div>
-        </div>
+            </div>
         <div class="chat-input-area">
-            <input type="text" id="userInput" placeholder="Type your response here...">
-            <button id="sendBtn">Send</button>
+            <input type="text" id="userInput" placeholder="Type your response here..." disabled>
+            <button id="sendBtn" disabled>Send</button>
         </div>
     </div>
 
@@ -228,7 +248,7 @@
         const userInput = document.getElementById('userInput');
         const sendBtn = document.getElementById('sendBtn');
         const startCaseBtn = document.getElementById('startCaseBtn');
-        const chatHeader = document.querySelector('.chat-header'); // Get the header element
+        const smallFsscLogo = document.getElementById('smallFsscLogo'); // Get the small logo element
 
         let userName = '';
         let leagueName = '';
@@ -283,7 +303,7 @@
 
         function startCaseFlow() {
             chatMessages.innerHTML = ''; // Clear previous messages
-            startCaseBtn.style.display = 'none'; // Hide the start button
+            startCaseBtn.style.display = 'none'; // Hide the start button while case is active
             botResponse(`Welcome to the FSSC. I am Judge Bot, your impartial arbiter. Please state your name:`, false, true);
             conversationStep = 1; // Move to the first actual input step
         }
@@ -318,8 +338,7 @@
 
         function processConversation(input) {
             switch (conversationStep) {
-                case 0:
-                    // If user types before starting, just ignore or prompt to start
+                case 0: // If user types before starting a case
                     botResponse(`Please click "Start New Case" to begin a new trial.`, false, false);
                     break;
                 case 1: // User provides Name
@@ -458,6 +477,8 @@
             `;
             addMessage('bot', verdictMessage, 'bot-message');
             startCaseBtn.style.display = 'inline-block'; // Re-enable "Start New Case" button after verdict
+            userInput.disabled = true; // Ensure input is disabled after verdict
+            sendBtn.disabled = true;
         }
 
 
@@ -469,7 +490,7 @@
             }
         });
         startCaseBtn.addEventListener('click', startCaseFlow);
-        // Removed `chatHeader.addEventListener('click', resetChat);` to match screenshot logic
+        smallFsscLogo.addEventListener('click', resetChat); // Small logo now triggers resetChat
 
 
         // Initial state on page load
