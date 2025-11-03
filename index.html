@@ -295,7 +295,7 @@
             conversationStep = 0;
             collusionIndicators = 0;
             selectedDispute = '';
-            botResponse(`Click "Start New Case" to begin your trial.`, false, false); // Disable input until start
+            botResponse(`Click "START NEW CASE" to begin your trial.`, false, false); // Disable input until start
             startCaseBtn.style.display = 'inline-block'; // Ensure button is visible
             userInput.value = ''; // Clear user input field
         }
@@ -334,6 +334,16 @@
                     };
                 });
             }, 600);
+        }
+
+        function handleUserInput() {
+            const input = userInput.value.trim();
+            if (input === '') return;
+
+            addMessage('user', input, 'user-message');
+            userInput.value = ''; // Clear input field
+
+            processConversation(input);
         }
 
         function processConversation(input) {
