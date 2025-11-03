@@ -7,25 +7,17 @@
     <style>
         /* --- Color Palette from Logo --- */
         :root {
-            --fssc-navy: #1A237E; /* Deep Navy Blue */
-            --fssc-gold: #FFD700; /* Rich Gold */
+            --fssc-navy: #1A237E; /* Deep Navy Blue (Primary Background) */
+            --fssc-gold: #FFD700; /* Rich Gold (Accent, Start New Case button) */
             --fssc-burgundy: #8B0000; /* Deep Burgundy/Crimson (Header background) */
-            --fssc-light-blue: #E8EAF6; /* Lighter Blue for bot messages (not used in this style) */
-            --fssc-light-gold-bg: #FFFBE6; /* Very light gold for user messages background (not used in this style) */
-            --fssc-gold-border: #FFECB3; /* Subtle gold border for user messages (not used in this style) */
             --fssc-dark-text: #212121;
             --fssc-light-text: #FFFFFF;
             --fssc-border-light: #CFD8DC; /* Light grey for general borders */
-            --fssc-red-alert: #D32F2F; /* Red for alert/start button (not used for start button in this style) */
         }
 
         body {
             font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background-color: #ECEFF1; /* Fallback */
-            background-image: url('https://github.com/ingramjam/fssc/blob/main/fssc.png?raw=true'); /* FSSC Logo as background */
-            background-size: cover; /* Cover the entire background */
-            background-position: center center;
-            background-attachment: fixed; /* Keep background fixed when scrolling */
+            background-color: var(--fssc-navy); /* Solid Navy background */
             color: var(--fssc-dark-text);
             margin: 0;
             display: flex;
@@ -34,17 +26,36 @@
             min-height: 100vh;
             padding: 20px;
             box-sizing: border-box;
+            position: relative; /* For absolute positioning of the overlay logo */
+            overflow: hidden; /* Prevent background logo from causing scrollbars */
         }
+
+        /* Full page background logo with lower opacity */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://github.com/ingramjam/fssc/blob/main/fssc.png?raw=true');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            opacity: 0.15; /* Lower opacity for the giant logo */
+            z-index: -1; /* Place behind other content */
+        }
+
         .chat-container {
             background-color: rgba(255, 255, 255, 0.95); /* White with slight transparency */
             border-radius: 6px; /* Sharper corners */
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Lighter shadow */
             width: 100%;
-            max-width: 700px; /* Adjusted width */
+            max-width: 700px;
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            border: none; /* No explicit border, shadow implies separation */
+            border: none;
         }
         .chat-header {
             background-color: var(--fssc-burgundy); /* Deep Burgundy from logo */
@@ -58,21 +69,20 @@
             border-top-left-radius: 6px;
             border-top-right-radius: 6px;
             letter-spacing: 0.5px;
-            height: auto; /* Allow header content to define height */
+            height: auto;
             box-sizing: border-box;
-            cursor: pointer; /* To make the whole header clickable for reset */
+            /* Header itself is not clickable for reset, as per screenshot emphasis on button */
         }
-        /* No specific .fssc-logo style in header as it's now body background */
         .start-case-btn {
             background-color: var(--fssc-gold); /* Gold button */
             color: var(--fssc-dark-text); /* Dark text on gold */
-            border: none; /* No border for the button itself */
+            border: none;
             border-radius: 4px; /* Sharper corners */
             padding: 8px 15px;
             font-size: 0.9em;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
         .start-case-btn:hover {
             background-color: #E6C200; /* Slightly darker gold on hover */
@@ -82,8 +92,8 @@
             flex-grow: 1;
             padding: 20px 20px;
             overflow-y: auto;
-            max-height: 50vh; /* Adjusted for screenshot */
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Lighter divider */
+            max-height: 50vh;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
             background-color: transparent; /* Allows container background to show through */
@@ -95,7 +105,7 @@
             max-width: 80%;
             word-wrap: break-word;
             line-height: 1.5;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.08); /* Even more subtle shadow */
+            box-shadow: 0 1px 2px rgba(0,0,0,0.08);
         }
         .bot-message {
             background-color: var(--fssc-light-text); /* White for bot messages */
@@ -110,13 +120,13 @@
             align-self: flex-end;
             margin-left: auto;
             border-bottom-right-radius: 4px;
-            border: none; /* No border, just shadow */
+            border: none;
         }
         .chat-input-area {
             display: flex;
             padding: 15px 20px;
             border-top: 1px solid rgba(0, 0, 0, 0.1);
-            background-color: transparent; /* Allows container background to show through */
+            background-color: transparent;
         }
         .chat-input-area input {
             flex-grow: 1;
@@ -200,7 +210,8 @@
 </head>
 <body>
     <div class="chat-container">
-        <div class="chat-header" id="chatHeader"> FSSC Judge Bot
+        <div class="chat-header">
+            FSSC Judge Bot
             <button id="startCaseBtn" class="start-case-btn">Start New Case</button>
         </div>
         <div class="chat-messages" id="chatMessages">
@@ -217,7 +228,7 @@
         const userInput = document.getElementById('userInput');
         const sendBtn = document.getElementById('sendBtn');
         const startCaseBtn = document.getElementById('startCaseBtn');
-        const chatHeader = document.getElementById('chatHeader'); // Get the header element
+        const chatHeader = document.querySelector('.chat-header'); // Get the header element
 
         let userName = '';
         let leagueName = '';
@@ -266,6 +277,7 @@
             selectedDispute = '';
             botResponse(`Click "Start New Case" to begin your trial.`, false, false); // Disable input until start
             startCaseBtn.style.display = 'inline-block'; // Ensure button is visible
+            userInput.value = ''; // Clear user input field
         }
 
 
@@ -307,6 +319,8 @@
         function processConversation(input) {
             switch (conversationStep) {
                 case 0:
+                    // If user types before starting, just ignore or prompt to start
+                    botResponse(`Please click "Start New Case" to begin a new trial.`, false, false);
                     break;
                 case 1: // User provides Name
                     userName = input;
@@ -319,7 +333,7 @@
                     setTimeout(() => {
                         displayDisputeOptions(); // Present the 11 options here
                     }, 1000);
-                    conversationStep++; // This step is now for dispute selection via buttons
+                    // conversationStep is NOT incremented here, it awaits button click from displayDisputeOptions
                     break;
                 // --- Trade Collusion Dispute Specific Flow (conversationStep 3 onwards) ---
                 case 3: // Prepared?
@@ -455,7 +469,7 @@
             }
         });
         startCaseBtn.addEventListener('click', startCaseFlow);
-        chatHeader.addEventListener('click', resetChat); // Clicking the entire header now triggers resetChat
+        // Removed `chatHeader.addEventListener('click', resetChat);` to match screenshot logic
 
 
         // Initial state on page load
