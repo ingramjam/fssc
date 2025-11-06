@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FSSC - The Fantasy Sports Supreme Court</title>
     
-    <!-- Google Font Import -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
@@ -16,10 +15,11 @@
             --fssc-navy: #1A237E; /* Deep Navy Blue */
             --fssc-gold: #FFD700; /* Rich Gold */
             --fssc-burgundy: #8B0000; /* Deep Burgundy/Crimson */
+            --fssc-dark-grey: #333333; /* Dark Grey for Bot Header */
             --fssc-dark-text: #212121;
             --fssc-light-text: #FFFFFF;
             --fssc-body-bg: #f4f7f6; /* Light grey for page background */
-            --fssc-header-height: 80px;
+            --fssc-header-height: 70px; /* Adjusted header height */
         }
 
         /* --- 1. Global Page Styles --- */
@@ -51,7 +51,7 @@
         }
         
         h2 {
-            font-size: 2.8em;
+            font-size: 2.5em; /* Base size */
             text-align: center;
             margin-bottom: 40px;
             font-weight: 900;
@@ -64,7 +64,7 @@
         }
 
         section {
-            padding: 80px 0;
+            padding: 60px 0; /* Base padding */
         }
 
         /* --- 2. Navigation Bar --- */
@@ -77,12 +77,14 @@
             width: 100%;
             z-index: 1000;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            height: var(--fssc-header-height);
         }
         
         .navbar .container {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            height: 100%;
         }
 
         .navbar-brand {
@@ -123,8 +125,21 @@
             background-color: #E6C200;
         }
         
-        /* Mobile Nav Toggle (for future use, not functional yet) */
-        .nav-toggle { display: none; }
+        /* Mobile Nav Toggle */
+        .nav-toggle {
+            display: none; /* Hidden by default */
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        .nav-toggle .hamburger {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--fssc-light-text);
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
 
         /* --- 3. Hero Section --- */
         .hero-section {
@@ -135,21 +150,22 @@
             text-align: center;
             min-height: 80vh;
             padding-top: var(--fssc-header-height); /* Offset for fixed navbar */
-            background-image: linear-gradient(rgba(26, 35, 126, 0.8), rgba(26, 35, 126, 0.8)), url('https://github.com/ingramjam/fssc/blob/main/fssc.png?raw=true');
+            /* NEW AI GAVEL IMAGE */
+            background-image: linear-gradient(rgba(26, 35, 126, 0.7), rgba(26, 35, 126, 0.7)), url('https://github.com/ingramjam/fssc/blob/main/Image_fx%20(30).jpg?raw=true');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             color: var(--fssc-light-text);
         }
         .hero-section h1 {
-            font-size: 3.8em;
+            font-size: 3.5em; /* Base size */
             font-weight: 900;
             margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
             color: var(--fssc-light-text);
         }
         .hero-section p {
-            font-size: 1.5em;
+            font-size: 1.4em; /* Base size */
             margin-bottom: 30px;
             font-weight: 300;
         }
@@ -226,8 +242,65 @@
             color: var(--fssc-navy);
         }
 
-        /* --- 6. FAQ Section --- */
-        #faqs { background-color: #fff; }
+        /* --- 6. Pricing Plans Section (NEW) --- */
+        #pricing { background-color: #fff; }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Two columns */
+            gap: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .pricing-card {
+            background-color: #fff;
+            border: 1px solid var(--fssc-border-light);
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .pricing-card h3 {
+            color: var(--fssc-navy);
+            font-size: 1.8em;
+        }
+        .price {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: var(--fssc-burgundy);
+            margin: 10px 0;
+        }
+        .price span {
+            font-size: 0.6em;
+            font-weight: 400;
+            color: #555;
+        }
+        .pricing-card a {
+            display: inline-block;
+            background-color: var(--fssc-gold);
+            color: var(--fssc-dark-text);
+            text-decoration: none;
+            padding: 12px 25px;
+            font-weight: 700;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+        .pricing-card a:hover {
+            background-color: #E6C200;
+        }
+        /* Highlight "Season Pass" */
+        .pricing-card.highlight {
+            border: 2px solid var(--fssc-gold);
+            transform: scale(1.05);
+        }
+
+        /* --- 7. FAQ Section --- */
+        #faqs { background-color: var(--fssc-body-bg); }
         .faq-container {
             max-width: 800px;
             margin: 0 auto;
@@ -237,9 +310,9 @@
             border: 1px solid #ddd;
             border-radius: 8px;
             overflow: hidden;
+            background-color: #fff;
         }
         .faq-question {
-            background-color: #fff;
             padding: 20px;
             font-weight: 500;
             font-size: 1.2em;
@@ -268,19 +341,19 @@
             transform: translateY(-50%) rotate(45deg);
         }
 
-        /* --- 7. Bot Section --- */
+        /* --- 8. Bot Section --- */
         #submit-case {
             background-color: var(--fssc-navy);
             background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://github.com/ingramjam/fssc/blob/main/fssc.png?raw=true');
-            background-size: cover;
-            background-position: center;
+            background-size: 250px; /* Tiled logo */
+            background-repeat: repeat;
             background-attachment: fixed;
         }
         #submit-case h2 {
             color: var(--fssc-light-text);
         }
 
-        /* --- 8. Footer --- */
+        /* --- 9. Footer --- */
         .footer {
             text-align: center;
             padding: 40px;
@@ -290,8 +363,7 @@
         }
 
         /* ====================================================================
-        9. EMBEDDED CHAT BOT STYLES
-        (These are the styles from our last working version, with body/background styles removed)
+        10. EMBEDDED CHAT BOT STYLES
         ====================================================================
         */
         .chat-container {
@@ -307,7 +379,7 @@
             margin: 0 auto; /* Center the container */
         }
         .chat-header {
-            background-color: var(--fssc-burgundy);
+            background-color: var(--fssc-dark-grey); /* NEW DARK GREY HEADER */
             color: var(--fssc-light-text);
             padding: 10px 20px;
             font-size: 1.3em;
@@ -358,12 +430,12 @@
             flex-grow: 1;
             padding: 20px 20px;
             overflow-y: auto;
-            height: 50vh; /* Fixed height for the chat area */
-            max-height: 50vh;
+            height: 60vh; /* Changed to vh for flexibility */
+            max-height: 60vh;
             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
-            background-color: #fdfdfd; /* Faintly off-white chat background */
+            background-color: #fdfdfd;
         }
         .message {
             margin-bottom: 15px;
@@ -375,14 +447,14 @@
             box-shadow: 0 1px 2px rgba(0,0,0,0.08);
         }
         .bot-message {
-            background-color: #E8EAF6; /* Bot messages light blue */
+            background-color: #E8EAF6;
             color: var(--fssc-dark-text);
             align-self: flex-start;
             margin-right: auto;
             border-bottom-left-radius: 4px;
         }
         .user-message {
-            background-color: #fff; /* User messages plain white */
+            background-color: #fff;
             color: var(--fssc-dark-text);
             align-self: flex-end;
             margin-left: auto;
@@ -393,7 +465,7 @@
             display: flex;
             padding: 15px 20px;
             border-top: 1px solid rgba(0, 0, 0, 0.1);
-            background-color: #f8f9fa; /* Light grey for input area */
+            background-color: #f8f9fa;
         }
         .chat-input-area input {
             flex-grow: 1;
@@ -468,9 +540,78 @@
             background-color: #111A60;
             border-color: var(--fssc-gold);
         }
+        
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
+        }
+
+        /* --- 11. RESPONSIVENESS (Media Queries) --- */
+        
+        /* Tablet & Small Desktop */
+        @media (max-width: 992px) {
+            .hero-section h1 {
+                font-size: 2.8em;
+            }
+            .hero-section p {
+                font-size: 1.2em;
+            }
+            h2 {
+                font-size: 2.2em;
+            }
+            .pricing-grid {
+                grid-template-columns: 1fr; /* Stack pricing cards */
+            }
+            .pricing-card.highlight {
+                transform: scale(1); /* Don't scale on mobile */
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            section {
+                padding: 40px 0; /* Reduced padding */
+            }
+            .nav-links {
+                display: none; /* Hide desktop links */
+                flex-direction: column;
+                position: absolute;
+                top: var(--fssc-header-height);
+                left: 0;
+                width: 100%;
+                background-color: var(--fssc-navy);
+                text-align: center;
+                padding: 10px 0;
+            }
+            .nav-links.active {
+                display: flex; /* Show mobile menu */
+            }
+            .nav-links li {
+                width: 100%;
+            }
+            .nav-links a {
+                display: block;
+                padding: 15px;
+                width: 100%;
+            }
+            .nav-toggle {
+                display: block; /* Show burger menu */
+            }
+            
+            .hero-section h1 {
+                font-size: 2.2em;
+            }
+            .hero-section p {
+                font-size: 1.1em;
+            }
+            h2 {
+                font-size: 2em;
+            }
+            
+            .chat-messages {
+                height: 55vh; /* Taller chat on mobile */
+                max-height: 55vh;
+            }
         }
 
     </style>
@@ -478,24 +619,28 @@
 </head>
 <body>
 
-    <!-- --- 1. NAVIGATION BAR --- -->
     <nav class="navbar">
         <div class="container">
             <a href="#hero" class="navbar-brand">
                 <img src="https://github.com/ingramjam/fssc/blob/main/fssc.png?raw=true" alt="FSSC Logo">
                 FSSC
             </a>
-            <ul class="nav-links">
+            <ul class="nav-links" id="navLinks">
                 <li><a href="#hero">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#decisions">Decisions</a></li>
+                <li><a href="#pricing">Pricing</a></li>
                 <li><a href="#faqs">FAQs</a></li>
                 <li><a href="#submit-case" class="cta-button">Submit Your Case</a></li>
             </ul>
+            <button class="nav-toggle" id="navToggle">
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+            </button>
         </div>
     </nav>
 
-    <!-- --- 2. HERO SECTION --- -->
     <section id="hero" class="hero-section">
         <div class="container">
             <h1>THE FANTASY SPORTS SUPREME COURT</h1>
@@ -504,7 +649,6 @@
         </div>
     </section>
 
-    <!-- --- 3. ABOUT / SERVICES SECTION --- -->
     <section id="about">
         <div class="container">
             <h2>Our Services</h2>
@@ -525,12 +669,10 @@
         </div>
     </section>
 
-    <!-- --- 4. RECENT DECISIONS SECTION --- -->
     <section id="decisions">
         <div class="container">
             <h2>Recent Decisions</h2>
             <div class="decisions-grid">
-                <!-- Case 1: Trade Collusion -->
                 <div class="decision-card">
                     <div class="decision-card-header">
                         <h3>Case #2024-001: Trade Collusion</h3>
@@ -541,7 +683,6 @@
                         <p><span class="verdict-tag">Verdict:</span> GUILTY of Collusion. The trade was reversed, and the owners were issued a formal warning.</p>
                     </div>
                 </div>
-                <!-- Case 2: IR Abuse -->
                 <div class="decision-card">
                     <div class="decision-card-header">
                         <h3>Case #2024-002: IR Slot Abuse</h3>
@@ -552,7 +693,6 @@
                         <p><span class="verdict-tag">Verdict:</span> ILLEGAL ROSTER MOVE. The free agent acquisition was reversed, and the player was removed from the IR slot.</p>
                     </div>
                 </div>
-                <!-- Case 3: Waiver Wire Dispute -->
                 <div class="decision-card">
                     <div class="decision-card-header">
                         <h3>Case #2024-003: Waiver Wire Dispute</h3>
@@ -567,53 +707,62 @@
         </div>
     </section>
 
-    <!-- --- 5. FAQ SECTION --- -->
+    <section id="pricing">
+        <div class="container">
+            <h2>Pricing Plans</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Per Dispute</h3>
+                    <p class="price">$50.00 <span>/ per case</span></p>
+                    <p>Submit a single dispute for a final, binding ruling.</p>
+                    <a href="#submit-case">Get Started</a>
+                </div>
+                <div class="pricing-card highlight">
+                    <h3>Season Pass</h3>
+                    <p class="price">$250.00 <span>/ per season</span></p>
+                    <p>Unlimited dispute resolution services for your entire league for the whole season.</p>
+                    <a href="#submit-case">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="faqs">
         <div class="container">
             <h2>Frequently Asked Questions</h2>
             <div class="faq-container">
-                <!-- FAQ 1 -->
                 <div class="faq-item">
                     <div class="faq-question">Is the FSSC Bot's ruling really final?</div>
                     <div class="faq-answer">
                         <p>The FSSC Judge Bot is designed to be an impartial third-party arbiter. We recommend all league members agree to abide by its ruling *before* submitting a case to ensure league integrity.</p>
                     </div>
                 </div>
-                <!-- FAQ 2 -->
                 <div class="faq-item">
                     <div class="faq-question">How does the bot decide a case?</div>
                     <div class="faq-answer">
                         <p>The bot follows a strict logical flow. It first gathers all evidence from you, the "defendant," based on the specific dispute. It then weighs your answers against established definitions of collusion, unfair play, and league settings (like IR eligibility). The final verdict is based on a scoring of these "indicators" (e.g., admitting to a non-fantasy benefit, stating a trade was unfair, etc.).</p>
                     </div>
                 </div>
-                <!-- FAQ 3 -->
                 <div class="faq-item">
                     <div class="faq-question">What disputes can I submit?</div>
                     <div class="faq-answer">
                         <p>Currently, the FSSC Judge Bot is fully operational for **Trade Collusion / Unfair Trade Practice** disputes. Modules for other common disputes (Waiver Wire, IR Abuse, Tanking, etc.) are in development and will be added soon.</p>
                     </div>
                 </div>
-                <!-- FAQ 4 -->
                 <div class="faq-item">
                     <div class="faq-question">Is this service free?</div>
                     <div class="faq-answer">
-                        <p>There is a charge of only $20.00 per dispute submitted.  We also offer a season package of $125.00 for unlimited disputes submitted.</p>
+                        <p>The FSSC Judge Bot provides a free, automated analysis. The official, binding rulings are part of our paid service plans.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 
-    ====================================================================
-    6. EMBEDDED CHAT BOT SECTION
-    ====================================================================
-    -->
     <section id="submit-case">
         <div class="container">
             <h2>Submit Your Case</h2>
             
-            <!-- This is the entire chat container from our last version -->
             <div class="chat-container">
                 <div class="chat-header">
                     <div class="header-left">
@@ -629,29 +778,38 @@
                     <button id="sendBtn" disabled>Send</button>
                 </div>
             </div>
-            <!-- End of chat container -->
-
-        </div>
+            </div>
     </section>
 
-    <!-- --- 7. FOOTER --- -->
     <footer class="footer">
         <p>&copy; 2024 FSSC (Fantasy Sports Supreme Court). All Rulings are Final.</p>
     </footer>
 
 
-    <!-- 
-    ====================================================================
-    EMBEDDED CHAT BOT SCRIPT
-    (This is the full, working JavaScript from our last version)
-    ====================================================================
-    -->
     <script>
-        // --- Page Functionality (FAQ Accordion) ---
+        // --- Page Functionality (FAQ Accordion & Mobile Nav) ---
+        
+        // FAQ Accordion
         document.querySelectorAll('.faq-question').forEach(button => {
             button.addEventListener('click', () => {
                 const faqItem = button.parentElement;
                 faqItem.classList.toggle('active');
+            });
+        });
+
+        // Mobile Nav Toggle
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when a link is clicked
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                }
             });
         });
 
@@ -777,7 +935,7 @@
                     setTimeout(() => {
                         displayDisputeOptions(); // Present the 11 options here
                     }, 1000);
-                    // conversationStep is NOT incremented here, it awaits button click
+                    // conversationStep is NOT incrementED here, it awaits button click
                     break;
                 // --- Trade Collusion Dispute Specific Flow (conversationStep 3 onwards) ---
                 case 3: // Prepared?
