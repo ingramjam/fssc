@@ -9,612 +9,641 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     
-    <style>
-        /* --- Root Color Palette & Config --- */
-        :root {
-            --fssc-navy: #1A237E; /* Deep Navy Blue */
-            --fssc-gold: #FFD700; /* Rich Gold */
-            --fssc-burgundy: #8B0000; /* Deep Burgundy/Crimson */
-            --fssc-dark-grey: #333333; /* Dark Grey for Bot Header */
-            --fssc-dark-text: #212121;
-            --fssc-light-text: #FFFFFF;
-            --fssc-body-bg: #f4f7f6; /* Light grey for page background */
-            --fssc-header-height: 70px; /* Adjusted header height */
-        }
+<style>
+    /* --- Root Color Palette & Config --- */
+    :root {
+        --fssc-navy: #1A237E; /* Deep Navy Blue */
+        --fssc-gold: #FFD700; /* Rich Gold */
+        --fssc-burgundy: #8B0000; /* Deep Burgundy/Crimson */
+        --fssc-dark-grey: #333333; /* Dark Grey for Bot Header */
+        --fssc-dark-text: #212121;
+        --fssc-light-text: #FFFFFF;
+        --fssc-body-bg: #f4f7f6; /* Light grey for page background */
+        --fssc-header-height: 70px; /* Adjusted header height */
+    }
 
-        /* --- 1. Global Page Styles --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            scroll-behavior: smooth; /* For smooth scrolling */
-        }
+    /* --- 1. Global Page Styles --- */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        scroll-behavior: smooth; /* For smooth scrolling */
+    }
 
-        body {
-            font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background-color: var(--fssc-body-bg);
-            color: var(--fssc-dark-text);
-            line-height: 1.6;
-            overflow-x: hidden; /* Prevent horizontal scroll */
-        }
+    body {
+        font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        background-color: var(--fssc-body-bg);
+        color: var(--fssc-dark-text);
+        line-height: 1.6;
+        overflow-x: hidden; /* Prevent horizontal scroll */
+    }
 
-        .container {
-            width: 100%;
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+    .container {
+        width: 100%;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
 
-        h1, h2, h3 {
-            font-weight: 700;
-            color: var(--fssc-navy);
-        }
-        
-        h2 {
-            font-size: 2.5em; /* Base size */
-            text-align: center;
-            margin-bottom: 40px;
-            font-weight: 900;
-        }
+    h1, h2, h3 {
+        font-weight: 700;
+        color: var(--fssc-navy);
+    }
+    
+    h2 {
+        font-size: 2.5em; /* Base size */
+        text-align: center;
+        margin-bottom: 40px;
+        font-weight: 900;
+    }
 
-        h3 {
-            font-size: 1.5em;
-            color: var(--fssc-burgundy);
-            margin-bottom: 15px;
-        }
+    h3 {
+        font-size: 1.5em;
+        color: var(--fssc-burgundy);
+        margin-bottom: 15px;
+    }
 
-        section {
-            padding: 60px 0; /* Base padding */
-        }
+    section {
+        padding: 60px 0; /* Base padding */
+    }
 
-        /* --- 2. Navigation Bar --- */
-        .navbar {
-            background-color: var(--fssc-navy);
-            color: var(--fssc-light-text);
-            padding: 15px 0;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            height: var(--fssc-header-height);
-        }
-        
-        .navbar .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 100%;
-        }
+    /* --- 2. Navigation Bar --- */
+    .navbar {
+        background-color: var(--fssc-navy);
+        color: var(--fssc-light-text);
+        padding: 15px 0;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        height: var(--fssc-header-height);
+    }
+    
+    .navbar .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+    }
 
-        .navbar-brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.4em;
-            font-weight: 700;
-            text-decoration: none;
-            color: var(--fssc-light-text);
-        }
-        .navbar-brand img {
-            height: 40px;
-            width: auto;
-        }
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 25px;
-        }
-        .nav-links a {
-            color: var(--fssc-light-text);
-            text-decoration: none;
-            font-weight: 500;
-            padding: 5px 10px;
-            border-radius: 4px;
-            transition: background-color 0.3s ease;
-        }
-        .nav-links a:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-        .nav-links a.cta-button {
-            background-color: var(--fssc-gold);
-            color: var(--fssc-dark-text);
-            font-weight: 700;
-        }
-        .nav-links a.cta-button:hover {
-            background-color: #E6C200;
-        }
-        
-        /* Mobile Nav Toggle */
-        .nav-toggle {
-            display: none; /* Hidden by default */
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-        .nav-toggle .hamburger {
-            display: block;
-            width: 25px;
-            height: 3px;
-            background-color: var(--fssc-light-text);
-            margin: 5px 0;
-            transition: all 0.3s ease;
-        }
+    .navbar-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1.4em;
+        font-weight: 700;
+        text-decoration: none;
+        color: var(--fssc-light-text);
+    }
+    .navbar-brand img {
+        height: 40px;
+        width: auto;
+    }
+    .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 25px;
+    }
+    .nav-links a {
+        color: var(--fssc-light-text);
+        text-decoration: none;
+        font-weight: 500;
+        padding: 5px 10px;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+    }
+    .nav-links a:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+    .nav-links a.cta-button {
+        background-color: var(--fssc-gold);
+        color: var(--fssc-dark-text);
+        font-weight: 700;
+    }
+    .nav-links a.cta-button:hover {
+        background-color: #E6C200;
+    }
+    
+    /* Mobile Nav Toggle */
+    .nav-toggle {
+        display: none; /* Hidden by default */
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+    .nav-toggle .hamburger {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background-color: var(--fssc-light-text);
+        margin: 5px 0;
+        transition: all 0.3s ease;
+    }
 
-        /* --- 3. Hero Section --- */
-        .hero-section {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            min-height: 80vh;
-            padding-top: var(--fssc-header-height); /* Offset for fixed navbar */
-            /* NEW AI GAVEL IMAGE */
-            background-image: linear-gradient(rgba(26, 35, 126, 0.7), rgba(26, 35, 126, 0.7)), url('https://github.com/ingramjam/fssc/blob/main/Image_fx%20(30).jpg?raw=true');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: var(--fssc-light-text);
-        }
+    /* --- 3. Hero Section --- */
+    .hero-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        min-height: 80vh;
+        padding-top: var(--fssc-header-height); /* Offset for fixed navbar */
+        /* NEW AI GAVEL IMAGE */
+        background-image: linear-gradient(rgba(26, 35, 126, 0.7), rgba(26, 35, 126, 0.7)), url('https://storage.googleapis.com/generative-ai-prod/images/0c0f1661-d7d4-4a25-932f-763412d26eb4.png');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: var(--fssc-light-text);
+    }
+    .hero-section h1 {
+        font-size: 3.5em; /* Base size */
+        font-weight: 900;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        color: var(--fssc-light-text);
+    }
+    .hero-section p {
+        font-size: 1.4em; /* Base size */
+        margin-bottom: 30px;
+        font-weight: 300;
+    }
+    .hero-cta {
+        background-color: var(--fssc-gold);
+        color: var(--fssc-dark-text);
+        text-decoration: none;
+        padding: 15px 30px;
+        font-size: 1.2em;
+        font-weight: 700;
+        border-radius: 5px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        text-transform: uppercase;
+    }
+    .hero-cta:hover {
+        background-color: #E6C200;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    /* --- 4. About / Services Section --- */
+    #about { background-color: #fff; }
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+    }
+    .service-card {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        border-top: 5px solid var(--fssc-navy);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .service-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+    
+    /* --- 5. Recent Decisions Section --- */
+    #decisions { background-color: var(--fssc-body-bg); }
+    .decisions-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+    }
+    .decision-card {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+    .decision-card-header {
+        background-color: var(--fssc-burgundy);
+        color: var(--fssc-light-text);
+        padding: 20px;
+    }
+    .decision-card-header h3 {
+        color: var(--fssc-light-text);
+        margin-bottom: 5px;
+    }
+    .decision-card-body {
+        padding: 20px;
+        flex-grow: 1;
+    }
+    .decision-card-body p {
+        margin-bottom: 15px;
+    }
+    .verdict-tag {
+        font-weight: 700;
+        color: var(--fssc-navy);
+    }
+
+    /* --- 6. Pricing Plans Section (NEW) --- */
+    #pricing { background-color: #fff; }
+    .pricing-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* Two columns */
+        gap: 30px;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    .pricing-card {
+        background-color: #fff;
+        border: 1px solid var(--fssc-border-light);
+        border-radius: 8px;
+        padding: 30px;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .pricing-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+    .pricing-card h3 {
+        color: var(--fssc-navy);
+        font-size: 1.8em;
+    }
+    .price {
+        font-size: 2.5em;
+        font-weight: 700;
+        color: var(--fssc-burgundy);
+        margin: 10px 0;
+    }
+    .price span {
+        font-size: 0.6em;
+        font-weight: 400;
+        color: #555;
+    }
+    .pricing-card a {
+        display: inline-block;
+        background-color: var(--fssc-gold);
+        color: var(--fssc-dark-text);
+        text-decoration: none;
+        padding: 12px 25px;
+        font-weight: 700;
+        border-radius: 5px;
+        margin-top: 20px;
+        transition: background-color 0.3s ease;
+    }
+    .pricing-card a:hover {
+        background-color: #E6C200;
+    }
+    /* Highlight "Season Pass" */
+    .pricing-card.highlight {
+        border: 2px solid var(--fssc-gold);
+        transform: scale(1.05);
+    }
+
+    /* --- 7. FAQ Section --- */
+    #faqs { background-color: var(--fssc-body-bg); }
+    .faq-container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    .faq-item {
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        background-color: #fff;
+    }
+    .faq-question {
+        padding: 20px;
+        font-weight: 500;
+        font-size: 1.2em;
+        cursor: pointer;
+        position: relative;
+    }
+    .faq-question::after {
+        content: '+';
+        font-size: 1.5em;
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: transform 0.2s ease;
+    }
+    .faq-answer {
+        background-color: #f9f9f9;
+        padding: 20px;
+        display: none; /* Hidden by default */
+        border-top: 1px solid #ddd;
+    }
+    .faq-item.active .faq-answer {
+        display: block;
+    }
+    .faq-item.active .faq-question::after {
+        transform: translateY(-50%) rotate(45deg);
+    }
+
+    /* --- 8. Bot Section --- */
+    #submit-case {
+        background-color: var(--fssc-navy);
+        background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://github.com/ingramjam/fssc/blob/main/fssc.png?raw=true');
+        background-size: 250px; /* Tiled logo */
+        background-repeat: repeat;
+        background-attachment: fixed;
+    }
+    #submit-case h2 {
+        color: var(--fssc-light-text);
+    }
+
+    /* --- 9. Footer --- */
+    .footer {
+        text-align: center;
+        padding: 40px;
+        background-color: var(--fssc-dark-text);
+        color: #aaa;
+        font-size: 0.9em;
+    }
+
+    /* ====================================================================
+    10. EMBEDDED CHAT BOT STYLES
+    ====================================================================
+    */
+    .chat-container {
+        background-color: rgba(255, 255, 255, 0.95);
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 700px;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        border: none;
+        margin: 0 auto; /* Center the container */
+    }
+    .chat-header {
+        background-color: var(--fssc-dark-grey); /* NEW DARK GREY HEADER */
+        color: var(--fssc-light-text);
+        padding: 10px 20px;
+        font-size: 1.3em;
+        font-weight: bold;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        letter-spacing: 0.5px;
+        height: var(--fssc-header-height);
+        box-sizing: border-box;
+        position: relative;
+    }
+    .header-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .small-fssc-logo {
+        height: 40px;
+        width: auto;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+        position: relative;
+        top: -2px;
+    }
+    .small-fssc-logo:hover {
+        transform: scale(1.05);
+    }
+    .start-case-btn {
+        background-color: var(--fssc-gold);
+        color: var(--fssc-dark-text);
+        border: none;
+        border-radius: 4px;
+        padding: 10px 18px;
+        font-size: 0.95em;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        text-transform: uppercase;
+    }
+    .start-case-btn:hover {
+        background-color: #E6C200;
+        transform: translateY(-1px);
+    }
+    .chat-messages {
+        flex-grow: 1;
+        padding: 20px 20px;
+        overflow-y: auto;
+        height: 60vh; /* Changed to vh for flexibility */
+        max-height: 60vh;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        background-color: #fdfdfd;
+    }
+    .message {
+        margin-bottom: 15px;
+        padding: 10px 15px;
+        border-radius: 18px;
+        max-width: 80%;
+        word-wrap: break-word;
+        line-height: 1.5;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+    }
+    .bot-message {
+        background-color: #E8EAF6;
+        color: var(--fssc-dark-text);
+        align-self: flex-start;
+        margin-right: auto;
+        border-bottom-left-radius: 4px;
+    }
+    .user-message {
+        background-color: #fff;
+        color: var(--fssc-dark-text);
+        align-self: flex-end;
+        margin-left: auto;
+        border-bottom-right-radius: 4px;
+        border: 1px solid #eee;
+    }
+    .chat-input-area {
+        display: flex;
+        padding: 15px 20px;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        background-color: #f8f9fa;
+    }
+    .chat-input-area input {
+        flex-grow: 1;
+        padding: 12px 15px;
+        border: 1px solid #ccc;
+        border-radius: 25px;
+        font-size: 1em;
+        margin-right: 10px;
+        outline: none;
+        transition: border-color 0.3s ease;
+        background-color: var(--fssc-light-text);
+    }
+    .chat-input-area input:focus {
+        border-color: var(--fssc-navy);
+        box-shadow: 0 0 0 2px rgba(26, 35, 126, 0.2);
+    }
+    .chat-input-area button {
+        background-color: var(--fssc-navy);
+        color: var(--fssc-light-text);
+        border: none;
+        border-radius: 25px;
+        padding: 12px 20px;
+        font-size: 1em;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    .chat-input-area button:hover {
+        background-color: #111A60;
+        transform: translateY(-1px);
+    }
+    .verdict {
+        background-color: var(--fssc-burgundy);
+        color: var(--fssc-light-text);
+        border: 2px solid var(--fssc-gold);
+        padding: 25px;
+        margin-top: 25px;
+        text-align: center;
+        font-size: 1.2em;
+        border-radius: 8px;
+        animation: fadeIn 1.5s ease-out;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    .verdict strong {
+        color: var(--fssc-gold);
+        font-size: 1.4em;
+        display: block;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .verdict h3 {
+        color: var(--fssc-gold);
+        margin-top: 15px;
+        margin-bottom: 10px;
+        font-size: 1.8em;
+        letter-spacing: 1px;
+    }
+    .dispute-options button, .button-options-container button, .payment-prompt-container button {
+        display: block;
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 10px;
+        background-color: var(--fssc-navy);
+        color: var(--fssc-light-text);
+        border: 1px solid var(--fssc-gold);
+        border-radius: 5px;
+        text-align: left;
+        cursor: pointer;
+        font-size: 1em;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+    .dispute-options button:hover, .button-options-container button:hover, .payment-prompt-container button:hover {
+        background-color: #111A60;
+        border-color: var(--fssc-gold);
+    }
+
+    /* New styles for payment prompt */
+    .payment-prompt-container {
+        padding: 10px;
+        margin-top: 10px;
+        background-color: #fdfdfd;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+    }
+    .payment-prompt-container p {
+        margin-bottom: 10px;
+        font-weight: 500;
+    }
+    .payment-prompt-container button {
+        background-color: var(--fssc-gold);
+        color: var(--fssc-dark-text);
+        border-color: var(--fssc-gold);
+        text-align: center;
+        font-weight: 700;
+    }
+    .payment-prompt-container button.season-pass {
+        background-color: var(--fssc-navy);
+        color: var(--fssc-light-text);
+        border-color: var(--fssc-gold);
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    /* --- 11. RESPONSIVENESS (Media Queries) --- */
+    
+    /* Tablet & Small Desktop */
+    @media (max-width: 992px) {
         .hero-section h1 {
-            font-size: 3.5em; /* Base size */
-            font-weight: 900;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            color: var(--fssc-light-text);
+            font-size: 2.8em;
         }
         .hero-section p {
-            font-size: 1.4em; /* Base size */
-            margin-bottom: 30px;
-            font-weight: 300;
-        }
-        .hero-cta {
-            background-color: var(--fssc-gold);
-            color: var(--fssc-dark-text);
-            text-decoration: none;
-            padding: 15px 30px;
             font-size: 1.2em;
-            font-weight: 700;
-            border-radius: 5px;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            text-transform: uppercase;
         }
-        .hero-cta:hover {
-            background-color: #E6C200;
-            transform: translateY(-2px);
+        h2 {
+            font-size: 2.2em;
+        }
+        .pricing-grid {
+            grid-template-columns: 1fr; /* Stack pricing cards */
+        }
+        .pricing-card.highlight {
+            transform: scale(1); /* Don't scale on mobile */
+        }
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+        section {
+            padding: 40px 0; /* Reduced padding */
+        }
+        .nav-links {
+            display: none; /* Hide desktop links */
+            flex-direction: column;
+            position: absolute;
+            top: var(--fssc-header-height);
+            left: 0;
+            width: 100%;
+            background-color: var(--fssc-navy);
+            text-align: center;
+            padding: 10px 0;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
-
-        /* --- 4. About / Services Section --- */
-        #about { background-color: #fff; }
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+        .nav-links.active {
+            display: flex; /* Show mobile menu */
         }
-        .service-card {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            border-top: 5px solid var(--fssc-navy);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        .nav-links li {
+            width: 100%;
         }
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        .nav-links a {
+            display: block;
+            padding: 15px;
+            width: 100%;
+        }
+        .nav-toggle {
+            display: block; /* Show burger menu */
         }
         
-        /* --- 5. Recent Decisions Section --- */
-        #decisions { background-color: var(--fssc-body-bg); }
-        .decisions-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+        .hero-section h1 {
+            font-size: 2.2em;
         }
-        .decision-card {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
+        .hero-section p {
+            font-size: 1.1em;
         }
-        .decision-card-header {
-            background-color: var(--fssc-burgundy);
-            color: var(--fssc-light-text);
-            padding: 20px;
+        h2 {
+            font-size: 2em;
         }
-        .decision-card-header h3 {
-            color: var(--fssc-light-text);
-            margin-bottom: 5px;
-        }
-        .decision-card-body {
-            padding: 20px;
-            flex-grow: 1;
-        }
-        .decision-card-body p {
-            margin-bottom: 15px;
-        }
-        .verdict-tag {
-            font-weight: 700;
-            color: var(--fssc-navy);
-        }
-
-        /* --- 6. Pricing Plans Section (NEW) --- */
-        #pricing { background-color: #fff; }
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr; /* Two columns */
-            gap: 30px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .pricing-card {
-            background-color: #fff;
-            border: 1px solid var(--fssc-border-light);
-            border-radius: 8px;
-            padding: 30px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .pricing-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        }
-        .pricing-card h3 {
-            color: var(--fssc-navy);
-            font-size: 1.8em;
-        }
-        .price {
-            font-size: 2.5em;
-            font-weight: 700;
-            color: var(--fssc-burgundy);
-            margin: 10px 0;
-        }
-        .price span {
-            font-size: 0.6em;
-            font-weight: 400;
-            color: #555;
-        }
-        .pricing-card a {
-            display: inline-block;
-            background-color: var(--fssc-gold);
-            color: var(--fssc-dark-text);
-            text-decoration: none;
-            padding: 12px 25px;
-            font-weight: 700;
-            border-radius: 5px;
-            margin-top: 20px;
-            transition: background-color 0.3s ease;
-        }
-        .pricing-card a:hover {
-            background-color: #E6C200;
-        }
-        /* Highlight "Season Pass" */
-        .pricing-card.highlight {
-            border: 2px solid var(--fssc-gold);
-            transform: scale(1.05);
-        }
-
-        /* --- 7. FAQ Section --- */
-        #faqs { background-color: var(--fssc-body-bg); }
-        .faq-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .faq-item {
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            overflow: hidden;
-            background-color: #fff;
-        }
-        .faq-question {
-            padding: 20px;
-            font-weight: 500;
-            font-size: 1.2em;
-            cursor: pointer;
-            position: relative;
-        }
-        .faq-question::after {
-            content: '+';
-            font-size: 1.5em;
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            transition: transform 0.2s ease;
-        }
-        .faq-answer {
-            background-color: #f9f9f9;
-            padding: 20px;
-            display: none; /* Hidden by default */
-            border-top: 1px solid #ddd;
-        }
-        .faq-item.active .faq-answer {
-            display: block;
-        }
-        .faq-item.active .faq-question::after {
-            transform: translateY(-50%) rotate(45deg);
-        }
-
-        /* --- 8. Bot Section --- */
-        #submit-case {
-            background-color: var(--fssc-navy);
-            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://github.com/ingramjam/fssc/blob/main/fssc.png?raw=true');
-            background-size: 250px; /* Tiled logo */
-            background-repeat: repeat;
-            background-attachment: fixed;
-        }
-        #submit-case h2 {
-            color: var(--fssc-light-text);
-        }
-
-        /* --- 9. Footer --- */
-        .footer {
-            text-align: center;
-            padding: 40px;
-            background-color: var(--fssc-dark-text);
-            color: #aaa;
-            font-size: 0.9em;
-        }
-
-        /* ====================================================================
-        10. EMBEDDED CHAT BOT STYLES
-        ====================================================================
-        */
-        .chat-container {
-            background-color: rgba(255, 255, 255, 0.95);
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            width: 100%;
-            max-width: 700px;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            border: none;
-            margin: 0 auto; /* Center the container */
-        }
-        .chat-header {
-            background-color: var(--fssc-dark-grey); /* NEW DARK GREY HEADER */
-            color: var(--fssc-light-text);
-            padding: 10px 20px;
-            font-size: 1.3em;
-            font-weight: bold;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
-            letter-spacing: 0.5px;
-            height: var(--fssc-header-height);
-            box-sizing: border-box;
-            position: relative;
-        }
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .small-fssc-logo {
-            height: 40px;
-            width: auto;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-            position: relative;
-            top: -2px;
-        }
-        .small-fssc-logo:hover {
-            transform: scale(1.05);
-        }
-        .start-case-btn {
-            background-color: var(--fssc-gold);
-            color: var(--fssc-dark-text);
-            border: none;
-            border-radius: 4px;
-            padding: 10px 18px;
-            font-size: 0.95em;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            text-transform: uppercase;
-        }
-        .start-case-btn:hover {
-            background-color: #E6C200;
-            transform: translateY(-1px);
-        }
+        
         .chat-messages {
-            flex-grow: 1;
-            padding: 20px 20px;
-            overflow-y: auto;
-            height: 60vh; /* Changed to vh for flexibility */
-            max-height: 60vh;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            background-color: #fdfdfd;
-        }
-        .message {
-            margin-bottom: 15px;
-            padding: 10px 15px;
-            border-radius: 18px;
-            max-width: 80%;
-            word-wrap: break-word;
-            line-height: 1.5;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.08);
-        }
-        .bot-message {
-            background-color: #E8EAF6;
-            color: var(--fssc-dark-text);
-            align-self: flex-start;
-            margin-right: auto;
-            border-bottom-left-radius: 4px;
-        }
-        .user-message {
-            background-color: #fff;
-            color: var(--fssc-dark-text);
-            align-self: flex-end;
-            margin-left: auto;
-            border-bottom-right-radius: 4px;
-            border: 1px solid #eee;
-        }
-        .chat-input-area {
-            display: flex;
-            padding: 15px 20px;
-            border-top: 1px solid rgba(0, 0, 0, 0.1);
-            background-color: #f8f9fa;
-        }
-        .chat-input-area input {
-            flex-grow: 1;
-            padding: 12px 15px;
-            border: 1px solid #ccc;
-            border-radius: 25px;
-            font-size: 1em;
-            margin-right: 10px;
-            outline: none;
-            transition: border-color 0.3s ease;
-            background-color: var(--fssc-light-text);
-        }
-        .chat-input-area input:focus {
-            border-color: var(--fssc-navy);
-            box-shadow: 0 0 0 2px rgba(26, 35, 126, 0.2);
-        }
-        .chat-input-area button {
-            background-color: var(--fssc-navy);
-            color: var(--fssc-light-text);
-            border: none;
-            border-radius: 25px;
-            padding: 12px 20px;
-            font-size: 1em;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-        .chat-input-area button:hover {
-            background-color: #111A60;
-            transform: translateY(-1px);
-        }
-        .verdict {
-            background-color: var(--fssc-burgundy);
-            color: var(--fssc-light-text);
-            border: 2px solid var(--fssc-gold);
-            padding: 25px;
-            margin-top: 25px;
-            text-align: center;
-            font-size: 1.2em;
-            border-radius: 8px;
-            animation: fadeIn 1.5s ease-out;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-        .verdict strong {
-            color: var(--fssc-gold);
-            font-size: 1.4em;
-            display: block;
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
-        .verdict h3 {
-            color: var(--fssc-gold);
-            margin-top: 15px;
-            margin-bottom: 10px;
-            font-size: 1.8em;
-            letter-spacing: 1px;
-        }
-        .dispute-options button {
-            display: block;
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 10px;
-            background-color: var(--fssc-navy);
-            color: var(--fssc-light-text);
-            border: 1px solid var(--fssc-gold);
-            border-radius: 5px;
-            text-align: left;
-            cursor: pointer;
-            font-size: 1em;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-        }
-        .dispute-options button:hover {
-            background-color: #111A60;
-            border-color: var(--fssc-gold);
+            height: 55vh; /* Taller chat on mobile */
+            max-height: 55vh;
         }
         
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        .pricing-grid {
+            padding: 0 10px; /* Add padding on mobile */
         }
-
-        /* --- 11. RESPONSIVENESS (Media Queries) --- */
-        
-        /* Tablet & Small Desktop */
-        @media (max-width: 992px) {
-            .hero-section h1 {
-                font-size: 2.8em;
-            }
-            .hero-section p {
-                font-size: 1.2em;
-            }
-            h2 {
-                font-size: 2.2em;
-            }
-            .pricing-grid {
-                grid-template-columns: 1fr; /* Stack pricing cards */
-            }
-            .pricing-card.highlight {
-                transform: scale(1); /* Don't scale on mobile */
-            }
-        }
-
-        /* Mobile */
-        @media (max-width: 768px) {
-            section {
-                padding: 40px 0; /* Reduced padding */
-            }
-            .nav-links {
-                display: none; /* Hide desktop links */
-                flex-direction: column;
-                position: absolute;
-                top: var(--fssc-header-height);
-                left: 0;
-                width: 100%;
-                background-color: var(--fssc-navy);
-                text-align: center;
-                padding: 10px 0;
-            }
-            .nav-links.active {
-                display: flex; /* Show mobile menu */
-            }
-            .nav-links li {
-                width: 100%;
-            }
-            .nav-links a {
-                display: block;
-                padding: 15px;
-                width: 100%;
-            }
-            .nav-toggle {
-                display: block; /* Show burger menu */
-            }
-            
-            .hero-section h1 {
-                font-size: 2.2em;
-            }
-            .hero-section p {
-                font-size: 1.1em;
-            }
-            h2 {
-                font-size: 2em;
-            }
-            
-            .chat-messages {
-                height: 55vh; /* Taller chat on mobile */
-                max-height: 55vh;
-            }
-        }
-
-    </style>
+    }
+</style>
 
 </head>
 <body>
@@ -786,302 +815,391 @@
     </footer>
 
 
-    <script>
-        // --- Page Functionality (FAQ Accordion & Mobile Nav) ---
+<script>
+    // --- Page Functionality (FAQ Accordion & Mobile Nav) ---
+    
+    // FAQ Accordion
+    document.querySelectorAll('.faq-question').forEach(button => {
+        button.addEventListener('click', () => {
+            const faqItem = button.parentElement;
+            faqItem.classList.toggle('active');
+        });
+    });
+
+    // Mobile Nav Toggle
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+
+    // Close mobile menu when a link is clicked
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            if (navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+            }
+        });
+    });
+
+
+    // --- Chat Bot Functionality ---
+    const chatMessages = document.getElementById('chatMessages');
+    const userInput = document.getElementById('userInput');
+    const sendBtn = document.getElementById('sendBtn');
+    const startCaseBtn = document.getElementById('startCaseBtn');
+    const smallFsscLogo = document.getElementById('smallFsscLogo'); // Get the small logo element
+
+    let userName = '';
+    let leagueName = '';
+    let tradeDetails = {};
+    let conversationStep = 0; // 0: Awaiting start, 1: Asking name, etc.
+    let collusionIndicators = 0;
+    let selectedDispute = ''; // To store which dispute is being handled
+
+    const leagueRules = {
+        trade_veto_rule: "Trades can be vetoed by a simple majority vote of active league members. The Commissioner also holds final veto power in cases of clear collusion."
+    };
+
+    // UPDATED: Added new dispute types
+    const disputes = [
+        { id: 'trade_collusion', name: '1. Trade Collusion / Unfair Trade Practice' },
+        { id: 'ir_abuse', name: '2. Injured Reserve (IR) Slot Abuse (Coming Soon!)' },
+        { id: 'waiver_wire', name: '3. Waiver Wire / Free Agency Rules (Coming Soon!)' },
+        { id: 'tanking', name: '4. Tanking Allegations (Coming Soon!)' },
+        { id: 'roster_management', name: '5. Roster Management / Lineup Issues (Coming Soon!)' },
+    ];
+
+    function addMessage(sender, message, type) {
+        const msgDiv = document.createElement('div');
+        msgDiv.classList.add('message', type);
+        msgDiv.innerHTML = message;
+        chatMessages.appendChild(msgDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function botResponse(message, isFinal = false, enableInput = true) {
+        setTimeout(() => {
+            addMessage('bot', message, 'bot-message');
+            userInput.disabled = !enableInput || isFinal;
+            sendBtn.disabled = !enableInput || isFinal;
+            if (enableInput && !isFinal) {
+                userInput.focus();
+            }
+        }, 500);
+    }
+
+    // NEW: Function to show Yes/No buttons
+    function showYesNoButtons(nextStep) {
+        const buttonContainer = document.createElement('div');
+        buttonContainer.classList.add('button-options-container');
+
+        const yesBtn = document.createElement('button');
+        yesBtn.innerText = 'Yes';
+        yesBtn.dataset.value = 'yes';
         
-        // FAQ Accordion
-        document.querySelectorAll('.faq-question').forEach(button => {
-            button.addEventListener('click', () => {
-                const faqItem = button.parentElement;
-                faqItem.classList.toggle('active');
+        const noBtn = document.createElement('button');
+        noBtn.innerText = 'No';
+        noBtn.dataset.value = 'no';
+
+        buttonContainer.appendChild(yesBtn);
+        buttonContainer.appendChild(noBtn);
+        chatMessages.appendChild(buttonContainer);
+
+        [yesBtn, noBtn].forEach(btn => {
+            btn.addEventListener('click', () => {
+                const answer = btn.dataset.value;
+                addMessage('user', btn.innerText, 'user-message');
+                buttonContainer.remove();
+                conversationStep = nextStep;
+                processConversation(answer);
             });
         });
+    }
 
-        // Mobile Nav Toggle
-        const navToggle = document.getElementById('navToggle');
-        const navLinks = document.getElementById('navLinks');
-        navToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
+    // NEW: Function to show payment prompt (Demo Mode)
+    function showPaymentPrompt() {
+        botResponse("Your verdict is ready for review. This is a binding, official ruling.", false, false);
+        
+        setTimeout(() => {
+            const paymentContainer = document.createElement('div');
+            paymentContainer.classList.add('payment-prompt-container');
+            
+            paymentContainer.innerHTML = `<p>Please select a plan to view your verdict:</p>`;
+            
+            const singleBtn = document.createElement('button');
+            singleBtn.innerText = '$50 Single Case Verdict (DEMO)';
+            singleBtn.classList.add('payment-btn');
 
-        // Close mobile menu when a link is clicked
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                if (navLinks.classList.contains('active')) {
-                    navLinks.classList.remove('active');
-                }
-            });
-        });
+            const seasonBtn = document.createElement('button');
+            seasonBtn.innerText = '$250 Season Pass (DEMO)';
+            seasonBtn.classList.add('payment-btn', 'season-pass');
 
-
-        // --- Chat Bot Functionality ---
-        const chatMessages = document.getElementById('chatMessages');
-        const userInput = document.getElementById('userInput');
-        const sendBtn = document.getElementById('sendBtn');
-        const startCaseBtn = document.getElementById('startCaseBtn');
-        const smallFsscLogo = document.getElementById('smallFsscLogo'); // Get the small logo element
-
-        let userName = '';
-        let leagueName = '';
-        let tradeDetails = {};
-        let conversationStep = 0; // 0: Awaiting start, 1: Asking name, etc.
-        let collusionIndicators = 0;
-        let selectedDispute = ''; // To store which dispute is being handled
-
-        const leagueRules = {
-            trade_veto_rule: "Trades can be vetoed by a simple majority vote of active league members. The Commissioner also holds final veto power in cases of clear collusion."
-        };
-
-        const disputes = [
-            { id: 'trade_collusion', name: '1. Trade Collusion / Unfair Trade Practice' },
-            { id: 'waiver_wire', name: '2. Waiver Wire / Free Agency Rules (Coming Soon!)' },
-            { id: 'ir_abuse', name: '3. Injured Reserve (IR) Slot Abuse (Coming Soon!)' },
-            // Add more disputes here as you implement them
-        ];
-
-        function addMessage(sender, message, type) {
-            const msgDiv = document.createElement('div');
-            msgDiv.classList.add('message', type);
-            msgDiv.innerHTML = message;
-            chatMessages.appendChild(msgDiv);
+            paymentContainer.appendChild(singleBtn);
+            paymentContainer.appendChild(seasonBtn);
+            chatMessages.appendChild(paymentContainer);
             chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
 
-        function botResponse(message, isFinal = false, enableInput = true) {
-            setTimeout(() => {
-                addMessage('bot', message, 'bot-message');
-                userInput.disabled = !enableInput || isFinal;
-                sendBtn.disabled = !enableInput || isFinal;
-                if (enableInput && !isFinal) {
-                    userInput.focus();
-                }
-            }, 500);
-        }
-
-        function resetChat() {
-            chatMessages.innerHTML = '';
-            userName = '';
-            leagueName = '';
-            tradeDetails = {};
-            conversationStep = 0;
-            collusionIndicators = 0;
-            selectedDispute = '';
-            botResponse(`Click "START NEW CASE" to begin your trial.`, false, false); // Disable input until start
-            startCaseBtn.style.display = 'inline-block'; // Ensure button is visible
-            userInput.value = ''; // Clear user input field
-            userInput.disabled = true; // Explicitly disable
-            sendBtn.disabled = true; // Explicitly disable
-        }
-
-
-        function startCaseFlow() {
-            chatMessages.innerHTML = ''; // Clear previous messages
-            startCaseBtn.style.display = 'none'; // Hide the start button while case is active
-            botResponse(`Welcome to the FSSC. I am Judge Bot, your impartial arbiter. Please state your name:`, false, true);
-            conversationStep = 1; // Move to the first actual input step
-        }
-
-        function displayDisputeOptions() {
-            let optionsHtml = "<p>Please select the dispute you wish to address:</p><div class='dispute-options'>";
-            disputes.forEach(dispute => {
-                optionsHtml += `<button data-dispute-id="${dispute.id}">${dispute.name}</button>`;
-            });
-            optionsHtml += "</div>";
-            botResponse(optionsHtml, false, false); // Input disabled, user must click button
-
-            setTimeout(() => { // Attach event listeners after buttons are rendered
-                document.querySelectorAll('.dispute-options button').forEach(button => {
-                    button.onclick = (event) => {
-                        const disputeId = event.target.dataset.disputeId;
-                        if (disputeId === 'trade_collusion') {
-                            selectedDispute = 'trade_collusion';
-                            chatMessages.innerHTML = ''; // Clear options
-                            botResponse(`You have selected 'Trade Collusion / Unfair Trade Practice'.`, false, true);
-                            setTimeout(() => {
-                                botResponse(`A dispute has been filed concerning your recent trade, ${userName}. The charge is **Trade Collusion / Unfair Trade Practice**. Are you prepared to present your case? (Type 'yes' or 'no')`);
-                                conversationStep = 3; // Jump to dispute-specific flow
-                            }, 1000);
-                        } else {
-                            botResponse(`That dispute is still under development. Please select an available option.`, false, false); // Keep input disabled
-                        }
-                    };
+            [singleBtn, seasonBtn].forEach(btn => {
+                btn.addEventListener('click', () => {
+                    paymentContainer.remove();
+                    botResponse("Thank you. Accessing your verdict...", false, false);
+                    setTimeout(deliverVerdict, 2000);
                 });
-            }, 600);
-        }
+            });
+        }, 1000);
+    }
 
-        function handleUserInput() {
-            const input = userInput.value.trim();
-            if (input === '') return;
-
-            addMessage('user', input, 'user-message');
-            userInput.value = ''; // Clear input field
-
-            processConversation(input);
-        }
-
-        function processConversation(input) {
-            switch (conversationStep) {
-                case 0: // If user types before starting a case
-                    botResponse(`Please click "START NEW CASE" to begin a new trial.`, false, false);
-                    break;
-                case 1: // User provides Name
-                    userName = input;
-                    botResponse(`And the name of your league?`);
-                    conversationStep++;
-                    break;
-                case 2: // League Name
-                    leagueName = input;
-                    botResponse(`Thank you, ${userName} from the '${leagueName}' league.`);
-                    setTimeout(() => {
-                        displayDisputeOptions(); // Present the 11 options here
-                    }, 1000);
-                    // conversationStep is NOT incrementED here, it awaits button click
-                    break;
-                // --- Trade Collusion Dispute Specific Flow (conversationStep 3 onwards) ---
-                case 3: // Prepared?
-                    if (input.toLowerCase() === 'yes') {
-                        botResponse(`Excellent. Let's begin.<br><br>--- Phase 1: Trade Details & Initial Intent ---<br>State the full details of the trade in question. List the players you RECEIVED:`);
-                        conversationStep++;
-                    } else if (input.toLowerCase() === 'no') {
-                        botResponse(`Please return when you are prepared to present your case.`, true);
-                    } else {
-                        botResponse(`Invalid input. Please type 'yes' or 'no'.`);
-                    }
-                    break;
-                case 4: // Players Received
-                    tradeDetails.received = input;
-                    botResponse(`And the players you SENT:`);
-                    conversationStep++;
-                    break;
-                case 5: // Players Sent
-                    tradeDetails.sent = input;
-                    botResponse(`Identify the opposing owner in this trade:`);
-                    conversationStep++;
-                    break;
-                case 6: // Opposing Owner
-                    tradeDetails.opposingOwner = input;
-                    botResponse(`Describe your primary motivation for this trade. What were you hoping to achieve for your team, ${userName}?`);
-                    conversationStep++;
-                    break;
-                case 7: // User Motivation
-                    tradeDetails.userMotivation = input;
-                    botResponse(`And what was your understanding of ${tradeDetails.opposingOwner}'s motivation for making this trade?`);
-                    conversationStep++;
-                    break;
-                case 8: // Opposing Motivation
-                    tradeDetails.opposingMotivation = input;
-                    botResponse(`--- Phase 2: Perceived Fairness & League Impact ---<br>Did you believe this trade was fair and beneficial for *both* teams at the time it was proposed and accepted? (Type 'yes' or 'no')`);
-                    conversationStep++;
-                    break;
-                case 9: // Believed Fair
-                    tradeDetails.believedFair = input.toLowerCase();
-                    if (tradeDetails.believedFair === 'no') collusionIndicators += 0.5;
-                    botResponse(`Were there any pre-existing agreements, understandings, or communications between you and the opposing owner (not directly related to this trade) that might influence its perception? This includes discussions about future trades, draft picks, or player 'favors'. (Type 'yes' or 'no')`);
-                    conversationStep++;
-                    break;
-                case 10: // Pre-existing agreements
-                    tradeDetails.preExistingAgreements = input.toLowerCase();
-                    if (tradeDetails.preExistingAgreements === 'yes') collusionIndicators += 0.5;
-                    botResponse(`Did you discuss this trade with any other league members before or after it was accepted, beyond casual conversation? (Type 'yes' or 'no')`);
-                    conversationStep++;
-                    break;
-                case 11: // Discussed with others
-                    tradeDetails.discussedWithOthers = input.toLowerCase();
-                    botResponse(`--- Phase 3: Addressing Collusion Accusations ---<br>Do you have any relationship with ${tradeDetails.opposingOwner} outside of fantasy football that might lead to a perception of bias or favoritism? (Type 'yes' or 'no')`);
-                    conversationStep++;
-                    break;
-                case 12: // Relationship outside fantasy
-                    tradeDetails.relationship = input.toLowerCase();
-                    botResponse(`Did you or the opposing owner stand to gain any non-fantasy related benefit from this trade (e.g., money, favors, quid pro quo outside the league)? (Type 'yes' or 'no')`);
-                    conversationStep++;
-                    break;
-                case 13: // Non-fantasy benefit
-                    tradeDetails.nonFantasyBenefit = input.toLowerCase();
-                    if (tradeDetails.nonFantasyBenefit === 'yes') collusionIndicators += 2;
-                    botResponse(`Was there any discussion between you and the opposing owner about one of you dropping out of the league or GIVING UP on the season *before* this trade? (Type 'yes' or 'no')`);
-                    conversationStep++;
-                    break;
-                case 14: // Giving up season
-                    tradeDetails.givingUpSeason = input.toLowerCase();
-                    if (tradeDetails.givingUpSeason === 'yes') collusionIndicators += 2;
-                    botResponse(`--- Phase 4: League Rules & Precedent ---<br>Your league's stated rule for trade vetoes is: '${leagueRules.trade_veto_rule}'. Do you agree with this rule description? If not, please state your understanding:`);
-                    conversationStep++;
-                    break;
-                case 15: // Agree with rule / Precedent
-                    tradeDetails.ruleUnderstanding = input;
-                    botResponse(`Has your league previously set a precedent for what constitutes a 'collusive' or 'unfair' trade that was vetoed or reversed? (Type 'yes' or 'no')`);
-                    conversationStep++;
-                    break;
-                case 16: // Precedent exists
-                    tradeDetails.precedentExists = input.toLowerCase();
-                    if (tradeDetails.precedentExists === 'yes') {
-                        botResponse(`Please describe that precedent briefly:`);
-                        conversationStep++;
-                    } else {
-                        conversationStep = 18;
-                        botResponse(`Thank you for your testimony, ${userName}. Do you have any final statement you wish to make to the Fantasy Sports Supreme Court regarding this dispute?`);
-                    }
-                    break;
-                case 17: // Describe precedent
-                    tradeDetails.precedentDescription = input;
-                    botResponse(`Thank you for your testimony, ${userName}. Do you have any final statement you wish to make to the Fantasy Sports Supreme Court regarding this dispute?`);
-                    conversationStep++;
-                    break;
-                case 18: // Final Statement
-                    tradeDetails.finalStatement = input;
-                    botResponse(`Your testimony has been recorded and reviewed. The FSSC Judge Bot will now deliberate based on the evidence presented and the established rules of fantasy football and your league. Please wait.`, true);
-                    setTimeout(deliverVerdict, 3000);
-                    break;
-            }
-        }
-
-        function deliverVerdict() {
-            let verdictType = "NOT GUILTY of Trade Collusion.";
-            let ruling = "";
-
-            if (collusionIndicators >= 1.5) {
-                verdictType = "GUILTY of Trade Collusion.";
-                ruling = `The trade involving ${tradeDetails.received} (received by you) and ${tradeDetails.sent} (sent by you) is **REVERSED**, and players will be returned to their original teams. The FSSC finds clear indicators of actions outside the spirit of fair play.`;
-            } else if (tradeDetails.believedFair === 'no' && collusionIndicators < 1.5) {
-                 verdictType = "GUILTY of Unfair Trade Practice (though not necessarily Collusion).";
-                 ruling = `While direct collusion was not definitively proven, the trade involving ${tradeDetails.received} and ${tradeDetails.sent} is deemed significantly unbalanced and **REVERSED** to maintain competitive integrity based on your own admission of it not being fair for both sides.`;
-            }
-            else {
-                verdictType = "NOT GUILTY of Trade Collusion.";
-                ruling = `The trade involving ${tradeDetails.received} and ${tradeDetails.sent} **STANDS** and is deemed a fair and strategic transaction within the competitive spirit of fantasy football.`;
-            }
-
-            const verdictMessage = `
-                <div class="verdict">
-                    <p>The Fantasy Sports Supreme Court has reached a verdict in the case of **${leagueName} League, ${userName}'s Trade vs. Collusion Allegations.**</p>
-                    <p>Based on the evidence presented, the FSSC Judge Bot finds:</p>
-                    <h3>**VERDICT:** <strong>${verdictType}</strong></h3>
-                    <p><strong>RULING:</strong> ${ruling}</p>
-                    <p>This ruling is final and binding for the '${leagueName}' league. Thank you for your cooperation, ${userName}.</p>
-                </div>
-            `;
-            addMessage('bot', verdictMessage, 'bot-message');
-            startCaseBtn.style.display = 'inline-block'; // Re-enable "Start New Case" button after verdict
-            userInput.disabled = true; // Ensure input is disabled after verdict
-            sendBtn.disabled = true;
-        }
+    function resetChat() {
+        chatMessages.innerHTML = '';
+        userName = '';
+        leagueName = '';
+        tradeDetails = {};
+        conversationStep = 0;
+        collusionIndicators = 0;
+        selectedDispute = '';
+        botResponse(`Click "START NEW CASE" to begin your trial.`, false, false); // Disable input until start
+        startCaseBtn.style.display = 'inline-block'; // Ensure button is visible
+        userInput.value = ''; // Clear user input field
+        userInput.disabled = true; // Explicitly disable
+        sendBtn.disabled = true; // Explicitly disable
+    }
 
 
-        // Event Listeners
-        sendBtn.addEventListener('click', handleUserInput);
-        userInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter' && !userInput.disabled) {
-                handleUserInput();
-            }
+    function startCaseFlow() {
+        chatMessages.innerHTML = ''; // Clear previous messages
+        startCaseBtn.style.display = 'none'; // Hide the start button while case is active
+        botResponse(`Welcome to the FSSC. I am Judge Bot, your impartial arbiter. Please state your name:`, false, true);
+        conversationStep = 1; // Move to the first actual input step
+    }
+
+    function displayDisputeOptions() {
+        let optionsHtml = "<p>Please select the dispute you wish to address:</p><div class='dispute-options'>";
+        disputes.forEach(dispute => {
+            // Check if (Coming Soon!) is in the name to disable
+            const isDisabled = dispute.name.includes('(Coming Soon!)');
+            optionsHtml += `<button data-dispute-id="${dispute.id}" ${isDisabled ? 'disabled' : ''}>${dispute.name}</button>`;
         });
-        startCaseBtn.addEventListener('click', startCaseFlow);
-        smallFsscLogo.addEventListener('click', resetChat); // Small logo now triggers resetChat
+        optionsHtml += "</div>";
+        botResponse(optionsHtml, false, false); // Input disabled, user must click button
+
+        setTimeout(() => { // Attach event listeners after buttons are rendered
+            document.querySelectorAll('.dispute-options button').forEach(button => {
+                if(button.disabled) {
+                    button.style.backgroundColor = '#ccc';
+                    button.style.borderColor = '#999';
+                    button.style.cursor = 'not-allowed';
+                }
+                button.onclick = (event) => {
+                    if (event.target.disabled) return; // Do nothing if disabled
+                    
+                    const disputeId = event.target.dataset.disputeId;
+                    if (disputeId === 'trade_collusion') {
+                        selectedDispute = 'trade_collusion';
+                        chatMessages.innerHTML = ''; // Clear options
+                        botResponse(`You have selected 'Trade Collusion / Unfair Trade Practice'.`, false, false);
+                        setTimeout(() => {
+                            botResponse(`A dispute has been filed concerning your recent trade, ${userName}. The charge is **Trade Collusion / Unfair Trade Practice**. Are you prepared to present your case?`, false, false);
+                            conversationStep = 3; // Jump to dispute-specific flow
+                            showYesNoButtons(4); // NEW: Show Yes/No buttons for step 3
+                        }, 1000);
+                    } else {
+                        // This handles the "Coming Soon!" clicks, though they are disabled
+                        botResponse(`That dispute module is still in development. Please select an available option.`, false, false);
+                    }
+                };
+            });
+        }, 600);
+    }
+
+    function handleUserInput() {
+        const input = userInput.value.trim();
+        if (input === '') return;
+
+        addMessage('user', input, 'user-message');
+        userInput.value = ''; // Clear input field
+
+        processConversation(input);
+    }
+
+    function processConversation(input) {
+        // 'input' will EITHER be text from the user OR a 'yes'/'no' string from a button
+        switch (conversationStep) {
+            case 0: // If user types before starting a case
+                botResponse(`Please click "START NEW CASE" to begin a new trial.`, false, false);
+                break;
+            case 1: // User provides Name
+                userName = input;
+                botResponse(`And the name of your league?`, false, true);
+                conversationStep++;
+                break;
+            case 2: // League Name
+                leagueName = input;
+                botResponse(`Thank you, ${userName} from the '${leagueName}' league.`);
+                setTimeout(() => {
+                    displayDisputeOptions(); // Present the dispute options
+                }, 1000);
+                // conversationStep is NOT incremented here, it awaits button click
+                break;
+            
+            // --- Trade Collusion Dispute Specific Flow ---
+            case 3: 
+                // This step is now just a placeholder.
+                // `displayDisputeOptions` calls `showYesNoButtons(4)` directly.
+                break;
+            case 4: // Handles 'yes'/'no' from 'Are you prepared?'
+                if (input === 'yes') {
+                    botResponse(`Excellent. Let's begin.<br><br>--- Phase 1: Trade Details & Initial Intent ---<br>State the full details of the trade in question. List the players you RECEIVED:`, false, true);
+                    conversationStep = 5;
+                } else {
+                    botResponse(`Please return when you are prepared to present your case.`, true, false);
+                    resetChat(); // Resets the chat
+                }
+                break;
+            case 5: // Players Received
+                tradeDetails.received = input;
+                botResponse(`And the players you SENT:`, false, true);
+                conversationStep++;
+                break;
+            case 6: // Players Sent
+                tradeDetails.sent = input;
+                botResponse(`Identify the opposing owner in this trade:`, false, true);
+                conversationStep++;
+                break;
+            case 7: // Opposing Owner
+                tradeDetails.opposingOwner = input;
+                botResponse(`Describe your primary motivation for this trade. What were you hoping to achieve for your team, ${userName}?`, false, true);
+                conversationStep++;
+                break;
+            case 8: // User Motivation
+                tradeDetails.userMotivation = input;
+                botResponse(`And what was your understanding of ${tradeDetails.opposingOwner}'s motivation for making this trade?`, false, true);
+                conversationStep++;
+                break;
+            case 9: // Opposing Motivation
+                tradeDetails.opposingMotivation = input;
+                botResponse(`--- Phase 2: Perceived Fairness & League Impact ---<br>Did you believe this trade was fair and beneficial for *both* teams at the time it was proposed and accepted?`, false, false);
+                showYesNoButtons(10);
+                break;
+            case 10: // Handles 'yes'/'no' from 'Believed Fair?'
+                tradeDetails.believedFair = input;
+                if (tradeDetails.believedFair === 'no') collusionIndicators += 0.5;
+                botResponse(`Were there any pre-existing agreements, understandings, or communications between you and the opposing owner (not directly related to this trade) that might influence its perception? This includes discussions about future trades, draft picks, or player 'favors'.`, false, false);
+                showYesNoButtons(11);
+                break;
+            case 11: // Handles 'yes'/'no' from 'Pre-existing agreements?'
+                tradeDetails.preExistingAgreements = input;
+                if (tradeDetails.preExistingAgreements === 'yes') collusionIndicators += 0.5;
+                botResponse(`Did you discuss this trade with any other league members before or after it was accepted, beyond casual conversation?`, false, false);
+                showYesNoButtons(12);
+                break;
+            case 12: // Handles 'yes'/'no' from 'Discussed with others?'
+                tradeDetails.discussedWithOthers = input;
+                botResponse(`--- Phase 3: Addressing Collusion Accusations ---<br>Do you have any relationship with ${tradeDetails.opposingOwner} outside of fantasy football that might lead to a perception of bias or favoritism?`, false, false);
+                showYesNoButtons(13);
+                break;
+            case 13: // Handles 'yes'/'no' from 'Relationship outside fantasy?'
+                tradeDetails.relationship = input;
+                botResponse(`Did you or the opposing owner stand to gain any non-fantasy related benefit from this trade (e.g., money, favors, quid pro quo outside the league)?`, false, false);
+                showYesNoButtons(14);
+                break;
+            case 14: // Handles 'yes'/'no' from 'Non-fantasy benefit?'
+                tradeDetails.nonFantasyBenefit = input;
+                if (tradeDetails.nonFantasyBenefit === 'yes') collusionIndicators += 2; // Strong indicator
+                botResponse(`Was there any discussion between you and the opposing owner about one of you dropping out of the league or GIVING UP on the season *before* this trade?`, false, false);
+                showYesNoButtons(15);
+                break;
+            case 15: // Handles 'yes'/'no' from 'Giving up season?'
+                tradeDetails.givingUpSeason = input;
+                if (tradeDetails.givingUpSeason === 'yes') collusionIndicators += 2.5; // Very strong indicator
+                botResponse(`--- Phase 4: League Rules & Precedent ---<br>Your league's stated rule for trade vetoes is: '${leagueRules.trade_veto_rule}'. Please state your understanding of the rule:`, false, true);
+                conversationStep++;
+                break;
+            case 16: // Agree with rule / Precedent
+                tradeDetails.ruleUnderstanding = input;
+                botResponse(`Has your league previously set a precedent for what constitutes a 'collusive' or 'unfair' trade that was vetoed or reversed?`, false, false);
+                showYesNoButtons(17);
+                break;
+            case 17: // Handles 'yes'/'no' from 'Precedent exists?'
+                tradeDetails.precedentExists = input;
+                if (tradeDetails.precedentExists === 'yes') {
+                    botResponse(`Please describe that precedent briefly:`, false, true);
+                    conversationStep = 18;
+                } else {
+                    conversationStep = 19;
+                    botResponse(`Thank you for your testimony, ${userName}. Do you have any final statement you wish to make to the Fantasy Sports Supreme Court regarding this dispute?`, false, true);
+                }
+                break;
+            case 18: // Describe precedent
+                tradeDetails.precedentDescription = input;
+                botResponse(`Thank you for your testimony, ${userName}. Do you have any final statement you wish to make to the Fantasy Sports Supreme Court regarding this dispute?`, false, true);
+                conversationStep++;
+                break;
+            case 19: // Final Statement
+                tradeDetails.finalStatement = input;
+                botResponse(`Your testimony has been recorded and reviewed. The FSSC Judge Bot will now deliberate...`, false, false);
+                setTimeout(showPaymentPrompt, 3000); // NEW: Go to payment prompt
+                break;
+        }
+    }
+
+    function deliverVerdict() {
+        let verdictType = "NOT GUILTY of Trade Collusion.";
+        let ruling = "";
+        let reasoning = "";
+
+        // UPDATED: More robust weighting
+        if (collusionIndicators >= 2.5) { // e.g., "Giving up" was 'yes'
+            verdictType = "FINDING: GUILTY of Collusion.";
+            ruling = `The trade involving ${tradeDetails.received} (received by you) and ${tradeDetails.sent} (sent by you) is **REVERSED**.`;
+            reasoning = `The Court finds clear and convincing evidence of bad-faith dealing, most notably the admission of one party giving up on the season, which fundamentally undermines league integrity.`
+        } else if (collusionIndicators >= 1.5) { // e.g., "Non-fantasy benefit" was 'yes'
+            verdictType = "FINDING: GUILTY of Collusion.";
+            ruling = `The trade involving ${tradeDetails.received} and ${tradeDetails.sent} is **REVERSED**.`;
+            reasoning = `The Court finds sufficient evidence of external factors (a non-fantasy benefit) influencing this trade, which constitutes a collusive act.`;
+        } else if (tradeDetails.believedFair === 'no' && collusionIndicators < 1.5) {
+             verdictType = "FINDING: GUILTY of Unfair Trade Practice.";
+             ruling = `The trade involving ${tradeDetails.received} and ${tradeDetails.sent} is **REVERSED**.`;
+             reasoning = `While direct collusion was not proven, the defendant's own testimony confirms a belief that the trade was not fair. The Court reverses the trade to maintain competitive integrity.`
+        }
+        else {
+            verdictType = "FINDING: NOT GUILTY of Trade Collusion.";
+            ruling = `The trade involving ${tradeDetails.received} and ${tradeDetails.sent} **STANDS**.`;
+            reasoning = `While the trade may be perceived as lopsided by some, the Court finds insufficient evidence of collusion, bad-faith dealing, or rule violations. The transaction is deemed a strategic, if high-risk, deal.`
+        }
+
+        const verdictMessage = `
+            <div class="verdict">
+                <p>The Fantasy Sports Supreme Court has reached a verdict in the case of **${leagueName} League, ${userName}'s Trade vs. Collusion Allegations.**</p>
+                <p>Based on the evidence presented, the FSSC Judge Bot finds:</p>
+                <h3>${verdictType}</h3>
+                <p><strong>REASONING:</strong> ${reasoning}</p>
+                <p><strong>ORDER:</strong> ${ruling}</p>
+                <p style="margin-top: 15px; font-weight: bold;">This ruling is final and binding for the '${leagueName}' league. Court is adjourned.</p>
+            </div>
+        `;
+        addMessage('bot', verdictMessage, 'bot-message');
+        startCaseBtn.style.display = 'inline-block'; // Re-enable "Start New Case" button after verdict
+        userInput.disabled = true; // Ensure input is disabled after verdict
+        sendBtn.disabled = true;
+    }
 
 
-        // Initial state on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            resetChat(); // Puts the initial "Click Start New Case" message and disables input
-        });
-    </script>
+    // Event Listeners
+    sendBtn.addEventListener('click', handleUserInput);
+    userInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' && !userInput.disabled) {
+            handleUserInput();
+        }
+    });
+    startCaseBtn.addEventListener('click', startCaseFlow);
+    smallFsscLogo.addEventListener('click', resetChat); // Small logo now triggers resetChat
+
+
+    // Initial state on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        resetChat(); // Puts the initial "Click Start New Case" message and disables input
+    });
+</script>
 </body>
 </html>
