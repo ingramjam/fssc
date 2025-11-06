@@ -3,65 +3,313 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FSSC Judge Bot - Official Trial</title>
+    <title>FSSC - The Fantasy Sports Supreme Court</title>
+    
+    <!-- Google Font Import -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
     <style>
-        /* --- Color Palette from Logo --- */
+        /* --- Root Color Palette & Config --- */
         :root {
-            --fssc-navy: #1A237E; /* Deep Navy Blue (Body Background) */
-            --fssc-gold: #FFD700; /* Rich Gold (Accent, Start New Case button) */
-            --fssc-burgundy: #8B0000; /* Deep Burgundy/Crimson (Header background) */
+            --fssc-navy: #1A237E; /* Deep Navy Blue */
+            --fssc-gold: #FFD700; /* Rich Gold */
+            --fssc-burgundy: #8B0000; /* Deep Burgundy/Crimson */
             --fssc-dark-text: #212121;
             --fssc-light-text: #FFFFFF;
-            --fssc-border-light: #CFD8DC; /* Light grey for general borders */
-            --header-height: 80px; /* Define a fixed height for the header */
+            --fssc-body-bg: #f4f7f6; /* Light grey for page background */
+            --fssc-header-height: 80px;
+        }
+
+        /* --- 1. Global Page Styles --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth; /* For smooth scrolling */
         }
 
         body {
             font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background-color: var(--fssc-navy); /* Solid Navy background */
+            background-color: var(--fssc-body-bg);
             color: var(--fssc-dark-text);
-            margin: 0;
+            line-height: 1.6;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h1, h2, h3 {
+            font-weight: 700;
+            color: var(--fssc-navy);
+        }
+        
+        h2 {
+            font-size: 2.8em;
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 900;
+        }
+
+        h3 {
+            font-size: 1.5em;
+            color: var(--fssc-burgundy);
+            margin-bottom: 15px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        /* --- 2. Navigation Bar --- */
+        .navbar {
+            background-color: var(--fssc-navy);
+            color: var(--fssc-light-text);
+            padding: 15px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .navbar .container {
             display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.4em;
+            font-weight: 700;
+            text-decoration: none;
+            color: var(--fssc-light-text);
+        }
+        .navbar-brand img {
+            height: 40px;
+            width: auto;
+        }
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+        .nav-links a {
+            color: var(--fssc-light-text);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .nav-links a.cta-button {
+            background-color: var(--fssc-gold);
+            color: var(--fssc-dark-text);
+            font-weight: 700;
+        }
+        .nav-links a.cta-button:hover {
+            background-color: #E6C200;
+        }
+        
+        /* Mobile Nav Toggle (for future use, not functional yet) */
+        .nav-toggle { display: none; }
+
+        /* --- 3. Hero Section --- */
+        .hero-section {
+            display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            text-align: center;
+            min-height: 80vh;
+            padding-top: var(--fssc-header-height); /* Offset for fixed navbar */
+            background-image: linear-gradient(rgba(26, 35, 126, 0.8), rgba(26, 35, 126, 0.8)), url('https://github.com/ingramjam/fssc/blob/main/fssc.png?raw=true');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--fssc-light-text);
+        }
+        .hero-section h1 {
+            font-size: 3.8em;
+            font-weight: 900;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            color: var(--fssc-light-text);
+        }
+        .hero-section p {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+        .hero-cta {
+            background-color: var(--fssc-gold);
+            color: var(--fssc-dark-text);
+            text-decoration: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            font-weight: 700;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-transform: uppercase;
+        }
+        .hero-cta:hover {
+            background-color: #E6C200;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        /* --- 4. About / Services Section --- */
+        #about { background-color: #fff; }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .service-card {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-top: 5px solid var(--fssc-navy);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+        
+        /* --- 5. Recent Decisions Section --- */
+        #decisions { background-color: var(--fssc-body-bg); }
+        .decisions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .decision-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .decision-card-header {
+            background-color: var(--fssc-burgundy);
+            color: var(--fssc-light-text);
             padding: 20px;
-            box-sizing: border-box;
-            position: relative;
+        }
+        .decision-card-header h3 {
+            color: var(--fssc-light-text);
+            margin-bottom: 5px;
+        }
+        .decision-card-body {
+            padding: 20px;
+            flex-grow: 1;
+        }
+        .decision-card-body p {
+            margin-bottom: 15px;
+        }
+        .verdict-tag {
+            font-weight: 700;
+            color: var(--fssc-navy);
+        }
+
+        /* --- 6. FAQ Section --- */
+        #faqs { background-color: #fff; }
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .faq-item {
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
             overflow: hidden;
         }
-
-        /* Tiled background logo with lower opacity */
-        body::before {
-            content: '';
+        .faq-question {
+            background-color: #fff;
+            padding: 20px;
+            font-weight: 500;
+            font-size: 1.2em;
+            cursor: pointer;
+            position: relative;
+        }
+        .faq-question::after {
+            content: '+';
+            font-size: 1.5em;
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://github.com/ingramjam/fssc/blob/main/fssc.png?raw=true');
-            background-repeat: repeat; /* Tile the background */
-            background-size: 250px; /* Adjust tile size as needed */
-            background-position: center center;
-            opacity: 0.15; /* Lower opacity */
-            z-index: -1;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: transform 0.2s ease;
+        }
+        .faq-answer {
+            background-color: #f9f9f9;
+            padding: 20px;
+            display: none; /* Hidden by default */
+            border-top: 1px solid #ddd;
+        }
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+        .faq-item.active .faq-question::after {
+            transform: translateY(-50%) rotate(45deg);
         }
 
+        /* --- 7. Bot Section --- */
+        #submit-case {
+            background-color: var(--fssc-navy);
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://github.com/ingramjam/fssc/blob/main/fssc.png?raw=true');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        #submit-case h2 {
+            color: var(--fssc-light-text);
+        }
+
+        /* --- 8. Footer --- */
+        .footer {
+            text-align: center;
+            padding: 40px;
+            background-color: var(--fssc-dark-text);
+            color: #aaa;
+            font-size: 0.9em;
+        }
+
+        /* ====================================================================
+        9. EMBEDDED CHAT BOT STYLES
+        (These are the styles from our last working version, with body/background styles removed)
+        ====================================================================
+        */
         .chat-container {
-            background-color: rgba(255, 255, 255, 0.95); /* White with slight transparency */
-            border-radius: 8px; /* Slightly rounded corners */
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* More prominent shadow */
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             width: 100%;
             max-width: 700px;
             display: flex;
             flex-direction: column;
             overflow: hidden;
             border: none;
+            margin: 0 auto; /* Center the container */
         }
         .chat-header {
-            background-color: var(--fssc-burgundy); /* Deep Burgundy from logo */
+            background-color: var(--fssc-burgundy);
             color: var(--fssc-light-text);
-            padding: 10px 20px; /* Adjusted padding */
+            padding: 10px 20px;
             font-size: 1.3em;
             font-weight: bold;
             display: flex;
@@ -70,37 +318,37 @@
             border-top-left-radius: 8px;
             border-top-right-radius: 8px;
             letter-spacing: 0.5px;
-            height: var(--header-height); /* Fixed height */
+            height: var(--fssc-header-height);
             box-sizing: border-box;
-            position: relative; /* For positioning the small logo */
+            position: relative;
         }
         .header-left {
             display: flex;
             align-items: center;
-            gap: 10px; /* Space between logo and text */
+            gap: 10px;
         }
         .small-fssc-logo {
-            height: 40px; /* Size of the small logo */
+            height: 40px;
             width: auto;
             cursor: pointer;
             transition: transform 0.2s ease;
-            position: relative; /* Allows slight adjustment if needed */
-            top: -2px; /* Adjust vertical position */
+            position: relative;
+            top: -2px;
         }
         .small-fssc-logo:hover {
             transform: scale(1.05);
         }
         .start-case-btn {
-            background-color: var(--fssc-gold); /* Gold button */
-            color: var(--fssc-dark-text); /* Dark text on gold */
+            background-color: var(--fssc-gold);
+            color: var(--fssc-dark-text);
             border: none;
-            border-radius: 4px; /* Sharper corners */
-            padding: 10px 18px; /* More padding for button */
-            font-size: 0.95em; /* Slightly larger font */
+            border-radius: 4px;
+            padding: 10px 18px;
+            font-size: 0.95em;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.2s ease;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            text-transform: uppercase; /* Match screenshot text style */
+            text-transform: uppercase;
         }
         .start-case-btn:hover {
             background-color: #E6C200;
@@ -110,11 +358,12 @@
             flex-grow: 1;
             padding: 20px 20px;
             overflow-y: auto;
+            height: 50vh; /* Fixed height for the chat area */
             max-height: 50vh;
             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
-            background-color: transparent;
+            background-color: #fdfdfd; /* Faintly off-white chat background */
         }
         .message {
             margin-bottom: 15px;
@@ -126,25 +375,25 @@
             box-shadow: 0 1px 2px rgba(0,0,0,0.08);
         }
         .bot-message {
-            background-color: var(--fssc-light-text); /* White for bot messages */
+            background-color: #E8EAF6; /* Bot messages light blue */
             color: var(--fssc-dark-text);
             align-self: flex-start;
             margin-right: auto;
             border-bottom-left-radius: 4px;
         }
         .user-message {
-            background-color: var(--fssc-light-text); /* White for user messages */
+            background-color: #fff; /* User messages plain white */
             color: var(--fssc-dark-text);
             align-self: flex-end;
             margin-left: auto;
             border-bottom-right-radius: 4px;
-            border: none;
+            border: 1px solid #eee;
         }
         .chat-input-area {
             display: flex;
             padding: 15px 20px;
             border-top: 1px solid rgba(0, 0, 0, 0.1);
-            background-color: transparent;
+            background-color: #f8f9fa; /* Light grey for input area */
         }
         .chat-input-area input {
             flex-grow: 1;
@@ -162,7 +411,7 @@
             box-shadow: 0 0 0 2px rgba(26, 35, 126, 0.2);
         }
         .chat-input-area button {
-            background-color: var(--fssc-navy); /* Navy blue button */
+            background-color: var(--fssc-navy);
             color: var(--fssc-light-text);
             border: none;
             border-radius: 25px;
@@ -184,7 +433,7 @@
             text-align: center;
             font-size: 1.2em;
             border-radius: 8px;
-            animation: fadeIn 1.5s ease-out; /* Longer fade for verdict */
+            animation: fadeIn 1.5s ease-out;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
         .verdict strong {
@@ -219,31 +468,195 @@
             background-color: #111A60;
             border-color: var(--fssc-gold);
         }
-
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
+
     </style>
+
 </head>
 <body>
-    <div class="chat-container">
-        <div class="chat-header">
-            <div class="header-left">
-                <img src="https://github.com/ingramjam/fssc/blob/main/fssc.png?raw=true" alt="FSSC Logo" class="small-fssc-logo" id="smallFsscLogo">
-                FSSC Judge Bot
-            </div>
-            <button id="startCaseBtn" class="start-case-btn">START NEW CASE</button>
-        </div>
-        <div class="chat-messages" id="chatMessages">
-            </div>
-        <div class="chat-input-area">
-            <input type="text" id="userInput" placeholder="Type your response here..." disabled>
-            <button id="sendBtn" disabled>Send</button>
-        </div>
-    </div>
 
+    <!-- --- 1. NAVIGATION BAR --- -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="#hero" class="navbar-brand">
+                <img src="https://github.com/ingramjam/fssc/blob/main/fssc.png?raw=true" alt="FSSC Logo">
+                FSSC
+            </a>
+            <ul class="nav-links">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#decisions">Decisions</a></li>
+                <li><a href="#faqs">FAQs</a></li>
+                <li><a href="#submit-case" class="cta-button">Submit Your Case</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- --- 2. HERO SECTION --- -->
+    <section id="hero" class="hero-section">
+        <div class="container">
+            <h1>THE FANTASY SPORTS SUPREME COURT</h1>
+            <p>The Final, Binding Word on Your Fantasy Dispute</p>
+            <a href="#submit-case" class="hero-cta">Get Your Ruling</a>
+        </div>
+    </section>
+
+    <!-- --- 3. ABOUT / SERVICES SECTION --- -->
+    <section id="about">
+        <div class="container">
+            <h2>Our Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Trade Review</h3>
+                    <p>The Court will impartially review trades to determine whether they should be approved or rejected based on objective criteria, including fairness, roster impact, and evidence of collusion.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Dispute Resolution</h3>
+                    <p>The Court will resolve all league disputes including alleged abuse of discretion by commissioners, roster discrepancies, scoring errors, and all issues of first impression.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Rule Interpretation</h3>
+                    <p>The Court will analyze and apply a league's charter, constitution, or settings to determine whether a commissioner's decision or a league action should be upheld or reversed.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- 4. RECENT DECISIONS SECTION --- -->
+    <section id="decisions">
+        <div class="container">
+            <h2>Recent Decisions</h2>
+            <div class="decisions-grid">
+                <!-- Case 1: Trade Collusion -->
+                <div class="decision-card">
+                    <div class="decision-card-header">
+                        <h3>Case #2024-001: Trade Collusion</h3>
+                        <span>League of Titans vs. Team "Go Long"</span>
+                    </div>
+                    <div class="decision-card-body">
+                        <p>A trade involving an elite QB for a bench-level WR was submitted days after one owner was mathematically eliminated. The bot's inquiry revealed a non-fantasy benefit.</p>
+                        <p><span class="verdict-tag">Verdict:</span> GUILTY of Collusion. The trade was reversed, and the owners were issued a formal warning.</p>
+                    </div>
+                </div>
+                <!-- Case 2: IR Abuse -->
+                <div class="decision-card">
+                    <div class="decision-card-header">
+                        <h3>Case #2024-002: IR Slot Abuse</h3>
+                        <span>Team "Show Me The Money" vs. League</span>
+                    </div>
+                    <div class="decision-card-body">
+                        <p>An owner placed a player listed as "Questionable" into their IR slot to pick up a free agent. The league's rules strictly stated only "Out" or "IR" designations were eligible.</p>
+                        <p><span class="verdict-tag">Verdict:</span> ILLEGAL ROSTER MOVE. The free agent acquisition was reversed, and the player was removed from the IR slot.</p>
+                    </div>
+                </div>
+                <!-- Case 3: Waiver Wire Dispute -->
+                <div class="decision-card">
+                    <div class="decision-card-header">
+                        <h3>Case #2024-003: Waiver Wire Dispute</h3>
+                        <span>Team "Waiver Wizards" vs. Commissioner</span>
+                    </div>
+                    <div class="decision-card-body">
+                        <p>The Commissioner manually reversed a waiver claim, citing a "gentleman's agreement." The FSSC bot found no evidence of this agreement in the league's written constitution.</p>
+                        <p><span class="verdict-tag">Verdict:</span> COMMISSIONER OVERRULED. The original waiver claim was reinstated as per the league's documented rules.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- 5. FAQ SECTION --- -->
+    <section id="faqs">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-container">
+                <!-- FAQ 1 -->
+                <div class="faq-item">
+                    <div class="faq-question">Is the FSSC Bot's ruling really final?</div>
+                    <div class="faq-answer">
+                        <p>The FSSC Judge Bot is designed to be an impartial third-party arbiter. We recommend all league members agree to abide by its ruling *before* submitting a case to ensure league integrity.</p>
+                    </div>
+                </div>
+                <!-- FAQ 2 -->
+                <div class="faq-item">
+                    <div class="faq-question">How does the bot decide a case?</div>
+                    <div class="faq-answer">
+                        <p>The bot follows a strict logical flow. It first gathers all evidence from you, the "defendant," based on the specific dispute. It then weighs your answers against established definitions of collusion, unfair play, and league settings (like IR eligibility). The final verdict is based on a scoring of these "indicators" (e.g., admitting to a non-fantasy benefit, stating a trade was unfair, etc.).</p>
+                    </div>
+                </div>
+                <!-- FAQ 3 -->
+                <div class="faq-item">
+                    <div class="faq-question">What disputes can I submit?</div>
+                    <div class="faq-answer">
+                        <p>Currently, the FSSC Judge Bot is fully operational for **Trade Collusion / Unfair Trade Practice** disputes. Modules for other common disputes (Waiver Wire, IR Abuse, Tanking, etc.) are in development and will be added soon.</p>
+                    </div>
+                </div>
+                <!-- FAQ 4 -->
+                <div class="faq-item">
+                    <div class="faq-question">Is this service free?</div>
+                    <div class="faq-answer">
+                        <p>Yes, the FSSC Judge Bot is a free tool designed to help leagues resolve disputes quickly and fairly, without the bias of a human commissioner.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 
+    ====================================================================
+    6. EMBEDDED CHAT BOT SECTION
+    ====================================================================
+    -->
+    <section id="submit-case">
+        <div class="container">
+            <h2>Submit Your Case</h2>
+            
+            <!-- This is the entire chat container from our last version -->
+            <div class="chat-container">
+                <div class="chat-header">
+                    <div class="header-left">
+                        <img src="https://github.com/ingramjam/fssc/blob/main/fssc.png?raw=true" alt="FSSC Logo" class="small-fssc-logo" id="smallFsscLogo">
+                        FSSC Judge Bot
+                    </div>
+                    <button id="startCaseBtn" class="start-case-btn">START NEW CASE</button>
+                </div>
+                <div class="chat-messages" id="chatMessages">
+                    </div>
+                <div class="chat-input-area">
+                    <input type="text" id="userInput" placeholder="Type your response here..." disabled>
+                    <button id="sendBtn" disabled>Send</button>
+                </div>
+            </div>
+            <!-- End of chat container -->
+
+        </div>
+    </section>
+
+    <!-- --- 7. FOOTER --- -->
+    <footer class="footer">
+        <p>&copy; 2024 FSSC (Fantasy Sports Supreme Court). All Rulings are Final.</p>
+    </footer>
+
+
+    <!-- 
+    ====================================================================
+    EMBEDDED CHAT BOT SCRIPT
+    (This is the full, working JavaScript from our last version)
+    ====================================================================
+    -->
     <script>
+        // --- Page Functionality (FAQ Accordion) ---
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const faqItem = button.parentElement;
+                faqItem.classList.toggle('active');
+            });
+        });
+
+
+        // --- Chat Bot Functionality ---
         const chatMessages = document.getElementById('chatMessages');
         const userInput = document.getElementById('userInput');
         const sendBtn = document.getElementById('sendBtn');
@@ -298,6 +711,8 @@
             botResponse(`Click "START NEW CASE" to begin your trial.`, false, false); // Disable input until start
             startCaseBtn.style.display = 'inline-block'; // Ensure button is visible
             userInput.value = ''; // Clear user input field
+            userInput.disabled = true; // Explicitly disable
+            sendBtn.disabled = true; // Explicitly disable
         }
 
 
@@ -362,7 +777,7 @@
                     setTimeout(() => {
                         displayDisputeOptions(); // Present the 11 options here
                     }, 1000);
-                    // conversationStep is NOT incremented here, it awaits button click from displayDisputeOptions
+                    // conversationStep is NOT incremented here, it awaits button click
                     break;
                 // --- Trade Collusion Dispute Specific Flow (conversationStep 3 onwards) ---
                 case 3: // Prepared?
@@ -425,7 +840,7 @@
                 case 13: // Non-fantasy benefit
                     tradeDetails.nonFantasyBenefit = input.toLowerCase();
                     if (tradeDetails.nonFantasyBenefit === 'yes') collusionIndicators += 2;
-                    botResponse(`Was there any discussion between you and the opposing owner about one of you dropping out of the league or giving up on the season *before* this trade? (Type 'yes' or 'no')`);
+                    botResponse(`Was there any discussion between you and the opposing owner about one of you dropping out of the league or GIVING UP on the season *before* this trade? (Type 'yes' or 'no')`);
                     conversationStep++;
                     break;
                 case 14: // Giving up season
