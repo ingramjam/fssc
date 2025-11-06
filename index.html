@@ -3,927 +3,312 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FSSC - The Fantasy Sports Supreme Court</title>
-    
-    <!-- Google Font Import -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    
+    <title>ADMIN Mascot Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* --- Root Color Palette & Config --- */
-        :root {
-            --fssc-navy: #1A237E; /* Deep Navy Blue */
-            --fssc-gold: #FFD700; /* Rich Gold */
-            --fssc-burgundy: #8B0000; /* Deep Burgundy/Crimson */
-            --fssc-dark-text: #212121;
-            --fssc-light-text: #FFFFFF;
-            --fssc-body-bg: #f4f7f6; /* Light grey for page background */
-            --fssc-header-height: 80px;
-        }
-
-        /* --- 1. Global Page Styles --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            scroll-behavior: smooth; /* For smooth scrolling */
-        }
-
-        body {
-            font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background-color: var(--fssc-body-bg);
-            color: var(--fssc-dark-text);
-            line-height: 1.6;
-            overflow-x: hidden; /* Prevent horizontal scroll */
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        h1, h2, h3 {
-            font-weight: 700;
-            color: var(--fssc-navy);
-        }
-        
-        h2 {
-            font-size: 2.8em;
-            text-align: center;
-            margin-bottom: 40px;
-            font-weight: 900;
-        }
-
-        h3 {
-            font-size: 1.5em;
-            color: var(--fssc-burgundy);
-            margin-bottom: 15px;
-        }
-
-        section {
-            padding: 80px 0;
-        }
-
-        /* --- 2. Navigation Bar --- */
-        .navbar {
-            background-color: var(--fssc-navy);
-            color: var(--fssc-light-text);
-            padding: 15px 0;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-        
-        .navbar .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .navbar-brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.4em;
-            font-weight: 700;
-            text-decoration: none;
-            color: var(--fssc-light-text);
-        }
-        .navbar-brand img {
+        body { font-family: 'Inter', sans-serif; }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #2563eb; /* blue-600 */
+            border-radius: 50%;
+            width: 40px;
             height: 40px;
-            width: auto;
+            animation: spin 1s linear infinite;
         }
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 25px;
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .form-input {
+            width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 0.375rem;
         }
-        .nav-links a {
-            color: var(--fssc-light-text);
-            text-decoration: none;
-            font-weight: 500;
-            padding: 5px 10px;
-            border-radius: 4px;
-            transition: background-color 0.3s ease;
+        .btn-blue {
+            background-color: #2563eb; color: white; padding: 0.5rem 1rem; border-radius: 0.375rem; font-weight: 500;
         }
-        .nav-links a:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+        .btn-blue:hover { background-color: #1d4ed8; }
+        .btn-blue:disabled { background-color: #93c5fd; cursor: not-allowed; }
+        .btn-green {
+            background-color: #10b981; color: white; padding: 0.5rem 1rem; border-radius: 0.375rem; font-weight: 500;
         }
-        .nav-links a.cta-button {
-            background-color: var(--fssc-gold);
-            color: var(--fssc-dark-text);
-            font-weight: 700;
+        .btn-green:hover { background-color: #059669; }
+        .btn-gray {
+            background-color: #4b5563; color: white; padding: 0.5rem 1rem; border-radius: 0.375rem; font-weight: 500;
         }
-        .nav-links a.cta-button:hover {
-            background-color: #E6C200;
-        }
-        
-        /* Mobile Nav Toggle (for future use, not functional yet) */
-        .nav-toggle { display: none; }
-
-        /* --- 3. Hero Section --- */
-        .hero-section {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            min-height: 80vh;
-            padding-top: var(--fssc-header-height); /* Offset for fixed navbar */
-            background-image: linear-gradient(rgba(26, 35, 126, 0.8), rgba(26, 35, 126, 0.8)), url('https://github.com/ingramjam/fssc/blob/main/fssc.png?raw=true');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: var(--fssc-light-text);
-        }
-        .hero-section h1 {
-            font-size: 3.8em;
-            font-weight: 900;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            color: var(--fssc-light-text);
-        }
-        .hero-section p {
-            font-size: 1.5em;
-            margin-bottom: 30px;
-            font-weight: 300;
-        }
-        .hero-cta {
-            background-color: var(--fssc-gold);
-            color: var(--fssc-dark-text);
-            text-decoration: none;
-            padding: 15px 30px;
-            font-size: 1.2em;
-            font-weight: 700;
-            border-radius: 5px;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            text-transform: uppercase;
-        }
-        .hero-cta:hover {
-            background-color: #E6C200;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-
-        /* --- 4. About / Services Section --- */
-        #about { background-color: #fff; }
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        .service-card {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            border-top: 5px solid var(--fssc-navy);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-        }
-        
-        /* --- 5. Recent Decisions Section --- */
-        #decisions { background-color: var(--fssc-body-bg); }
-        .decisions-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        .decision-card {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-        .decision-card-header {
-            background-color: var(--fssc-burgundy);
-            color: var(--fssc-light-text);
-            padding: 20px;
-        }
-        .decision-card-header h3 {
-            color: var(--fssc-light-text);
-            margin-bottom: 5px;
-        }
-        .decision-card-body {
-            padding: 20px;
-            flex-grow: 1;
-        }
-        .decision-card-body p {
-            margin-bottom: 15px;
-        }
-        .verdict-tag {
-            font-weight: 700;
-            color: var(--fssc-navy);
-        }
-
-        /* --- 6. FAQ Section --- */
-        #faqs { background-color: #fff; }
-        .faq-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .faq-item {
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        .faq-question {
-            background-color: #fff;
-            padding: 20px;
-            font-weight: 500;
-            font-size: 1.2em;
-            cursor: pointer;
-            position: relative;
-        }
-        .faq-question::after {
-            content: '+';
-            font-size: 1.5em;
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            transition: transform 0.2s ease;
-        }
-        .faq-answer {
-            background-color: #f9f9f9;
-            padding: 20px;
-            display: none; /* Hidden by default */
-            border-top: 1px solid #ddd;
-        }
-        .faq-item.active .faq-answer {
-            display: block;
-        }
-        .faq-item.active .faq-question::after {
-            transform: translateY(-50%) rotate(45deg);
-        }
-
-        /* --- 7. Bot Section --- */
-        #submit-case {
-            background-color: var(--fssc-navy);
-            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://github.com/ingramjam/fssc/blob/main/fssc.png?raw=true');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-        }
-        #submit-case h2 {
-            color: var(--fssc-light-text);
-        }
-
-        /* --- 8. Footer --- */
-        .footer {
-            text-align: center;
-            padding: 40px;
-            background-color: var(--fssc-dark-text);
-            color: #aaa;
-            font-size: 0.9em;
-        }
-
-        /* ====================================================================
-        9. EMBEDDED CHAT BOT STYLES
-        (These are the styles from our last working version, with body/background styles removed)
-        ====================================================================
-        */
-        .chat-container {
-            background-color: rgba(255, 255, 255, 0.95);
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            width: 100%;
-            max-width: 700px;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            border: none;
-            margin: 0 auto; /* Center the container */
-        }
-        .chat-header {
-            background-color: var(--fssc-burgundy);
-            color: var(--fssc-light-text);
-            padding: 10px 20px;
-            font-size: 1.3em;
-            font-weight: bold;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
-            letter-spacing: 0.5px;
-            height: var(--fssc-header-height);
-            box-sizing: border-box;
-            position: relative;
-        }
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .small-fssc-logo {
-            height: 40px;
-            width: auto;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-            position: relative;
-            top: -2px;
-        }
-        .small-fssc-logo:hover {
-            transform: scale(1.05);
-        }
-        .start-case-btn {
-            background-color: var(--fssc-gold);
-            color: var(--fssc-dark-text);
-            border: none;
-            border-radius: 4px;
-            padding: 10px 18px;
-            font-size: 0.95em;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            text-transform: uppercase;
-        }
-        .start-case-btn:hover {
-            background-color: #E6C200;
-            transform: translateY(-1px);
-        }
-        .chat-messages {
-            flex-grow: 1;
-            padding: 20px 20px;
-            overflow-y: auto;
-            height: 50vh; /* Fixed height for the chat area */
-            max-height: 50vh;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            background-color: #fdfdfd; /* Faintly off-white chat background */
-        }
-        .message {
-            margin-bottom: 15px;
-            padding: 10px 15px;
-            border-radius: 18px;
-            max-width: 80%;
-            word-wrap: break-word;
-            line-height: 1.5;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.08);
-        }
-        .bot-message {
-            background-color: #E8EAF6; /* Bot messages light blue */
-            color: var(--fssc-dark-text);
-            align-self: flex-start;
-            margin-right: auto;
-            border-bottom-left-radius: 4px;
-        }
-        .user-message {
-            background-color: #fff; /* User messages plain white */
-            color: var(--fssc-dark-text);
-            align-self: flex-end;
-            margin-left: auto;
-            border-bottom-right-radius: 4px;
-            border: 1px solid #eee;
-        }
-        .chat-input-area {
-            display: flex;
-            padding: 15px 20px;
-            border-top: 1px solid rgba(0, 0, 0, 0.1);
-            background-color: #f8f9fa; /* Light grey for input area */
-        }
-        .chat-input-area input {
-            flex-grow: 1;
-            padding: 12px 15px;
-            border: 1px solid #ccc;
-            border-radius: 25px;
-            font-size: 1em;
-            margin-right: 10px;
-            outline: none;
-            transition: border-color 0.3s ease;
-            background-color: var(--fssc-light-text);
-        }
-        .chat-input-area input:focus {
-            border-color: var(--fssc-navy);
-            box-shadow: 0 0 0 2px rgba(26, 35, 126, 0.2);
-        }
-        .chat-input-area button {
-            background-color: var(--fssc-navy);
-            color: var(--fssc-light-text);
-            border: none;
-            border-radius: 25px;
-            padding: 12px 20px;
-            font-size: 1em;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-        .chat-input-area button:hover {
-            background-color: #111A60;
-            transform: translateY(-1px);
-        }
-        .verdict {
-            background-color: var(--fssc-burgundy);
-            color: var(--fssc-light-text);
-            border: 2px solid var(--fssc-gold);
-            padding: 25px;
-            margin-top: 25px;
-            text-align: center;
-            font-size: 1.2em;
-            border-radius: 8px;
-            animation: fadeIn 1.5s ease-out;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-        .verdict strong {
-            color: var(--fssc-gold);
-            font-size: 1.4em;
-            display: block;
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
-        .verdict h3 {
-            color: var(--fssc-gold);
-            margin-top: 15px;
-            margin-bottom: 10px;
-            font-size: 1.8em;
-            letter-spacing: 1px;
-        }
-        .dispute-options button {
-            display: block;
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 10px;
-            background-color: var(--fssc-navy);
-            color: var(--fssc-light-text);
-            border: 1px solid var(--fssc-gold);
-            border-radius: 5px;
-            text-align: left;
-            cursor: pointer;
-            font-size: 1em;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-        }
-        .dispute-options button:hover {
-            background-color: #111A60;
-            border-color: var(--fssc-gold);
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
+        .btn-gray:hover { background-color: #374151; }
     </style>
-
 </head>
-<body>
+<body class="bg-gray-800 min-h-screen p-4 md:p-8 text-gray-200">
+    <div class="max-w-2xl mx-auto bg-gray-900 rounded-lg shadow-xl overflow-hidden my-8">
+        
+        <header class="bg-gray-700 p-6">
+            <h1 class="text-3xl font-bold text-white">ADMIN Mascot Factory</h1>
+            <p class="text-gray-400">Use this tool to generate and save your 13 main 211 mascot images.</p>
+        </header>
 
-    <!-- --- 1. NAVIGATION BAR --- -->
-    <nav class="navbar">
-        <div class="container">
-            <a href="#hero" class="navbar-brand">
-                <img src="https://github.com/ingramjam/fssc/blob/main/fssc.png?raw=true" alt="FSSC Logo">
-                FSSC
-            </a>
-            <ul class="nav-links">
-                <li><a href="#hero">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#decisions">Decisions</a></li>
-                <li><a href="#faqs">FAQs</a></li>
-                <li><a href="#submit-case" class="cta-button">Submit Your Case</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <!-- --- 2. HERO SECTION --- -->
-    <section id="hero" class="hero-section">
-        <div class="container">
-            <h1>THE FANTASY SPORTS SUPREME COURT</h1>
-            <p>The Final, Binding Word on Your Fantasy Dispute</p>
-            <a href="#submit-case" class="hero-cta">Get Your Ruling</a>
-        </div>
-    </section>
-
-    <!-- --- 3. ABOUT / SERVICES SECTION --- -->
-    <section id="about">
-        <div class="container">
-            <h2>Our Services</h2>
-            <div class="services-grid">
-                <div class="service-card">
-                    <h3>Trade Review</h3>
-                    <p>The Court will impartially review trades to determine whether they should be approved or rejected based on objective criteria, including fairness, roster impact, and evidence of collusion.</p>
-                </div>
-                <div class="service-card">
-                    <h3>Dispute Resolution</h3>
-                    <p>The Court will resolve all league disputes including alleged abuse of discretion by commissioners, roster discrepancies, scoring errors, and all issues of first impression.</p>
-                </div>
-                <div class="service-card">
-                    <h3>Rule Interpretation</h3>
-                    <p>The Court will analyze and apply a league's charter, constitution, or settings to determine whether a commissioner's decision or a league action should be upheld or reversed.</p>
-                </div>
+        <!-- API Key Section -->
+        <section class="p-6 md:p-8 border-b border-gray-700">
+            <h2 class="text-xl font-semibold text-orange-400 mb-4">Step 1: Enter Your API Key</h2>
+            <div class="mb-4">
+                <label for="api-key-input" class="block text-sm font-medium text-gray-400 mb-2">Gemini API Key</label>
+                <input type="password" id="api-key-input" class="form-input bg-gray-800 border-gray-600 text-white" placeholder="Paste your key here. It is not saved.">
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- --- 4. RECENT DECISIONS SECTION --- -->
-    <section id="decisions">
-        <div class="container">
-            <h2>Recent Decisions</h2>
-            <div class="decisions-grid">
-                <!-- Case 1: Trade Collusion -->
-                <div class="decision-card">
-                    <div class="decision-card-header">
-                        <h3>Case #2024-001: Trade Collusion</h3>
-                        <span>League of Titans vs. Team "Go Long"</span>
-                    </div>
-                    <div class="decision-card-body">
-                        <p>A trade involving an elite QB for a bench-level WR was submitted days after one owner was mathematically eliminated. The bot's inquiry revealed a non-fantasy benefit.</p>
-                        <p><span class="verdict-tag">Verdict:</span> GUILTY of Collusion. The trade was reversed, and the owners were issued a formal warning.</p>
-                    </div>
-                </div>
-                <!-- Case 2: IR Abuse -->
-                <div class="decision-card">
-                    <div class="decision-card-header">
-                        <h3>Case #2024-002: IR Slot Abuse</h3>
-                        <span>Team "Show Me The Money" vs. League</span>
-                    </div>
-                    <div class="decision-card-body">
-                        <p>An owner placed a player listed as "Questionable" into their IR slot to pick up a free agent. The league's rules strictly stated only "Out" or "IR" designations were eligible.</p>
-                        <p><span class="verdict-tag">Verdict:</span> ILLEGAL ROSTER MOVE. The free agent acquisition was reversed, and the player was removed from the IR slot.</p>
-                    </div>
-                </div>
-                <!-- Case 3: Waiver Wire Dispute -->
-                <div class="decision-card">
-                    <div class="decision-card-header">
-                        <h3>Case #2024-003: Waiver Wire Dispute</h3>
-                        <span>Team "Waiver Wizards" vs. Commissioner</span>
-                    </div>
-                    <div class="decision-card-body">
-                        <p>The Commissioner manually reversed a waiver claim, citing a "gentleman's agreement." The FSSC bot found no evidence of this agreement in the league's written constitution.</p>
-                        <p><span class="verdict-tag">Verdict:</span> COMMISSIONER OVERRULED. The original waiver claim was reinstated as per the league's documented rules.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- --- 5. FAQ SECTION --- -->
-    <section id="faqs">
-        <div class="container">
-            <h2>Frequently Asked Questions</h2>
-            <div class="faq-container">
-                <!-- FAQ 1 -->
-                <div class="faq-item">
-                    <div class="faq-question">Is the FSSC Bot's ruling really final?</div>
-                    <div class="faq-answer">
-                        <p>The FSSC Judge Bot is designed to be an impartial third-party arbiter. We recommend all league members agree to abide by its ruling *before* submitting a case to ensure league integrity.</p>
-                    </div>
-                </div>
-                <!-- FAQ 2 -->
-                <div class="faq-item">
-                    <div class="faq-question">How does the bot decide a case?</div>
-                    <div class="faq-answer">
-                        <p>The bot follows a strict logical flow. It first gathers all evidence from you, the "defendant," based on the specific dispute. It then weighs your answers against established definitions of collusion, unfair play, and league settings (like IR eligibility). The final verdict is based on a scoring of these "indicators" (e.g., admitting to a non-fantasy benefit, stating a trade was unfair, etc.).</p>
-                    </div>
-                </div>
-                <!-- FAQ 3 -->
-                <div class="faq-item">
-                    <div class="faq-question">What disputes can I submit?</div>
-                    <div class="faq-answer">
-                        <p>Currently, the FSSC Judge Bot is fully operational for **Trade Collusion / Unfair Trade Practice** disputes. Modules for other common disputes (Waiver Wire, IR Abuse, Tanking, etc.) are in development and will be added soon.</p>
-                    </div>
-                </div>
-                <!-- FAQ 4 -->
-                <div class="faq-item">
-                    <div class="faq-question">Is this service free?</div>
-                    <div class="faq-answer">
-                        <p>Yes, the FSSC Judge Bot is a free tool designed to help leagues resolve disputes quickly and fairly, without the bias of a human commissioner.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 
-    ====================================================================
-    6. EMBEDDED CHAT BOT SECTION
-    ====================================================================
-    -->
-    <section id="submit-case">
-        <div class="container">
-            <h2>Submit Your Case</h2>
+        <!-- Generator Section -->
+        <section class="p-6 md:p-8">
+            <h2 class="text-xl font-semibold text-orange-400 mb-4">Step 2: Generate Mascots (One by One)</h2>
             
-            <!-- This is the entire chat container from our last version -->
-            <div class="chat-container">
-                <div class="chat-header">
-                    <div class="header-left">
-                        <img src="https://github.com/ingramjam/fssc/blob/main/fssc.png?raw=true" alt="FSSC Logo" class="small-fssc-logo" id="smallFsscLogo">
-                        FSSC Judge Bot
-                    </div>
-                    <button id="startCaseBtn" class="start-case-btn">START NEW CASE</button>
+            <div class="mb-4 p-4 bg-gray-800 rounded-lg">
+                <h3 class="text-lg font-bold text-white" id="mascot-tracker">Mascot 0 of 13: ---</h3>
+                <p class="text-gray-400" id="mascot-name">---</p>
+            </div>
+
+            <!-- Custom Prompt Text Area -->
+            <div class="mb-4">
+                <label for="custom-prompt" class="block text-sm font-medium text-gray-400 mb-2">Image Prompt:</label>
+                <textarea id="custom-prompt" rows="3" class="form-input bg-gray-800 border-gray-600 text-white" placeholder="A fun, friendly vector illustration mascot of..."></textarea>
+            </div>
+
+            <!-- Card -->
+            <div class="max-w-md mx-auto bg-gray-700 border border-gray-600 rounded-lg shadow-lg overflow-hidden">
+                <div class="h-80 bg-gray-800 flex items-center justify-center relative">
+                    <img id="mascot-image" class="w-full h-full object-contain" src="https://placehold.co/400x300/374151/9ca3af?text=Image+Will+Appear+Here" alt="Generated Mascot">
+                    <div id="mascot-loader" class="loader absolute hidden"></div>
                 </div>
-                <div class="chat-messages" id="chatMessages">
-                    </div>
-                <div class="chat-input-area">
-                    <input type="text" id="userInput" placeholder="Type your response here..." disabled>
-                    <button id="sendBtn" disabled>Send</button>
+                <div class="p-4 bg-gray-600 grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    <button id="prev-btn" class="btn-gray">
+                        Previous
+                    </button>
+                    <button id="next-btn" class="btn-gray">
+                        Next
+                    </button>
+                    <button id="generate-btn" class="btn-blue col-span-2 sm:col-span-1">
+                        Generate
+                    </button>
+                    <a id="download-btn" class="btn-green text-center col-span-3 hidden" href="#" download="mascot.png">
+                        Download Image
+                    </a>
                 </div>
             </div>
-            <!-- End of chat container -->
 
-        </div>
-    </section>
+            <!-- Message Box -->
+            <div id="message-box" class="hidden mt-6 max-w-md mx-auto p-4 rounded-lg bg-red-800 text-red-200">
+                <h3 class="font-semibold">Error</h3>
+                <p id="message-text"></p>
+            </div>
+        </section>
 
-    <!-- --- 7. FOOTER --- -->
-    <footer class="footer">
-        <p>&copy; 2024 FSSC (Fantasy Sports Supreme Court). All Rulings are Final.</p>
-    </footer>
+    </div>
 
-
-    <!-- 
-    ====================================================================
-    EMBEDDED CHAT BOT SCRIPT
-    (This is the full, working JavaScript from our last version)
-    ====================================================================
-    -->
     <script>
-        // --- Page Functionality (FAQ Accordion) ---
-        document.querySelectorAll('.faq-question').forEach(button => {
-            button.addEventListener('click', () => {
-                const faqItem = button.parentElement;
-                faqItem.classList.toggle('active');
-            });
-        });
-
-
-        // --- Chat Bot Functionality ---
-        const chatMessages = document.getElementById('chatMessages');
-        const userInput = document.getElementById('userInput');
-        const sendBtn = document.getElementById('sendBtn');
-        const startCaseBtn = document.getElementById('startCaseBtn');
-        const smallFsscLogo = document.getElementById('smallFsscLogo'); // Get the small logo element
-
-        let userName = '';
-        let leagueName = '';
-        let tradeDetails = {};
-        let conversationStep = 0; // 0: Awaiting start, 1: Asking name, etc.
-        let collusionIndicators = 0;
-        let selectedDispute = ''; // To store which dispute is being handled
-
-        const leagueRules = {
-            trade_veto_rule: "Trades can be vetoed by a simple majority vote of active league members. The Commissioner also holds final veto power in cases of clear collusion."
-        };
-
-        const disputes = [
-            { id: 'trade_collusion', name: '1. Trade Collusion / Unfair Trade Practice' },
-            { id: 'waiver_wire', name: '2. Waiver Wire / Free Agency Rules (Coming Soon!)' },
-            { id: 'ir_abuse', name: '3. Injured Reserve (IR) Slot Abuse (Coming Soon!)' },
-            // Add more disputes here as you implement them
+        // --- Gemini API Configuration ---
+        const genModel = "gemini-2.5-flash-image-preview";
+        
+        // --- 13 MAIN 211s (FROM YOUR NEW LIST) ---
+        const all211s = [
+            { id: 'la', name: '211 LA County', mascotName: 'The Hollywood Star', prompt: "A smiling, confident vector art star from the Walk of Fame, wearing a headset and sunglasses. Clean white background." },
+            { id: 'bay', name: '211 Bay Area', mascotName: 'The Bay Bridge Connector', prompt: "A smiling vector art mascot of the Bay Bridge, wearing a headset. Clean white background." },
+            { id: 'sd', name: '211 San Diego County', mascotName: 'The Balboa Park Pal', prompt: "A happy vector art version of the Balboa Park Tower, wearing cool sunglasses and a headset. Clean white background." },
+            { id: 'ie', name: '211 Inland Empire', mascotName: 'The IE Route Rocker', prompt: "A stylish vector art mascot combining a Joshua Tree and a Route 66 sign, wearing a headset. Clean white background." },
+            { id: 'oc', name: '211 Orange County', mascotName: 'The OC Operator', prompt: "A happy vector art cartoon orange, wearing a headset and carrying a surfboard. Clean white background." },
+            { id: 'ven', name: '211 Ventura County', mascotName: 'The Pier-to-Peer Pal', prompt: "A happy vector art Ventura Pier, with cartoon eyes and a smile, wearing a headset. Clean white background." },
+            { id: 'ala', name: '211 Alameda County', mascotName: 'The Oakland Oak', prompt: "A friendly, wise vector art oak tree with deep roots, wearing a headset. Clean white background." },
+            { id: 'sj', name: '211 San Joaquin County', mascotName: 'The Delta King', prompt: "A friendly vector art riverboat, paddling down the delta and wearing a captain's hat with a headset. Clean white background." },
+            { id: 'sac', name: '211 Sacramento County', mascotName: 'The Capital Connector', prompt: "A proud vector art California State Capitol Dome, smiling and wearing a headset like a crown. Clean white background." },
+            { id: 'nevpla', name: '211 Nevada/Placer', mascotName: 'The Tahoe Gold Miner', prompt: "A friendly vector art gold nugget, wearing a headset and peeking out from a snowy Lake Tahoe. Clean white background." },
+            { id: 'frema', name: '211 Fresno/Madera', mascotName: 'The Central Valley Vine', prompt: "A cool vector art bunch of grapes, wearing sunglasses and a headset, giving a thumbs up. Clean white background." },
+            { id: 'ccc', name: '211 Contra Costa County', mascotName: 'The Diablo Peak Performer', prompt: "A smiling vector art mascot of Mount Diablo's summit, wearing a ranger hat and a headset. Clean white background." },
+            { id: 'butgle', name: '211 Butte/Glenn', mascotName: 'The Chico Bridge Builder', prompt: "A happy vector art character of a covered bridge, smiling and wearing a headset. Clean white background." }
         ];
+        
+        let currentMascotIndex = 0;
 
-        function addMessage(sender, message, type) {
-            const msgDiv = document.createElement('div');
-            msgDiv.classList.add('message', type);
-            msgDiv.innerHTML = message;
-            chatMessages.appendChild(msgDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+        // --- DOM Elements ---
+        const messageBox = document.getElementById('message-box');
+        const messageText = document.getElementById('message-text');
+        const mascotTracker = document.getElementById('mascot-tracker');
+        const mascotName = document.getElementById('mascot-name');
+        const customPrompt = document.getElementById('custom-prompt');
+        const cardImage = document.getElementById('mascot-image');
+        const cardLoader = document.getElementById('mascot-loader');
+        const generateBtn = document.getElementById('generate-btn');
+        const downloadBtn = document.getElementById('download-btn');
+        const apiKeyInput = document.getElementById('api-key-input');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        /**
+         * Loads the mascot prompt for the current index.
+         */
+        function loadMascot(index) {
+            clearMessage();
+            const mascotData = all211s[index];
+            
+            mascotTracker.textContent = `Mascot ${index + 1} of ${all211s.length}`;
+            mascotName.textContent = mascotData.mascotName;
+            customPrompt.value = mascotData.prompt;
+            cardImage.src = `https://placehold.co/400x300/374151/9ca3af?text=${mascotData.mascotName.replace(/ /g, '+')}`;
+            
+            downloadBtn.classList.add('hidden');
+            generateBtn.disabled = false;
         }
 
-        function botResponse(message, isFinal = false, enableInput = true) {
-            setTimeout(() => {
-                addMessage('bot', message, 'bot-message');
-                userInput.disabled = !enableInput || isFinal;
-                sendBtn.disabled = !enableInput || isFinal;
-                if (enableInput && !isFinal) {
-                    userInput.focus();
-                }
-            }, 500);
+        /**
+         * Moves to the next mascot in the list.
+         */
+        function nextMascot() {
+            currentMascotIndex++;
+            if (currentMascotIndex >= all211s.length) {
+                currentMascotIndex = 0; // Loop back to start
+            }
+            loadMascot(currentMascotIndex);
         }
 
-        function resetChat() {
-            chatMessages.innerHTML = '';
-            userName = '';
-            leagueName = '';
-            tradeDetails = {};
-            conversationStep = 0;
-            collusionIndicators = 0;
-            selectedDispute = '';
-            botResponse(`Click "START NEW CASE" to begin your trial.`, false, false); // Disable input until start
-            startCaseBtn.style.display = 'inline-block'; // Ensure button is visible
-            userInput.value = ''; // Clear user input field
-            userInput.disabled = true; // Explicitly disable
-            sendBtn.disabled = true; // Explicitly disable
+        /**
+         * Moves to the previous mascot in the list.
+         */
+        function prevMascot() {
+            currentMascotIndex--;
+            if (currentMascotIndex < 0) {
+                currentMascotIndex = all211s.length - 1; // Loop to end
+            }
+            loadMascot(currentMascotIndex);
         }
 
+        /**
+         * Initiates the image generation process.
+         */
+        function startGeneration() {
+            const promptText = customPrompt.value;
+            const userApiKey = apiKeyInput.value;
 
-        function startCaseFlow() {
-            chatMessages.innerHTML = ''; // Clear previous messages
-            startCaseBtn.style.display = 'none'; // Hide the start button while case is active
-            botResponse(`Welcome to the FSSC. I am Judge Bot, your impartial arbiter. Please state your name:`, false, true);
-            conversationStep = 1; // Move to the first actual input step
+            if (!userApiKey) {
+                showMessage("Please paste your Gemini API key into the input field at the top.");
+                return;
+            }
+
+            if (promptText) {
+                generateImage(promptText, userApiKey, 'mascot-image', 'mascot-loader', 'generate-btn');
+            } else {
+                showMessage("Please enter a prompt in the text area.");
+            }
         }
 
-        function displayDisputeOptions() {
-            let optionsHtml = "<p>Please select the dispute you wish to address:</p><div class='dispute-options'>";
-            disputes.forEach(dispute => {
-                optionsHtml += `<button data-dispute-id="${dispute.id}">${dispute.name}</button>`;
-            });
-            optionsHtml += "</div>";
-            botResponse(optionsHtml, false, false); // Input disabled, user must click button
+        /**
+         * Hides any error messages.
+         */
+        function clearMessage() {
+            messageBox.classList.add('hidden');
+            messageText.textContent = '';
+        }
 
-            setTimeout(() => { // Attach event listeners after buttons are rendered
-                document.querySelectorAll('.dispute-options button').forEach(button => {
-                    button.onclick = (event) => {
-                        const disputeId = event.target.dataset.disputeId;
-                        if (disputeId === 'trade_collusion') {
-                            selectedDispute = 'trade_collusion';
-                            chatMessages.innerHTML = ''; // Clear options
-                            botResponse(`You have selected 'Trade Collusion / Unfair Trade Practice'.`, false, true);
-                            setTimeout(() => {
-                                botResponse(`A dispute has been filed concerning your recent trade, ${userName}. The charge is **Trade Collusion / Unfair Trade Practice**. Are you prepared to present your case? (Type 'yes' or 'no')`);
-                                conversationStep = 3; // Jump to dispute-specific flow
-                            }, 1000);
-                        } else {
-                            botResponse(`That dispute is still under development. Please select an available option.`, false, false); // Keep input disabled
-                        }
-                    };
+        /**
+         * Shows an error message.
+         * @param {string} message - The error message to display.
+         */
+        function showMessage(message) {
+            if (message.includes("429")) {
+                messageText.innerHTML = "<strong>API Limit Reached!</strong><br>The free tier has strict limits. Please wait for the 60-second cooldown to finish before trying again.";
+            } else if (message.includes("403")) {
+                 messageText.innerHTML = "<strong>API Key Error (403)</strong><br>Your API key is invalid or has not been enabled for this API.";
+            } else {
+                messageText.textContent = message;
+            }
+            messageBox.classList.remove('hidden');
+        }
+
+        /**
+         * Calls the Gemini API to generate an image.
+         */
+        async function generateImage(promptText, apiKey, imgId, loaderId, buttonId) {
+            clearMessage();
+            const imgElement = document.getElementById(imgId);
+            const loaderElement = document.getElementById(loaderId);
+            const buttonElement = document.getElementById(buttonId);
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${genModel}:generateContent?key=${apiKey}`;
+
+            loaderElement.classList.remove('hidden');
+            // Disable ALL buttons during generation to prevent 429 errors
+            buttonElement.disabled = true;
+            nextBtn.disabled = true;
+            prevBtn.disabled = true;
+            buttonElement.textContent = 'Generating...';
+            downloadBtn.classList.add('hidden');
+            imgElement.style.opacity = '0.5';
+
+            const payload = {
+                contents: [{ parts: [{ text: promptText }] }],
+                generationConfig: { responseModalities: ['IMAGE'] },
+            };
+
+            try {
+                // Simple fetch, no exponential backoff
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
                 });
-            }, 600);
-        }
 
-        function handleUserInput() {
-            const input = userInput.value.trim();
-            if (input === '') return;
-
-            addMessage('user', input, 'user-message');
-            userInput.value = ''; // Clear input field
-
-            processConversation(input);
-        }
-
-        function processConversation(input) {
-            switch (conversationStep) {
-                case 0: // If user types before starting a case
-                    botResponse(`Please click "START NEW CASE" to begin a new trial.`, false, false);
-                    break;
-                case 1: // User provides Name
-                    userName = input;
-                    botResponse(`And the name of your league?`);
-                    conversationStep++;
-                    break;
-                case 2: // League Name
-                    leagueName = input;
-                    botResponse(`Thank you, ${userName} from the '${leagueName}' league.`);
-                    setTimeout(() => {
-                        displayDisputeOptions(); // Present the 11 options here
-                    }, 1000);
-                    // conversationStep is NOT incremented here, it awaits button click
-                    break;
-                // --- Trade Collusion Dispute Specific Flow (conversationStep 3 onwards) ---
-                case 3: // Prepared?
-                    if (input.toLowerCase() === 'yes') {
-                        botResponse(`Excellent. Let's begin.<br><br>--- Phase 1: Trade Details & Initial Intent ---<br>State the full details of the trade in question. List the players you RECEIVED:`);
-                        conversationStep++;
-                    } else if (input.toLowerCase() === 'no') {
-                        botResponse(`Please return when you are prepared to present your case.`, true);
-                    } else {
-                        botResponse(`Invalid input. Please type 'yes' or 'no'.`);
+                if (!response.ok) {
+                    // Specific check for 429
+                    if (response.status === 429) {
+                        throw new Error("API Limit Reached! Wait one minute and try again.");
                     }
-                    break;
-                case 4: // Players Received
-                    tradeDetails.received = input;
-                    botResponse(`And the players you SENT:`);
-                    conversationStep++;
-                    break;
-                case 5: // Players Sent
-                    tradeDetails.sent = input;
-                    botResponse(`Identify the opposing owner in this trade:`);
-                    conversationStep++;
-                    break;
-                case 6: // Opposing Owner
-                    tradeDetails.opposingOwner = input;
-                    botResponse(`Describe your primary motivation for this trade. What were you hoping to achieve for your team, ${userName}?`);
-                    conversationStep++;
-                    break;
-                case 7: // User Motivation
-                    tradeDetails.userMotivation = input;
-                    botResponse(`And what was your understanding of ${tradeDetails.opposingOwner}'s motivation for making this trade?`);
-                    conversationStep++;
-                    break;
-                case 8: // Opposing Motivation
-                    tradeDetails.opposingMotivation = input;
-                    botResponse(`--- Phase 2: Perceived Fairness & League Impact ---<br>Did you believe this trade was fair and beneficial for *both* teams at the time it was proposed and accepted? (Type 'yes' or 'no')`);
-                    conversationStep++;
-                    break;
-                case 9: // Believed Fair
-                    tradeDetails.believedFair = input.toLowerCase();
-                    if (tradeDetails.believedFair === 'no') collusionIndicators += 0.5;
-                    botResponse(`Were there any pre-existing agreements, understandings, or communications between you and the opposing owner (not directly related to this trade) that might influence its perception? This includes discussions about future trades, draft picks, or player 'favors'. (Type 'yes' or 'no')`);
-                    conversationStep++;
-                    break;
-                case 10: // Pre-existing agreements
-                    tradeDetails.preExistingAgreements = input.toLowerCase();
-                    if (tradeDetails.preExistingAgreements === 'yes') collusionIndicators += 0.5;
-                    botResponse(`Did you discuss this trade with any other league members before or after it was accepted, beyond casual conversation? (Type 'yes' or 'no')`);
-                    conversationStep++;
-                    break;
-                case 11: // Discussed with others
-                    tradeDetails.discussedWithOthers = input.toLowerCase();
-                    botResponse(`--- Phase 3: Addressing Collusion Accusations ---<br>Do you have any relationship with ${tradeDetails.opposingOwner} outside of fantasy football that might lead to a perception of bias or favoritism? (Type 'yes' or 'no')`);
-                    conversationStep++;
-                    break;
-                case 12: // Relationship outside fantasy
-                    tradeDetails.relationship = input.toLowerCase();
-                    botResponse(`Did you or the opposing owner stand to gain any non-fantasy related benefit from this trade (e.g., money, favors, quid pro quo outside the league)? (Type 'yes' or 'no')`);
-                    conversationStep++;
-                    break;
-                case 13: // Non-fantasy benefit
-                    tradeDetails.nonFantasyBenefit = input.toLowerCase();
-                    if (tradeDetails.nonFantasyBenefit === 'yes') collusionIndicators += 2;
-                    botResponse(`Was there any discussion between you and the opposing owner about one of you dropping out of the league or GIVING UP on the season *before* this trade? (Type 'yes' or 'no')`);
-                    conversationStep++;
-                    break;
-                case 14: // Giving up season
-                    tradeDetails.givingUpSeason = input.toLowerCase();
-                    if (tradeDetails.givingUpSeason === 'yes') collusionIndicators += 2;
-                    botResponse(`--- Phase 4: League Rules & Precedent ---<br>Your league's stated rule for trade vetoes is: '${leagueRules.trade_veto_rule}'. Do you agree with this rule description? If not, please state your understanding:`);
-                    conversationStep++;
-                    break;
-                case 15: // Agree with rule / Precedent
-                    tradeDetails.ruleUnderstanding = input;
-                    botResponse(`Has your league previously set a precedent for what constitutes a 'collusive' or 'unfair' trade that was vetoed or reversed? (Type 'yes' or 'no')`);
-                    conversationStep++;
-                    break;
-                case 16: // Precedent exists
-                    tradeDetails.precedentExists = input.toLowerCase();
-                    if (tradeDetails.precedentExists === 'yes') {
-                        botResponse(`Please describe that precedent briefly:`);
-                        conversationStep++;
-                    } else {
-                        conversationStep = 18;
-                        botResponse(`Thank you for your testimony, ${userName}. Do you have any final statement you wish to make to the Fantasy Sports Supreme Court regarding this dispute?`);
+                    throw new Error(`API request failed with status ${response.status}. Check your API key.`);
+                }
+
+                const result = await response.json();
+                const base64Data = result?.candidates?.[0]?.content?.parts?.find(p => p.inlineData)?.inlineData?.data;
+
+                if (!base64Data) {
+                    throw new Error('No image data found in API response.');
+                }
+
+                const dataUrl = `data:image/png;base64,${base64Data}`;
+                imgElement.src = dataUrl;
+                downloadBtn.href = dataUrl;
+                
+                // *** THE FUCKING FIX ***
+                // Replaces spaces with underscores and makes it lowercase
+                const mascotFileName = all211s[currentMascotIndex].mascotName.replace(/ /g, '_').toLowerCase();
+                downloadBtn.download = `${mascotFileName}.png`; // Set unique, friendly download name
+                
+                downloadBtn.classList.remove('hidden');
+
+            } catch (error) { // *** THIS IS THE FIX: Removed the stray "_from_instruction" text ***
+                showMessage(error.message); // Pass only the message
+                imgElement.src = `https://placehold.co/400x300/b91c1c/f8fafc?text=Error`;
+            } finally {
+                // Implement 60-second cooldown to prevent 429 errors
+                loaderElement.classList.add('hidden');
+                
+                let countdown = 60; // 60 second cooldown
+                buttonElement.textContent = `Wait (${countdown}s)`;
+                
+                const interval = setInterval(() => {
+                    countdown--;
+                    buttonElement.textContent = `Wait (${countdown}s)`;
+                    if (countdown <= 0) {
+                        clearInterval(interval);
+                        buttonElement.disabled = false;
+                        buttonElement.textContent = 'Generate';
+                        nextBtn.disabled = false;
+                        prevBtn.disabled = false;
                     }
-                    break;
-                case 17: // Describe precedent
-                    tradeDetails.precedentDescription = input;
-                    botResponse(`Thank you for your testimony, ${userName}. Do you have any final statement you wish to make to the Fantasy Sports Supreme Court regarding this dispute?`);
-                    conversationStep++;
-                    break;
-                case 18: // Final Statement
-                    tradeDetails.finalStatement = input;
-                    botResponse(`Your testimony has been recorded and reviewed. The FSSC Judge Bot will now deliberate based on the evidence presented and the established rules of fantasy football and your league. Please wait.`, true);
-                    setTimeout(deliverVerdict, 3000);
-                    break;
+                }, 1000);
+                
+                imgElement.style.opacity = '1';
             }
         }
 
-        function deliverVerdict() {
-            let verdictType = "NOT GUILTY of Trade Collusion.";
-            let ruling = "";
-
-            if (collusionIndicators >= 1.5) {
-                verdictType = "GUILTY of Trade Collusion.";
-                ruling = `The trade involving ${tradeDetails.received} (received by you) and ${tradeDetails.sent} (sent by you) is **REVERSED**, and players will be returned to their original teams. The FSSC finds clear indicators of actions outside the spirit of fair play.`;
-            } else if (tradeDetails.believedFair === 'no' && collusionIndicators < 1.5) {
-                 verdictType = "GUILTY of Unfair Trade Practice (though not necessarily Collusion).";
-                 ruling = `While direct collusion was not definitively proven, the trade involving ${tradeDetails.received} and ${tradeDetails.sent} is deemed significantly unbalanced and **REVERSED** to maintain competitive integrity based on your own admission of it not being fair for both sides.`;
-            }
-            else {
-                verdictType = "NOT GUILTY of Trade Collusion.";
-                ruling = `The trade involving ${tradeDetails.received} and ${tradeDetails.sent} **STANDS** and is deemed a fair and strategic transaction within the competitive spirit of fantasy football.`;
-            }
-
-            const verdictMessage = `
-                <div class="verdict">
-                    <p>The Fantasy Sports Supreme Court has reached a verdict in the case of **${leagueName} League, ${userName}'s Trade vs. Collusion Allegations.**</p>
-                    <p>Based on the evidence presented, the FSSC Judge Bot finds:</p>
-                    <h3>**VERDICT:** <strong>${verdictType}</strong></h3>
-                    <p><strong>RULING:</strong> ${ruling}</p>
-                    <p>This ruling is final and binding for the '${leagueName}' league. Thank you for your cooperation, ${userName}.</p>
-                </div>
-            `;
-            addMessage('bot', verdictMessage, 'bot-message');
-            startCaseBtn.style.display = 'inline-block'; // Re-enable "Start New Case" button after verdict
-            userInput.disabled = true; // Ensure input is disabled after verdict
-            sendBtn.disabled = true;
-        }
-
-
-        // Event Listeners
-        sendBtn.addEventListener('click', handleUserInput);
-        userInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter' && !userInput.disabled) {
-                handleUserInput();
-            }
-        });
-        startCaseBtn.addEventListener('click', startCaseFlow);
-        smallFsscLogo.addEventListener('click', resetChat); // Small logo now triggers resetChat
-
-
-        // Initial state on page load
+        // --- Initialize the Page ---
         document.addEventListener('DOMContentLoaded', () => {
-            resetChat(); // Puts the initial "Click Start New Case" message and disables input
+            loadMascot(currentMascotIndex); // Load the first mascot
+            
+            // --- Event Listeners ---
+            generateBtn.addEventListener('click', startGeneration);
+            nextBtn.addEventListener('click', nextMascot);
+            prevBtn.addEventListener('click', prevMascot);
         });
+        
     </script>
 </body>
 </html>
